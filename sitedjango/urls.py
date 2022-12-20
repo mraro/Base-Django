@@ -14,13 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from django.http import HttpResponse
+from django.urls import path, include
 
-def my_view(request):
-    return HttpResponse("String TESTE")
+# from recipes.views import *
+
+
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("sobre/", my_view),
+
+    path("", include('recipes.urls')) # IMPORTEI AS URLS DA APLICAÇÃO PARA TRABALHAR SOMENTE DENTRO DO APP( NO CASO RECIPES) == / o path é um caminho opcional ideal para heranças ou pré link (o pai)
 ]
+
