@@ -23,7 +23,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-
-    path("", include('recipes.urls')) # IMPORTEI AS URLS DA APLICAÇÃO PARA TRABALHAR SOMENTE DENTRO DO APP( NO CASO RECIPES) == / o path é um caminho opcional ideal para heranças ou pré link (o pai)
+    path("", include('farmacia.urls')) # IMPORTEI AS URLS DA APLICAÇÃO PARA TRABALHAR SOMENTE DENTRO DO APP( NO CASO RECIPES) == / o path é um caminho opcional ideal para heranças ou pré link (o pai)
+    # path("", include('recipes.urls'))
+    # IMPORTEI AS URLS DA APLICAÇÃO PARA TRABALHAR SOMENTE DENTRO DO APP( NO CASO RECIPES) == / o path é um caminho opcional ideal para heranças ou pré link (o pai)
 ]
 

@@ -1,0 +1,15 @@
+ {% extends 'global/base.html' %}
+ 	{% block 'title' %}
+ 	HOME
+ 	{% endblock 'title' %}
+
+ 	{% block 'content' %}
+	<div class="main-content-container">
+
+		{% for remedio in remedios  %}
+			{% include 'partials/remedio.html' %}	
+		{% endfor %}
+		
+	</div>
+ 	{% endblock 'content' %}
+

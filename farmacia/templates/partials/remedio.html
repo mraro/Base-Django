@@ -1,0 +1,19 @@
+{% if is_detail %}
+	<div class="remedio-detail">
+{% else %}
+	<div class="remedio">
+{% endif %}
+	<img class="remedio-img" src={{ remedio.cover.url }} >
+	<p class="remedio-nome">
+		{{ remedio.title }}
+	</p>
+	<p class="remedio-valor">
+		R$ {{ remedio.price }},00
+	</p>
+	<p>
+		Data de criação: {{ remedio.created_at|date:"d/m/Y" }} às {{ remedio.created_at|date:"H:i"}}
+	</p>
+	{% if not is_detail %}
+		<a  class="remedio-button" href=" {% url 'farmacia:remedio' remedio.id %} "><span>Adicionar ao Carrinho</span></a>
+	{% endif %}
+</div>

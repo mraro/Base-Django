@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	{% include 'partials/head.html' %}
+    <title>{% block 'title' %} | {{ nomefarmacia }} {% endblock 'title' %} </title>
+</head>
+<body>
+
+	{% include 'partials/header.html' %}
+	
+	
+
+	{% block 'content' %}{% endblock 'content' %}
+					
+	
+	{% include 'partials/footer.html' %}
+	
+</body>
+</html>

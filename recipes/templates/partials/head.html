@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/fontawesome.min.css" integrity="sha512-giQeaPns4lQTBMRpOOHsYnGw1tGVzbAIHUyHRgn7+6FmiEgGGjaG0T2LZJmAPMzRCl+Cug0ItQ2xDZpTmEc+CQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/solid.min.css" integrity="sha512-6mc0R607di/biCutMUtU9K7NtNewiGQzrvWX4bWTeqmljZdJrwYvKJtnhgR+Ryvj+NRJ8+NnnCM/biGqMe/iRA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@600&family=Ubuntu&display=swap" rel="stylesheet">
+
+    <style>
+        :root{
+            --color-primary: #269fe6;
+            --color-primary-dark: #13141f;
+            --color-background: #bdbdbd;
+
+
+            --font-primary: sans-serif;
+            --font-seadings: 'Roboto Slab', serif;
+        }
+        *{
+            font-family: var(--font-seadings);
+            text-decoration: none;
+
+        }
+        body{
+            margin: 0px;
+            padding: 0px;
+            background: var(--color-background)
+        }
+        i{
+            margin-right: 15px;
+        }
+        h1{
+            display: flex;
+            margin-top:0px;
+            flex-flow: row nowrap;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+        }
+        .main-header-container
+        {   
+            color: white;
+            background: var(--color-primary-dark) ;
+            width: 100%;
+            /*height: 200px;*/
+            margin: 0px;
+            padding: 0px;
+        }
+        .corpo-master{
+            width: 1200px;
+            height: 100%;
+            background: var(--color-primary);
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+
+        .search-form{
+            margin: 0 auto;
+            border-radius: 7px;
+            border: solid black 2px;
+            width: fit-content;
+            transition: all 300ms ease-in-out;
+            background: var(--color-background) ;
+
+        }
+        .search-form:focus-within{
+            border-color: var(--color-primary);
+            background-color:  white;
+            transition: all 300ms ease-in-out;
+            color: var(--color-primary);
+
+        }
+        .search-form:focus-within .search-input{
+            transition: all 300ms ease-in-out;
+            background: white ;
+
+
+        }
+        .search-input{
+            width: 600px;
+            border: none;
+            padding: 0.8rem;            
+            font-size: 1em;
+            outline: none;
+            background-color: var(--color-background);
+        }
+        .search-button{
+            font-size: 1.2em;
+            border: none;
+            background: none;
+        }
+
+    </style>
+
+    <title>HTML no  Django</title>
+</head>

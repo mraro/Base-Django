@@ -9,7 +9,7 @@ settings.py:
         "django.contrib.messages",
         "django.contrib.staticfiles",
         # NOSSO APP:
-        "recipes"  <<<<<<<<<< adicionar nossa pasta do app (assim ele encontra os caminhos durante a criação do pgm)
+>       "recipes"  <<<<<<<<<< adicionar nossa pasta do app (assim ele encontra os caminhos durante a criação do pgm)
     ]
     ...
     ...
@@ -29,3 +29,13 @@ settings.py:
             },
         },
     ]
+    ...
+    ...
+>   # PLURAL DE PASTAS COM ARQUIVOS ESTATICOS (ARQUIVOS ESTATICOS SERVEM PARA OTIMIZAR OS REQUEST AO SERVIDOR
+    STATIC_FILES_DIRS = [
+    BASE_DIR / 'pasta_static',
+
+    ]
+
+    STATIC_ROOT = BASE_DIR / 'static'
+>   # STATIC_ROOT serve pra usar o comando  " python manage.py collectstatic " que serve para deploy dos arquivos no servidor
