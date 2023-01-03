@@ -1,5 +1,7 @@
 from farmacia.views import *
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
 ## PAGINA ADICIONADA MANUALMENTE QUE GERENCIA OS LINKS
 
@@ -11,3 +13,6 @@ urlpatterns = [
     path("cadastro/", cadastro, name="cadastro"),
     path("remedios/<int:idremedios>/", remedios, name="remedio"),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

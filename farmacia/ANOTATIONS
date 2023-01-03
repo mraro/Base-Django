@@ -1,3 +1,6 @@
+models.py   # BASE DE DADOS ...
+views.py    # FISICO DO SITE BACKEND
+
 Na pasta templates é onde fica o codigo html, no django vc só passa o nome do arquivo tipo(index.html) e ele procura lá
 settings.py:
 
@@ -39,3 +42,10 @@ settings.py:
 
     STATIC_ROOT = BASE_DIR / 'static'
 >   # STATIC_ROOT serve pra usar o comando  " python manage.py collectstatic " que serve para deploy dos arquivos no servidor
+>   # EM urls.py :add >>>urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+>   # MEDIA URL E MEDIA ROOT SERVEM PARA DEFINIR ONDE SERA SALVO AO ARQUIVOS QUE OS USUARIOS ADICIONAREM
+>   # EM urls.py :add >>>from django.conf import settings
+>   # EM urls.py :add >>>urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = BASE_DIR / 'media'

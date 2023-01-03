@@ -122,8 +122,13 @@ STATIC_FILES_DIRS = [
     BASE_DIR / 'pasta_static',
 
 ]
-# STATIC_ROOT serve pra usar o comando  " python manage.py collectstatic "
+# STATIC_ROOT serve pra usar o comando  " python manage.py collectstatic "  QUE CRIA O PACOTE DE STATIC
 STATIC_ROOT = BASE_DIR / 'static'
+
+# MEDIA URL E MEDIA ROOT SERVEM PARA DEFINIR ONDE SERA SALVO AO ARQUIVOS QUE OS USUARIOS ADICIONAREM
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
