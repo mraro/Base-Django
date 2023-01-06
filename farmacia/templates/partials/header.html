@@ -1,9 +1,13 @@
 <header>
 	
-	<a href="{% url 'farmacia:home' %}"><h1  class="titulo-container">
-	    Farmacia {{ nomefarmacia }}
-	</h1></a>
+	<a href="{% url 'farmacia:home' %}">
+		<h1  class="titulo-container">
+	    	FARMACIA
+		</h1>
+	</a>
+
 	<form class="search-container" action="#" method="post">
 			<input class="search-input" maxlength="10" type="search"></input> <button type="submit" name="search" class="search-button"><i class="fas fa-search"></i></button>
 	</form>
+
 </header>

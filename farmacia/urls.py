@@ -12,6 +12,8 @@ urlpatterns = [
     path("", home, name="home"),  # HOME == INDEX
     path("cadastro/", cadastro, name="cadastro"),
     path("remedios/<int:idremedios>/", remedios, name="remedio"),
+    path("category/<int:idcategoria>/", categoria, name="categoria")
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -3,17 +3,33 @@
 {% else %}
 	<div class="remedio">
 {% endif %}
+
 	<img class="remedio-img" src={{ remedio.cover.url }} >
-	<p class="remedio-nome">
-		{{ remedio.title }}
-	</p>
-	<p class="remedio-valor">
-		R$ {{ remedio.price }},00
-	</p>
+
+	<p class="remedio-nome">  {{ remedio.title }}  </p>
+
+	<p class="remedio-valor">  R$ {{ remedio.price }}  </p>
+
 	<p>
-		Data de criação: {{ remedio.created_at|date:"d/m/Y" }} às {{ remedio.created_at|date:"H:i"}}
+		{% if remedio.author.first_name != None %}
+		{% if remedio.author.first_name %}
+		Criado por: {{ remedio.author.first_name}} {{ remedio.author.last_name}} <br>
+		{% else %}
+		Criado por: {{ remedio.author.username}} <br>
+		{% endif %}
+		{% else %}
+		Autor Desconhecido
+		{% endif %}
+		
+		Data de criação: {{ remedio.created_at|date:"d/m/Y" }} às {{ remedio.created_at|date:"H:i"}} <br>
+		{% if remedio.category.id is not None %}
+			<a href="{%  url 'farmacia:categoria' remedio.category.id %}">Tipo: {{remedio.category}} </a>
+		{% endif %}
+
 	</p>
+
 	{% if not is_detail %}
 		<a  class="remedio-button" href=" {% url 'farmacia:remedio' remedio.id %} "><span>Adicionar ao Carrinho</span></a>
 	{% endif %}
+
 </div>

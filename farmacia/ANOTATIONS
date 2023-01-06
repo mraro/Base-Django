@@ -1,6 +1,16 @@
 models.py   # BASE DE DADOS ...
 views.py    # FISICO DO SITE BACKEND
 
+
+ALLOWED_HOSTS: list[str] = [] # : list[str] is like tupeof
+
+Em models.py:
+
+    def __str__(self):
+        return self.name  # !IMPORTANT ISSO FARA COM QUE NO ADMIN DO DJANGO RETORNE O NOME DO OBJETO
+# DEPOIS DE QUALQUER MUDANÇA EM MODELS É IMPORTANTE FAZER O python manage.py migrate, se trocar o nome de uma tabela
+# deve usar o python manage.py makemigrations antes.
+######################################################################################################################
 Na pasta templates é onde fica o codigo html, no django vc só passa o nome do arquivo tipo(index.html) e ele procura lá
 settings.py:
 
