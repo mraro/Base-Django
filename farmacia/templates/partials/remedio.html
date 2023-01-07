@@ -1,35 +1,42 @@
-{% if is_detail %}
-	<div class="remedio-detail">
-{% else %}
-	<div class="remedio">
-{% endif %}
+{% if remedio.is_published %}
+	{% if is_detail %}
+		<div class="remedio-detail">
+	{% else %}
+		<div class="remedio">
+	{% endif %}
 
-	<img class="remedio-img" src={{ remedio.cover.url }} >
+	{% if remedio.cover.url != "" %}
+	<img class="remedio-img" src= {{ remedio.cover.url }} >
+	{% else %}
+	<img class="remedio-img" src="static/images/default.jpg"
+	{% endif %}
+
 
 	<p class="remedio-nome">  {{ remedio.title }}  </p>
 
-	<p class="remedio-valor">  R$ {{ remedio.price }}  </p>
-
-	<p>
-		{% if remedio.author.first_name != None %}
-		{% if remedio.author.first_name %}
-		Criado por: {{ remedio.author.first_name}} {{ remedio.author.last_name}} <br>
-		{% else %}
-		Criado por: {{ remedio.author.username}} <br>
-		{% endif %}
-		{% else %}
-		Autor Desconhecido
+		<p class="remedio-valor">  R$ {{ remedio.price }}  </p>
+		
+		<p>
+			{% if remedio.author.first_name != None %}
+			{% if remedio.author.first_name %}
+			Criado por: {{ remedio.author.first_name}} {{ remedio.author.last_name}} <br>
+			{% else %}
+			Criado por: {{ remedio.author.username}} <br>
+			{% endif %}
+			{% else %}
+			Autor Desconhecido
+			{% endif %}
+			
+			Data de criação: {{ remedio.created_at|date:"d/m/Y" }} às {{ remedio.created_at|date:"H:i"}} <br>
+			{% if remedio.category.id is not None %}
+			<a href="{%  url 'farmacia:categoria' remedio.category.id %}">Tipo: {{remedio.category}} </a>
+			{% endif %}
+			
+		</p>
+		
+		{% if not is_detail %}
+		<a  class="remedio-button" href=" {% url 'farmacia:remedio' remedio.id %} "><span>Adicionar ao Carrinho</span></a>
 		{% endif %}
 		
-		Data de criação: {{ remedio.created_at|date:"d/m/Y" }} às {{ remedio.created_at|date:"H:i"}} <br>
-		{% if remedio.category.id is not None %}
-			<a href="{%  url 'farmacia:categoria' remedio.category.id %}">Tipo: {{remedio.category}} </a>
-		{% endif %}
-
-	</p>
-
-	{% if not is_detail %}
-		<a  class="remedio-button" href=" {% url 'farmacia:remedio' remedio.id %} "><span>Adicionar ao Carrinho</span></a>
-	{% endif %}
-
-</div>
+	</div>
+{% endif %}

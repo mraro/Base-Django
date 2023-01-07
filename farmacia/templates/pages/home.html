@@ -10,6 +10,8 @@
 
 		{% for remedio in remedios  %}
 			{% include 'partials/remedio.html' %}	
+		{% empty %}
+			<h1> Sem Estoque </h1>
 		{% endfor %}
 		
 	</div>

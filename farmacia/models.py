@@ -26,7 +26,9 @@ class Remedios(models.Model):  # ISSO É UMA TABELA NO DJANGO
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(default=False)
-    cover = models.ImageField(upload_to='farmacia/covers/%Y/%m/%d/', blank=True, default='')  # campo de imagem
+    cover = models.ImageField(upload_to='farmacia/covers/%Y/%m/%d/',
+                              blank=True,
+                              default='images/default.jpg')  # campo de imagem
     # (blank=True permite campo vazio, default é a imagem padrão caso não exista
 
     category = models.ForeignKey(
