@@ -3,6 +3,7 @@ from unittest import skip
 from farmacia import views
 from .tests_medicine_base import BaseTestMedicine
 
+# METODOLOGIA TDD, CRIA O TESTE DEPOIS O CODIGO
 class RemedioViewsTest(BaseTestMedicine):
     def test_farma_view_home_is_correct(self):
         view_resolve = resolve(reverse('farmacia:home'))
