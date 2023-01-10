@@ -1,8 +1,12 @@
-models.py   # BASE DE DADOS ...
-views.py    # FISICO DO SITE BACKEND
+Django funciona no modo mvt model > view > template
+models.py   # BASE DE DADOS ... qlqr tipo de dados
+views.py    # FISICO DO SITE BACKEND ... render
 
+pip install parameterized  # FAZ UM LOOP COM AS VARIAVEIS EM UMA FUNÇÃO (tests_farma_models.py tem um exemplo)
+pip install coverage  # GERADOR DE LOGS de testes disponiveis e feitos (comando: coverage run -m pytest )
+                                                                        comando: coverage html     (cria o html log)
 
-ALLOWED_HOSTS: list[str] = [] # : list[str] is like tupeof
+ALLOWED_HOSTS: list[str] = [] # : list[str] is like typeof
 
 Em models.py:
 

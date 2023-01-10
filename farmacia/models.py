@@ -15,7 +15,7 @@ class Remedios(models.Model):  # ISSO É UMA TABELA NO DJANGO
 
     title = models.CharField(max_length=65)  # IS LIKE MYSQL VARCHAR(65)
     description = models.CharField(max_length=165)
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True)
     # preparation_time = models.IntegerField()
     # preparation_time_unit = models.CharField(max_length=65)
     # servings = models.IntegerField()
@@ -28,7 +28,7 @@ class Remedios(models.Model):  # ISSO É UMA TABELA NO DJANGO
     is_published = models.BooleanField(default=False)
     cover = models.ImageField(upload_to='farmacia/covers/%Y/%m/%d/',
                               blank=True,
-                              default='images/default.jpg')  # campo de imagem
+                              default='static/images/default.jpg')  # campo de imagem
     # (blank=True permite campo vazio, default é a imagem padrão caso não exista
 
     category = models.ForeignKey(

@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_list_or_404, get_object_or_404 #object é para um só elemento
+from django.shortcuts import render, get_list_or_404, get_object_or_404, Http404  # object é para um só elemento
 from django.http import HttpResponse
 from farmacia.utils.remediosautofill import factory
 from .models import Remedios
@@ -24,11 +24,11 @@ def home(request):
 
 def remedios(request, idremedios):
     # medicine = Remedios.objects.get(id=idremedios)
-    medicine = get_object_or_404(Remedios,id=idremedios)
+    medicine = get_object_or_404(Remedios, id=idremedios)
     return render(request, "pages/remedio-view.html",
 
                   context={
-                      'remedio' : medicine,
+                      'remedio': medicine,
                       # 'remedio': factory.make_recipe(),  # CRIA UM SIMPLES DICIONARIO
                       'is_detail': True,
                   })
@@ -47,6 +47,18 @@ def categoria(request, idcategoria):
                       'categoryTitle': f'{medicine[0].category.name}',  # ISSO É PY: F'{ VARIAVEL}' RETORNA STRING
                       'is_detail': False,
                   })
+
+
+def search(request):
+    var_site = request.GET.get("q")
+    if not var_site:
+        raise Http404
+    else:
+        var_site = var_site.strip()
+        medicine = Remedios.objects.filter(title__contains=var_site)
+    return render(request, "pages/search.html", context={
+        'remedios': medicine,
+        'search_done': var_site, })
 
 
 def cadastro(request):

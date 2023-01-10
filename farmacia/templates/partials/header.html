@@ -6,8 +6,8 @@
 		</h1>
 	</a>
 
-	<form class="search-container" action="#" method="post">
-			<input class="search-input" maxlength="10" type="search"></input> <button type="submit" name="search" class="search-button"><i class="fas fa-search"></i></button>
+	<form class="search-container" action=" {% url 'farmacia:search' %} " method="get">
+			<input name="q" class="search-input" maxlength="10" type="search" required></input> <button type="submit" class="search-button"><i class="fas fa-search"></i></button>
 	</form>
 
 </header>

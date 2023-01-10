@@ -1,7 +1,7 @@
 from django.test import TestCase
+
 from farmacia.models import Category, Remedios, User
-
-
+from farmacia.utils.remediosautofill import factory
 
 
 class BaseTestMedicine(TestCase):
@@ -13,7 +13,9 @@ class BaseTestMedicine(TestCase):
 
         return super().setUp()
 
-
+    def make_medicine_no_defaults(self):
+        dictionary = factory.make_medicine()
+        return self.make_medicines(**dictionary)
     def make_category(self, name='Categoria'):
         return Category.objects.create(name=name)
 
