@@ -47,7 +47,7 @@ def make_medicine_db():
         # 'id': fake.random_number(digits=2, fix_len=True),
         'title': fake.sentence(nb_words=2),
         'description': fake.sentence(nb_words=12),
-        'slug': 'isso-slug',
+        'slug': slugify(fake.sentence(nb_words=2)),
         # 'preparation_time': fake.random_number(digits=2, fix_len=True),
         # 'preparation_time_unit': 'Minutos',
         # 'servings': fake.random_number(digits=2, fix_len=True),
@@ -72,4 +72,4 @@ def make_medicine_db():
 if __name__ == '__main__':
     from pprint import pprint
 
-    pprint(make_medicine())
+    pprint(make_medicine_db())

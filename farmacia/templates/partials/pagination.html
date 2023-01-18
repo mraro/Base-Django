@@ -1,0 +1,22 @@
+{% if pages.last_range > 1 %}
+<div class="pagination">
+	<form class="pagination-form" action="" method="get">
+		<a class="pagination-options" name="page" href="?q={{search_done}}&page=1">1</a>
+		...
+		{% for page in pages.pagination %}
+			{% if pages.current_page == page %}
+			
+				<a class="pagination-options current" name="page" href="?{% if search_done %}q={{search_done}}&{% endif %}page={{page}}">{{page}}</a>
+
+			{% else %}
+				<a class="pagination-options " name="page" href="?{% if search_done %}q={{search_done}}&{% endif %}page={{page}}">{{page}}</a>
+
+			{% endif %}
+		{% endfor %}
+		... 
+		
+		<a class="pagination-options" name="page" href="?q={{search_done}}&page={{pages.last_range}}">{{pages.last_range}}</a>
+				
+		</form>
+	</div>
+{% endif %}

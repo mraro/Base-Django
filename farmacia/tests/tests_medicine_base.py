@@ -1,14 +1,13 @@
 from django.test import TestCase
 
 from farmacia.models import Category, Remedios, User
-from farmacia.utils.remediosautofill import factory
+from farmacia.utility.remediosautofill import factory
 
 
 class BaseTestMedicine(TestCase):
     def setUp(self) -> None:
         # category = Category(name='Categoria')
         # category.save()
-
         # self.make_medicines()
 
         return super().setUp()
@@ -16,10 +15,11 @@ class BaseTestMedicine(TestCase):
     def make_medicine_no_defaults(self):
         dictionary = factory.make_medicine()
         return self.make_medicines(**dictionary)
+
     def make_category(self, name='Categoria'):
         return Category.objects.create(name=name)
 
-    def make_author(self, first_name='user', last_name='name',username='username',password='123123', email='user@mail.com',):
+    def make_author(self, first_name='user', last_name='name',username='username',password='123123', email='user@mail.com',):  # noqa: E501
         return User.objects.create_user(
             first_name=first_name,
             last_name=last_name,

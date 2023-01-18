@@ -143,3 +143,30 @@ header{
 		background: black;
 		color: white;
 }
+
+
+.pagination{
+	align-items: center;
+	width: 100%;
+	padding: 10px 0;
+}
+.pagination-form{
+	text-align: center;
+	margin: 0 auto;
+}
+.pagination-options{
+	background: radial-gradient(circle, rgba(2,0,36,0.4430147058823529) 0%, rgba(0,0,0,0.38699229691876746) 26%, rgba(0,255,196,0) 61%);
+	color: white;
+	width: 2.3em;
+	height: 2.3em;
+	border-radius: 3px;
+	border: 1px solid black;
+	padding: 0.6em;
+}
+.current{
+	color: black;
+	text-shadow: 2px 0 var(--color-primary-light), -2px 0 var(--color-primary-light), 0 2px var(--color-primary-light), 0 -2px var(--color-primary-light),
+  1px 1px var(--color-primary-light), -1px -1px var(--color-primary-light), 1px -1px var(--color-primary-light), -1px 1px var(--color-primary-light);
+	background: radial-gradient(circle, rgba(131, 133, 247, 0.443) 0%, rgba(255, 255, 255, 0.387) 26%, rgba(0,255,196,0) 61%);
+
+}

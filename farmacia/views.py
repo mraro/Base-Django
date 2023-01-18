@@ -1,16 +1,22 @@
+from django.db.models import Q
 from django.shortcuts import render, get_list_or_404, get_object_or_404, Http404  # object é para um só elemento
 from django.http import HttpResponse
-from farmacia.utils.remediosautofill import factory
+from django.core.paginator import Paginator
+from farmacia.utility.remediosautofill import factory
 from .models import Remedios
 
+from farmacia.utility.paginator import make_paginations
 
+# https://docs.djangoproject.com/pt-br/3.2/topics/db/queries/#complex-lookups-with-q-objects
 def home(request):
-    medicine = Remedios.objects.all().order_by('-id')
-
+    medicines = Remedios.objects.all().order_by('-id')
+    pages = make_paginations(request, medicines, 6)
     # a pasta templantes que herda a pasta home esta linkada na settings do django
     return render(request, "pages/home.html",
                   context={
-                      'remedios': medicine,
+                      # 'remedios': result[page],
+                      'remedios': pages['medicines_page'],
+                      'pages': pages,
                       # "nomefarmacia": "Farma TOP",
 
                       # 'remedios': [factory.make_recipe() for _ in range(10)]  # CRIA UM DICIONARIO DENTRO DO
@@ -20,6 +26,7 @@ def home(request):
                       #     "qtdePorPagina":"10",
                       #     "nomeUsuario":"none",
                   })
+
 
 
 def remedios(request, idremedios):
@@ -38,12 +45,14 @@ def categoria(request, idcategoria):
     # medicine = Remedios.objects.filter(category__id=idcategoria).order_by('-id') # ISSO É BASICO
 
     # medicine = get_list_or_404(Remedios, category__id=idcategoria)  # ISSO É UMA LISTA DO PYTHON
-
     medicine = get_list_or_404(Remedios.objects.filter(category__id=idcategoria).order_by('-id'))
+    pages = make_paginations(request, medicine, 6)
 
     return render(request, "pages/category-view.html",
                   context={
-                      'remedios': medicine,
+                      # 'remedios': medicine,
+                      'remedios': pages['medicines_page'],
+                      'pages': pages,
                       'categoryTitle': f'{medicine[0].category.name}',  # ISSO É PY: F'{ VARIAVEL}' RETORNA STRING
                       'is_detail': False,
                   })
@@ -54,10 +63,18 @@ def search(request):
     if not var_site:
         raise Http404
     else:
-        var_site = var_site.strip()
-        medicine = Remedios.objects.filter(title__contains=var_site)
+        var_site = var_site.strip()  # '''o | juntamente a função Q faz com que a pesquisa seja OR '''
+        medicine = Remedios.objects.filter(Q(title__contains=var_site) | Q(description__contains=var_site)).order_by(
+            '-id')
+        medicine = medicine.filter(is_published=True)
+
+    pages = make_paginations(request, medicine, 4)
+
+
     return render(request, "pages/search.html", context={
-        'remedios': medicine,
+        'remedios': pages['medicines_page'] ,
+        'pages': pages,
+
         'search_done': var_site, })
 
 

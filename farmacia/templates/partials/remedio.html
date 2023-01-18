@@ -8,13 +8,13 @@
 	{% if remedio.cover.url != "" %}
 	<img class="remedio-img" src= {{ remedio.cover.url }} >
 	{% else %}
-	<img class="remedio-img" src="static/images/default.jpg"
+	<img class="remedio-img" src="/media/static/images/default.jpg" >
 	{% endif %}
 
 
 	<p class="remedio-nome">  {{ remedio.title }}  </p>
 
-		<p class="remedio-valor">  R$ {{ remedio.price }}  </p>
+		<p class="remedio-valor">  R$ {{ remedio.price|floatformat:2 }}  </p>
 		
 		<p>
 			{% if remedio.author.first_name != None %}

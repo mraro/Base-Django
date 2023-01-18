@@ -4,10 +4,10 @@ from parameterized import parameterized
 
 
 class Tests_Models_Remedios(BaseTestMedicine):
-    def setUp(self) -> None:
-        self.medicine = self.make_medicine_no_defaults()
-        self.medicine.is_published = False
-        self.medicine.full_clean()
+    def setUp(self) -> None:  # SETUP WILL REPRODUCE BEFORE, IN EVERY funcions IN THIS class
+        self.medicine = self.make_medicine_no_defaults()  # WILL MAKE A DATA TO TEST
+        self.medicine.is_published = False # MODELING DATA
+        self.medicine.full_clean() # TESTS IF IS PROPERLY TO SAVE
         self.medicine.save()
         return super().setUp()
 
