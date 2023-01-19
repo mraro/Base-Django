@@ -1,7 +1,12 @@
 # from inspect import signature
 from random import randint
 from faker import Faker
+
 import re
+
+import string as s
+from random import SystemRandom as sr
+
 def slugify(s):
   s = s.lower().strip()
   s = re.sub(r'[^\w\s-]', '', s)
@@ -13,7 +18,8 @@ def rand_ratio():
 
 
 fake = Faker('pt_BR')
-
+def make_strong_string():
+    print("".join(sr().choices(s.ascii_letters + s.punctuation, k=64)))
 
 # print(signature(fake.random_number))
 
@@ -71,5 +77,9 @@ def make_medicine_db():
 
 if __name__ == '__main__':
     from pprint import pprint
+
+
+    make_strong_string()
+
 
     pprint(make_medicine_db())

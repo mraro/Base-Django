@@ -1,14 +1,14 @@
 from django.core.paginator import Paginator
 
 
-def make_paginations(request, obj, qty_pages):
+def make_paginations(request, obj, qty_options,qty_obj_per_page=9):
 
     current_page = int(request.GET.get('page', 1))
-    pagination = Paginator(obj, 9)
+    pagination = Paginator(obj, qty_obj_per_page)
     medicines_page = pagination.get_page(current_page)
     len_pages = pagination.page_range
 
-    middle_range = int(qty_pages / 2)
+    middle_range = int(qty_options / 2)
     start_range = current_page - middle_range
     stop_range = current_page + middle_range
     last_range = len(len_pages)

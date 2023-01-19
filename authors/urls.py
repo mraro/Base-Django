@@ -2,18 +2,16 @@ from farmacia.views import *
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from authors.views import *
+# PAGINA ADICIONADA MANUALMENTE QUE GERENCIA OS LINKS
 
-## PAGINA ADICIONADA MANUALMENTE QUE GERENCIA OS LINKS
-
-app_name = "farmacia"
+app_name = "authors"
 
 urlpatterns = [
 
     path("", home, name="home"),  # HOME == INDEX
-    path("search/", search, name="search"),
+    path("cadastro/", register_view, name="cadastro"),
 
-    path("remedios/<int:idremedios>/", remedios, name="remedio"),
-    path("category/<int:idcategoria>/", categoria, name="categoria"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

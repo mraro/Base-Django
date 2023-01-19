@@ -7,6 +7,33 @@
             --font-primary:  Verdana, Arial;
             --font-size-search: 1.5em;
             --font-color: #333;
+
+            --color-info-dark: #4d86c4;
+            --color-debug-dark: #4d86c4;
+            --color-success-dark: #4a9c5d;
+            --color-alert-dark: #927f40;
+            --color-warning-dark: #927f40;
+            --color-error-dark: #da525d;
+}
+
+/* messages */
+.message{
+	padding: 1 rem;
+	border-radius: 4px;
+	border: 1px solid var(--color-primary-dark);
+	background: var(--color-primary-light);
+	color: var(--font-color);
+	text-align: center;
+}
+.message-error {
+	border: 1px solid var(--color-error-dark);
+	background: var(--color-primary-light);
+	color: var(--color-error-dark);
+}
+.message-success {
+	border: 1px solid var(--color-success-dark);
+	background: var(--color-primary-light);
+	color: var(--color-success-dark);
 }
 html {
   height: 100%;

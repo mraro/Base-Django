@@ -2,6 +2,10 @@ Django funciona no modo mvt model > view > template
 models.py   # BASE DE DADOS ... qlqr tipo de dados
 views.py    # FISICO DO SITE BACKEND ... render
 
+pip install python-dotenv # manage.py, wsgi.py, asgi.py from dotenv | import load_dotenv > load_dotenv()
+.env # cria variaveis de sistema, precisa reiniciar o servidor para validar
+
+
 pip install parameterized  # FAZ UM LOOP COM AS VARIAVEIS EM UMA FUNÇÃO (tests_farma_models.py tem um exemplo)
 pip install coverage  # GERADOR DE LOGS de testes disponiveis e feitos (comando: coverage run -m pytest )
                                                                         comando: coverage html     (cria o html log)
@@ -63,3 +67,14 @@ settings.py:
 >   # EM urls.py :add >>>urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     MEDIA_URL = '/media/'
     MEDIA_ROOT = BASE_DIR / 'media'
+
+    ...
+    ...
+    # ISSO SERVE PARA DECLARAR O CSS NO CASO A CLASS
+    MESSAGE_TAGS = {
+    constants.WARNING: 'message-warning',
+    constants.ERROR: 'message-error',
+    constants.SUCCESS: 'message-success',
+    constants.INFO: 'message-info',
+    constants.DEBUG: 'message-debug',
+    }
