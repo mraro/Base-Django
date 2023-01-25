@@ -18,7 +18,7 @@ def home(request):
     medicines = Remedios.objects.all().order_by('-id')
     pages = make_paginations(request, medicines, RANGE_PER_PAGE, 9)
 
-    messages.success(request, "UMA MENSAGEM ENVIADA DO SERVIDOR de SUCCESS")
+    # messages.success(request, "UMA MENSAGEM ENVIADA DO SERVIDOR de SUCCESS")
 
     # a pasta templantes que herda a pasta home esta linkada na settings do django
     return render(request, "pages/home.html",
@@ -52,7 +52,7 @@ def remedios(request, idremedios):
 
 def categoria(request, idcategoria):
     # medicine = Remedios.objects.filter(category__id=idcategoria).order_by('-id') # ISSO É BASICO
-    messages.error(request, "UMA MENSAGEM ENVIADA DO SERVIDOR de ERROR")
+    # messages.error(request, "UMA MENSAGEM ENVIADA DO SERVIDOR de ERROR")
 
     # medicine = get_list_or_404(Remedios, category__id=idcategoria)  # ISSO É UMA LISTA DO PYTHON
     medicine = get_list_or_404(Remedios.objects.filter(category__id=idcategoria).order_by('-id'))
@@ -73,18 +73,16 @@ def search(request):
     if not var_site:
         raise Http404
     else:
-        var_site = var_site.strip()  # '''o | juntamente a função Q faz com que a pesquisa seja OR '''
+        var_site = var_site.strip()  #           # '''o | juntamente a função Q faz com que a pesquisa seja OR '''
         medicine = Remedios.objects.filter(Q(title__contains=var_site) | Q(description__contains=var_site)).order_by(
             '-id')
         medicine = medicine.filter(is_published=True)
 
     pages = make_paginations(request, medicine, RANGE_PER_PAGE)
 
-
     return render(request, "pages/search.html", context={
         'remedios': pages['medicines_page'] ,
         'pages': pages,
-
         'search_done': var_site, })
 
 

@@ -10,8 +10,8 @@ app_name = "authors"
 urlpatterns = [
 
     path("", home, name="home"),  # HOME == INDEX
-    path("cadastro/", register_view, name="cadastro"),
-
+    path("register/", register_view, name="register"),
+    path("register/create/", register_create, name="create"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

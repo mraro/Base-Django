@@ -25,7 +25,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include('farmacia.urls')), # IMPORTEI AS URLS DA APLICAÇÃO PARA TRABALHAR SOMENTE DENTRO DO APP( NO CASO
     # RECIPES) == / o path é um caminho opcional ideal para heranças ou pré link (o pai)
-    path("", include('authors.urls')),
+    path("authors/", include('authors.urls')),
     # IMPORTEI AS URLS DA APLICAÇÃO PARA TRABALHAR SOMENTE DENTRO DO APP( NO CASO RECIPES) == / o path é um caminho
     # opcional ideal para heranças ou pré link (o pai)
 ]

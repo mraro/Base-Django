@@ -1,8 +1,10 @@
 :root{
-            --color-primary: #26a0e648;            
+            --color-primary: #35b5ff9a;            
             --color-primary-light: #ffffffde;
-            --color-primary-dark: #13141f;
-            --color-background: #bdbdbd;
+            --color-primary-dark: #1f1c13;
+            --color-background: #c07d00;
+			--color-background-secundary: #7c02a1;
+			--color-background-transparent: #fdfdfd75;
 
             --font-primary:  Verdana, Arial;
             --font-size-search: 1.5em;
@@ -13,10 +15,97 @@
             --color-success-dark: #4a9c5d;
             --color-alert-dark: #927f40;
             --color-warning-dark: #927f40;
-            --color-error-dark: #da525d;
+            --color-error-dark: #e70303;
+
 }
 
-/* messages */
+
+html {
+  height: 100%;
+}
+body {
+  	min-height: 100%;
+
+	margin: 0px;
+	/*background: var(--color-primary-dark);*/
+	background: linear-gradient(90deg, var(--color-background) 10%, var(--color-background-secundary) 90%);
+	flex: 1 0 auto;
+	font-family: var(--font-primary);
+
+}
+/* ##################################################################### HEADER */
+a{
+	text-decoration: none;
+	color: var(--font-color);
+}
+header{
+	z-index: 10;
+	position: sticky;
+	position: -webkit-sticky; 
+	top: 0;
+	width: 100%;
+	/*height: 100%;*/
+	background: linear-gradient(90deg, var(--color-background) 0%, var(--color-background-secundary) 100%);
+	/*display: flex;*/
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+
+
+}
+.loguin{
+	float: right;
+	font-size: 2em;
+	background: var(--color-background-secundary);
+	padding: 0.5em;
+	border-radius: 25px;
+	-webkit-border-radius: 25px;
+	-moz-border-radius: 25px;
+	-ms-border-radius: 25px;
+	-o-border-radius: 25px;
+	margin: 4px;
+	position: absolute;
+	color: var(--color-primary-light);
+}
+
+
+.titulo-container{
+	margin: 0px auto;
+	text-align: center;
+	width: 100%;
+	font-size: 3em;
+	text-shadow: 2px 0 var(--color-primary-light), -2px 0 var(--color-primary-light), 0 2px var(--color-primary-light), 0 -2px var(--color-primary-light),
+             1px 1px var(--color-primary-light), -1px -1px var(--color-primary-light), 1px -1px var(--color-primary-light), -1px 1px var(--color-primary-light);
+
+}
+
+.search-container{
+	
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 5px;
+	display: flex;
+	align-items: center;
+	
+}
+.search-input{
+	
+	border-radius: 10px;
+	width: 600px;
+	height: var(--font-size-search);
+	padding-left: 15px;
+	padding-right: 44px;
+	font-size: var(--font-size-search);
+}
+.search-button{
+	width: var(--font-size-search);
+	height: var(--font-size-search);
+	font-size: var(--font-size-search);
+	position: relative;
+	right: 44px;
+	background: radial-gradient(circle, rgba(2,0,36,0.4430147058823529) 0%, rgba(0,0,0,0.38699229691876746) 26%, rgba(0,255,196,0) 61%);
+	border: none;
+}
+/* ###################################################################### MESSAGES */
 .message{
 	padding: 1 rem;
 	border-radius: 4px;
@@ -35,74 +124,7 @@
 	background: var(--color-primary-light);
 	color: var(--color-success-dark);
 }
-html {
-  height: 100%;
-}
-body {
-  	min-height: 100%;
-
-	margin: 0px;
-	/*background: var(--color-primary-dark);*/
-	background: linear-gradient(90deg, var(--color-primary-dark) 0%, var(--color-primary-light) 100%);
-	flex: 1 0 auto;
-	font-family: var(--font-primary);
-
-}
-a{
-	text-decoration: none;
-	color: var(--font-color);
-}
-header{
-	z-index: 10;
-	position: sticky;
-	position: -webkit-sticky; 
-	top: 0;
-	width: 100%;
-	/*height: 100%;*/
-	background: var(--color-primary);
-	/*display: flex;*/
-	box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-
-
-}
-.titulo-container{
-	margin: 0px auto;
-	text-align: center;
-	width: 100%;
-	font-size: 3em;
-	text-shadow: 2px 0 var(--color-primary-light), -2px 0 var(--color-primary-light), 0 2px var(--color-primary-light), 0 -2px var(--color-primary-light),
-             1px 1px var(--color-primary-light), -1px -1px var(--color-primary-light), 1px -1px var(--color-primary-light), -1px 1px var(--color-primary-light);
-
-}
-
-.search-container{
-
-	width: 600px;
-	margin-left: auto;
-	margin-right: auto;
-	padding: 5px;
-	display: flex;
-	align-items: center;
-
-}
-.search-input{
-
-	border-radius: 10px;
-	width: 600px;
-	height: var(--font-size-search);
-	padding-left: 15px;
-	padding-right: 44px;
-	font-size: var(--font-size-search);
-}
-.search-button{
-	width: var(--font-size-search);
-	height: var(--font-size-search);
-	font-size: var(--font-size-search);
-	position: relative;
-	right: 44px;
-	background: radial-gradient(circle, rgba(2,0,36,0.4430147058823529) 0%, rgba(0,0,0,0.38699229691876746) 26%, rgba(0,255,196,0) 61%);
-	border: none;
-}
+/* ##################################################################################################################### HOME */
 .main-content-container{
 	/*align-items: center;*/
 	display: grid;
@@ -128,8 +150,8 @@ header{
 .remedio-detail{
 	width: 500px;
 	text-align: center;
-		background: var(--color-primary-light);
-		margin: 20px;
+	background: var(--color-primary-light);
+	margin: 20px;
 
 }
 .remedio:hover{
@@ -160,22 +182,12 @@ header{
 	height: 100px;
 
 }
-.footer-container{
-	margin-top: auto;
-	width: 100%;
-	height: 200px;
-	background: var(--color-primary);
-}
-.remedio-button {
-		background: black;
-		color: white;
-}
-
-
+/* ###################################################################### PAGINATION */
 .pagination{
 	align-items: center;
 	width: 100%;
 	padding: 10px 0;
+	margin-bottom: 10px;
 }
 .pagination-form{
 	text-align: center;
@@ -196,4 +208,70 @@ header{
   1px 1px var(--color-primary-light), -1px -1px var(--color-primary-light), 1px -1px var(--color-primary-light), -1px 1px var(--color-primary-light);
 	background: radial-gradient(circle, rgba(131, 133, 247, 0.443) 0%, rgba(255, 255, 255, 0.387) 26%, rgba(0,255,196,0) 61%);
 
+}
+/* ###################################################################### FOOTER */
+.footer-container{
+	margin-top: auto;
+	width: 100%;
+	height: 200px;
+	background: linear-gradient(90deg, var(--color-background) 0%, var(--color-background-secundary) 100%);
+	position: sticky;
+	position: -webkit-sticky;
+
+}
+.remedio-button {
+		background: black;
+		color: white;
+}
+
+
+
+/* ###################################################################################################################### AUTHORS */
+
+.form-content{
+	width: 900px;
+	margin: 0 auto;
+	padding: 2em;
+	background: var(--color-background-transparent);
+  
+}
+.form-content button,
+.form-content input{
+	width: 95%;
+	padding: 0.5em;
+	font-size: 1.3em;
+	margin: 0.5em 0em;
+	align-self: center;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+}
+.content-label{
+	font-size: 1.3em;
+
+}
+.help-text,
+.errorlist{
+
+	font-size: 0.7em;
+	color: var(--color-error-dark);
+	margin-top: 0px;
+
+}
+.help-text{
+	color: var(--color-primary-dark);
+	
+}
+.form-content button{
+	background-color: #4a9c5d;
+	width: 200px;
+	padding: 15px;
+	font-size: 1.5em;
+	margin: 0;
+	background: linear-gradient(90deg, var(--color-background) 0%, var(--color-background-secundary) 100%);
+	text-shadow: 0.2px 0 var(--color-primary-light), -0.2px 0 var(--color-primary-light), 0 0.2px var(--color-primary-light), 0 -0.2px var(--color-primary-light),
+	1px 1px var(--color-primary-light), -1px -1px var(--color-primary-light), 1px -1px var(--color-primary-light), -1px 1px var(--color-primary-light);
+  
 }

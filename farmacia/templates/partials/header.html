@@ -9,5 +9,6 @@
 	<form class="search-container" action=" {% url 'farmacia:search' %} " method="get">
 			<input name="q" class="search-input" maxlength="10" type="search" required></input> <button type="submit" class="search-button"><i class="fas fa-search"></i></button>
 	</form>
+	<a class="loguin" href="{% url 'authors:register' %}"> <i class="fas fa-user"></i> </a>
 
 </header>

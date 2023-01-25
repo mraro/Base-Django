@@ -1,8 +1,8 @@
-from django.db import models
 from django.contrib.auth.models import User
-
+from django.db import models
 
 # Create your models here.
+
 
 class Category(models.Model):
     name = models.CharField(max_length=65)
@@ -20,7 +20,7 @@ class Remedios(models.Model):  # ISSO É UMA TABELA NO DJANGO
     # preparation_time_unit = models.CharField(max_length=65)
     # servings = models.IntegerField()
     # servings_unit = models.CharField(max_length=65)
-    price = models.FloatField( default=1)
+    price = models.FloatField(default=1)
     preparetion_steps = models.TextField()
     preparetion_steps_is_html = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)

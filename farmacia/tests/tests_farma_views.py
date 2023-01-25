@@ -1,7 +1,7 @@
 from django.urls import reverse, resolve
 from unittest import skip
 from farmacia import views
-from .tests_medicine_base import BaseTestMedicine
+from .tests_medicine_base import BaseTestMedicine, TestCase
 
 
 # METODOLOGIA TDD, CRIA O TESTE DEPOIS O CODIGO ( TEST DRIVEN DEVELOPMENT )
@@ -100,3 +100,8 @@ class RemedioViewsCategoryTest(BaseTestMedicine):
         self.make_medicine_no_defaults()
         response = self.client.get(reverse('farmacia:categoria', kwargs={'idcategoria': 1}))
         self.assertTemplateUsed(response, 'pages/category-view.html')
+
+class AuthorsViewRegisterTest(TestCase):
+    def test_author_view_register_if_template_loads_properly(self):
+        response = self.client.get(reverse('authors:register'))
+        self.assertTemplateUsed(response, 'pages/register_view.html')

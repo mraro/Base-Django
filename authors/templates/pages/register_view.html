@@ -1,0 +1,20 @@
+{% extends 'global/base.html' %}
+
+{% block 'title' %}Registro{% endblock 'title' %}
+{% block 'content' %}
+<form action="{% url 'authors:create' %}" method="POST" class="form-content">
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="content-label">
+            <label for="{{ field.id_for_label }}">{{ field.label }}: </label>{{ field }}
+            {% if field.help_text %}
+                <div class="help-text">{{ field.help_text }}</div>
+            {% endif %}
+        </div>    
+        {% if field.errors %}{{field.errors}}{% endif %}
+    {% endfor %}
+        <div class="form-group">
+            <button type='sumit'><b> Cadastrar </b></button>
+        </div>
+</form>
+{% endblock 'content' %}
