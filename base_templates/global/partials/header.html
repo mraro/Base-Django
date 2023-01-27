@@ -9,6 +9,12 @@
 	<form class="search-container" action=" {% url 'farmacia:search' %} " method="get">
 			<input name="q" class="search-input" maxlength="10" type="search" required></input> <button type="submit" class="search-button"><i class="fas fa-search"></i></button>
 	</form>
-	<a class="loguin" href="{% url 'authors:register' %}"> <i class="fas fa-user"></i> </a>
-
+	<div class="loguin">
+	{% if 'singin' %}
+		<a class="loguin-element" href="{% url 'authors:register' %}"> <i class="fa-solid fa-pen-to-square"></i></a>
+		<a class="loguin-element" href="{% url 'authors:login' %}"> <i class="fas fa-user"></i> </a>
+	{% else %}
+		<a class="loguin-element" href="{% url 'authors:register' %}"> <i class="fa-solid fa-right-to-bracket"></i> </a>
+	{% endif %}
+	</div>
 </header>

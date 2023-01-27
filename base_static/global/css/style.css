@@ -52,6 +52,15 @@ header{
 
 }
 .loguin{
+	
+	margin: 4px;
+	position: absolute;
+}
+.loguin-element{
+	color: var(--color-primary-light);
+
+	display: flex;
+	align-items: baseline;
 	float: right;
 	font-size: 2em;
 	background: var(--color-background-secundary);
@@ -62,10 +71,8 @@ header{
 	-ms-border-radius: 25px;
 	-o-border-radius: 25px;
 	margin: 4px;
-	position: absolute;
-	color: var(--color-primary-light);
-}
 
+}
 
 .titulo-container{
 	margin: 0px auto;

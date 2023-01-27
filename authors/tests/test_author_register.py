@@ -4,7 +4,7 @@ from django.test import TestCase as DjangoTestCase
 from django.urls import reverse
 from parameterized import parameterized
 
-from authors.forms import RegisterForm, name_validator
+from authors.forms import RegisterForm
 
 
 class AuthorsRegisterFormUnitTest(TestCase):
@@ -71,6 +71,7 @@ class AuthorRegisterFormIntegrationTest(DjangoTestCase):
             'password2': 'Str0ng@123',
         }
         return super(AuthorRegisterFormIntegrationTest, self).setUp()
+
     def tearDown(self):
         # Clean up run after every test method.
         pass
@@ -160,3 +161,14 @@ class AuthorRegisterFormIntegrationTest(DjangoTestCase):
         msg = "Email já em uso"
         self.assertIn(msg, response.content.decode('utf-8'))
         self.assertIn(msg, response.context['form'].errors.get('email'))
+
+    def test_user_can_login_with_a_created_account(self):
+        url = reverse('authors:create')
+        self.form_data.update({
+            'username': 'usertest',
+            'password': '123@Mudar',
+            'password2': '123@Mudar',
+        })
+        self.client.post(url, data=self.form_data, follow=True)
+        bool_login = self.client.login(username='usertest', password='123@Mudar')
+        self.assertTrue(bool_login)
