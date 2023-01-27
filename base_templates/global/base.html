@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-	{% include 'partials/head.html' %}
+	{% include 'global/partials/head.html' %}
     <title>{% block 'title' %}   {% endblock 'title' %} | Farma TOP</title>
 </head>
 <body>
 	
-	{% include 'partials/header.html' %}	
+	{% include 'global/partials/header.html' %}	
 	
 	{% if messages %}
 		{% for message in messages %}	
@@ -18,9 +18,9 @@
 	
 	{% block 'content' %}
 	{% endblock 'content' %}			
-	{% include 'partials/pagination.html' %}
+	{% include 'global/partials/pagination.html' %}
 
-	{% include 'partials/footer.html' %}
+	{% include 'global/partials/footer.html' %}
 	
 </body>
 </html>

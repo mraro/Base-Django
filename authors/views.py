@@ -2,6 +2,7 @@ from django.core.checks import messages
 from django.http import Http404
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.urls import reverse
 
 from .forms import RegisterForm
 
@@ -13,7 +14,7 @@ def register_view(request):
 
     return render(request, 'pages/register_view.html', {
         'form': form,
-
+        'form_action': reverse('authors:create'),
     })
 
 
@@ -26,7 +27,9 @@ def register_create(request):
     form = RegisterForm(POST)
     if form.is_valid:
         try:
-            form.save()
+            user = form.save(commit=False)  # receive data from form, after valid but don't save yet
+            user.set_password(user.password)  # cryptography password
+            user.save()  # save data in DB
             messages.success(request, "Usuario Cadastrado com Sucesso!!!")
             del (request.session['register_form_data'])
             return redirect('farmacia:home')
@@ -34,4 +37,4 @@ def register_create(request):
             messages.error(request, "Falha ao criar o usuario")
             return redirect('authors:register')
 
-    return redirect('authors:register')
+    # return redirect('authors:register')

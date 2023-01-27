@@ -53,9 +53,8 @@ settings.py:
     ...
     ...
 >   # PLURAL DE PASTAS COM ARQUIVOS ESTATICOS (ARQUIVOS ESTATICOS SERVEM PARA OTIMIZAR OS REQUEST AO SERVIDOR
-    STATIC_FILES_DIRS = [
-    BASE_DIR / 'pasta_static',
-
+    STATICFILES_DIRS = [
+        BASE_DIR / 'pasta_static',
     ]
 
     STATIC_ROOT = BASE_DIR / 'static'

@@ -6,6 +6,13 @@ from .tests_medicine_base import BaseTestMedicine, TestCase
 
 # METODOLOGIA TDD, CRIA O TESTE DEPOIS O CODIGO ( TEST DRIVEN DEVELOPMENT )
 class RemedioViewsHomeTest(BaseTestMedicine):
+    def setUp(self):
+        # Setup run before every test method.
+        pass
+
+    def tearDown(self):
+        # Clean up run after every test method.
+        pass
     def test_farma_view_home_is_correct(self):
         view_resolve = resolve(reverse('farmacia:home'))
         self.assertIs(view_resolve.func, views.home)
@@ -37,6 +44,13 @@ class RemedioViewsHomeTest(BaseTestMedicine):
 
 
 class RemedioViewsSearchTest(BaseTestMedicine):
+    def setUp(self):
+        # Setup run before every test method.
+        pass
+
+    def tearDown(self):
+        # Clean up run after every test method.
+        pass
 
     def test_farma_view_search_is_correct(self):
         resolved = resolve(reverse('farmacia:search'))
@@ -72,6 +86,13 @@ class RemedioViewsSearchTest(BaseTestMedicine):
         self.assertEqual(response.status_code, 404)
 
 class RemedioViewsRemedioTest(BaseTestMedicine):
+    def setUp(self):
+        # Setup run before every test method.
+        pass
+
+    def tearDown(self):
+        # Clean up run after every test method.
+        pass
 
     def test_farma_view_remedio_is_correct(self):
         view_resolve = resolve(reverse('farmacia:remedio', args=[1]))
@@ -87,6 +108,13 @@ class RemedioViewsRemedioTest(BaseTestMedicine):
         self.assertTemplateUsed(response, 'pages/remedio-view.html')
 
 class RemedioViewsCategoryTest(BaseTestMedicine):
+    def setUp(self):
+        # Setup run before every test method.
+        pass
+
+    def tearDown(self):
+        # Clean up run after every test method.
+        pass
 
     def test_farma_view_category_is_correct(self):
         view_resolve = resolve(reverse('farmacia:categoria', kwargs={'idcategoria': 1}))
@@ -102,6 +130,13 @@ class RemedioViewsCategoryTest(BaseTestMedicine):
         self.assertTemplateUsed(response, 'pages/category-view.html')
 
 class AuthorsViewRegisterTest(TestCase):
+    def setUp(self):
+        # Setup run before every test method.
+        pass
+
+    def tearDown(self):
+        # Clean up run after every test method.
+        pass
     def test_author_view_register_if_template_loads_properly(self):
         response = self.client.get(reverse('authors:register'))
         self.assertTemplateUsed(response, 'pages/register_view.html')

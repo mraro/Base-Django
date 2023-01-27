@@ -32,15 +32,6 @@ def name_validator(name):
         raise ValidationError("Somente o primeiro nome nesse campo", code='invalid')
 
 
-def username_validator(username):
-    regex = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])$')
-    if regex.match(username):
-        raise ValidationError("Somente letras e numeros são permitidos", code='invalid')
-
-    if " " in username:
-        raise ValidationError("Somente o um nome nesse campo", code='invalid')
-
-
 class RegisterForm(forms.ModelForm):  # HERE WE CAN OVERWRITE THE FILDS AND ADAPTATE THE form HE HAS A DEFAULT
     # FOR EVERY FIELDS
     def __init__(self, *args, **kwargs):
@@ -97,6 +88,13 @@ class RegisterForm(forms.ModelForm):  # HERE WE CAN OVERWRITE THE FILDS AND ADAP
                 params={'value': 'Alessandro'}
             )
         return data
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email', '')
+        exists = User.objects.filter(email=email).exists()
+        if exists:
+            raise ValidationError("Email já em uso")
+        return email
 
     def clean(self):  # DEFINED IN SUPER CLASS
         data_cleaned = super().clean()

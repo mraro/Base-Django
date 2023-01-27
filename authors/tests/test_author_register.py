@@ -1,4 +1,5 @@
 from unittest import TestCase  # it's a raw test without things of django (Light)
+
 from django.test import TestCase as DjangoTestCase
 from django.urls import reverse
 from parameterized import parameterized
@@ -7,6 +8,14 @@ from authors.forms import RegisterForm, name_validator
 
 
 class AuthorsRegisterFormUnitTest(TestCase):
+    def setUp(self):
+        # Setup run before every test method.
+        pass
+
+    def tearDown(self):
+        # Clean up run after every test method.
+        pass
+
     @parameterized.expand([
         ('first_name', 'Primeiro nome'),
         ('last_name', 'Sobrenome'),
@@ -51,6 +60,7 @@ class AuthorsRegisterFormUnitTest(TestCase):
 
 
 class AuthorRegisterFormIntegrationTest(DjangoTestCase):
+
     def setUp(self) -> None:
         self.form_data = {
             'username': 'user',
@@ -61,6 +71,9 @@ class AuthorRegisterFormIntegrationTest(DjangoTestCase):
             'password2': 'Str0ng@123',
         }
         return super(AuthorRegisterFormIntegrationTest, self).setUp()
+    def tearDown(self):
+        # Clean up run after every test method.
+        pass
 
     @parameterized.expand([
         ('username', 'Este campo é obrigatório.'),
@@ -101,13 +114,49 @@ class AuthorRegisterFormIntegrationTest(DjangoTestCase):
     def test_field_password_has_Upper_Lower_case_and_numbers(self):
         value = 'A senha é invalida, deve conter letras maiusculas e minusculas alem de numeros'
         url = reverse('authors:create')
-        # self.form_data[field] = 'ab'
+        self.form_data['password'] = 'abc'
         response = self.client.post(url, data=self.form_data, follow=True)
-        self.assertNotIn(value, response.content.decode('utf-8'))
+        self.assertIn(value, response.content.decode('utf-8'))
 
-    def test_field_password_match_in_both_fields(self):
-        error_value = 'A senha é invalida, deve conter letras maiusculas e minusculas alem de numeros'
+    def test_field_password_match_in_both_fields(self):  # try diferents pass in order to return a error
+        error_value = 'As senhas são divergentes'
         url = reverse('authors:create')
-        # self.form_data[field] = 'ab'
+        self.form_data['password'] = '123@Mudar'
+        self.form_data['password2'] = '123@Mudarr'
         response = self.client.post(url, data=self.form_data, follow=True)
-        self.assertNotIn(error_value, response.content.decode('utf-8'))
+        self.assertIn(error_value, response.content.decode('utf-8'))
+
+    @parameterized.expand([
+        ('first_name', 'Alessandro', 'Nome em uso Alessandro'),
+        ('first_name', '#AnyName', 'Somente letras e numeros são permitidos'),
+        ('first_name', 'two names', 'Somente o primeiro nome nesse campo'),
+        ('username', 'two names', 'Informe um nome de usuário válido. Este valor pode conter apenas letras, números e '
+                                  'os seguintes caracteres @/./+/-/_.'),
+    ])
+    def test_field_cases_of_names_fields_if_they_accept_properly(self, field, arg_case, error_expect):
+        url = reverse('authors:create')
+        self.form_data[field] = arg_case
+        response = self.client.post(url, data=self.form_data, follow=True)
+        self.assertIn(error_expect, response.content.decode('utf-8'))
+        self.assertRedirects(response, reverse('authors:register'))
+
+    def test_if_every_works_properly_with_corrects_parameters(self):
+        url = reverse('authors:create')
+        response = self.client.post(url, data=self.form_data, follow=True)
+        msg = "Usuario Cadastrado com Sucesso!!!"
+        self.assertIn(msg, response.content.decode('utf-8'))
+        self.assertRedirects(response, reverse('farmacia:home'))
+
+    def test_if_get_error_404_if_not_post(self):
+        response = self.client.get(reverse('authors:create'))
+        self.assertEqual(response.status_code, 404)
+
+    def test_if_exists_email(self):
+        url = reverse('authors:create')
+
+        self.client.post(url, data=self.form_data, follow=True)
+        response = self.client.post(url, data=self.form_data, follow=True)
+
+        msg = "Email já em uso"
+        self.assertIn(msg, response.content.decode('utf-8'))
+        self.assertIn(msg, response.context['form'].errors.get('email'))

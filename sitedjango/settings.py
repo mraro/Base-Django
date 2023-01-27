@@ -121,11 +121,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 
-STATIC_FILES_DIRS = [
-    BASE_DIR / 'pasta_static',
-
+STATICFILES_DIRS = [
+    BASE_DIR / 'base_static',
 ]
 # STATIC_ROOT serve pra usar o comando  " python manage.py collectstatic "  QUE CRIA O PACOTE DE STATIC
 STATIC_ROOT = BASE_DIR / 'static'
