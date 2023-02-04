@@ -1,11 +1,13 @@
-from django.contrib.auth import authenticate, login
+# sudo docker run  --name hbbs  -v `pwd`:/root -td --net=host rustdesk/rustdesk-server hbbs -r <192.168.70.251[:2000]>
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.core.checks import messages
 from django.http import Http404
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.urls import reverse
 
-from .forms import RegisterForm, LoginForm
+from authors.forms import RegisterForm, LoginForm
 
 
 # Create your views here.
@@ -34,6 +36,7 @@ def register_create(request):
             user.set_password(user.password)  # cryptography password
             user.save()  # save data in DB
             messages.success(request, "Usuario Cadastrado com Sucesso!!!")
+
             del (request.session['register_form_data'])
             return redirect('farmacia:home')
         except ValueError:
@@ -56,18 +59,20 @@ def login_authenticate(request):
     if not request.POST:
         raise Http404
     POST = request.POST  # Recive data by POST
-    form = RegisterForm(POST)
+    # print("\n ", POST, "\n")
+    form = LoginForm(POST)
+
     login_page = reverse('authors:login')
 
     if form.is_valid:
+        print(form.is_valid)
         user_authenticate = authenticate(
-            username=form.cleaned_data('username', ''),
-            password=form.cleaned_data('password', ''),
+            username=form.cleaned_data.get('username'),
+            password=form.cleaned_data.get('password'),
         )
-        print(dir(form))
-        ...
+        print("\n", user_authenticate, "\n")
 
-        if user_authenticate is True:
+        if user_authenticate is not None:
             messages.success(request, "Sucesso no Login")
             login(request, user_authenticate)
             redirect(login_page)
@@ -80,3 +85,9 @@ def login_authenticate(request):
         messages.error(request, 'preencha os campos corretamente')
 
     return redirect(login_page)
+
+
+@login_required(login_url='authors:login', redirect_field_name='next')
+def logout_backend(request):
+    logout(request)
+    return redirect(reverse('farmacia:home'))

@@ -1,16 +1,15 @@
 import os
 
-from django.contrib import messages
 from django.db.models import Q
 from django.shortcuts import render, get_list_or_404, get_object_or_404, Http404  # object é para um só elemento
-from django.http import HttpResponse
-from django.core.paginator import Paginator
-from farmacia.utility.remediosautofill import factory
 from .models import Remedios
 
-from farmacia.utility.paginator import make_paginations
+from utility.paginator import make_paginations
 
-RANGE_PER_PAGE = int(os.environ.get("PER_PAGE", 6))  # constant (means that not be modified, but you can) its a var global too.
+RANGE_PER_PAGE = int(
+    os.environ.get("PER_PAGE", 6))  # constant (means that not be modified, but you can) its a var global too.
+
+
 # os.environ.get("PER_PAGE", 6) is a variable of system, that was set in .env and if not found use 6 in this case
 
 # https://docs.djangoproject.com/pt-br/3.2/topics/db/queries/#complex-lookups-with-q-objects
@@ -35,7 +34,6 @@ def home(request):
                       #     "qtdePorPagina":"10",
                       #     "nomeUsuario":"none",
                   })
-
 
 
 def remedios(request, idremedios):
@@ -73,7 +71,7 @@ def search(request):
     if not var_site:
         raise Http404
     else:
-        var_site = var_site.strip()  #           # '''o | juntamente a função Q faz com que a pesquisa seja OR '''
+        var_site = var_site.strip()  # # '''o | juntamente a função Q faz com que a pesquisa seja OR '''
         medicine = Remedios.objects.filter(Q(title__contains=var_site) | Q(description__contains=var_site)).order_by(
             '-id')
         medicine = medicine.filter(is_published=True)
@@ -81,8 +79,6 @@ def search(request):
     pages = make_paginations(request, medicine, RANGE_PER_PAGE)
 
     return render(request, "pages/search.html", context={
-        'remedios': pages['medicines_page'] ,
+        'remedios': pages['medicines_page'],
         'pages': pages,
         'search_done': var_site, })
-
-

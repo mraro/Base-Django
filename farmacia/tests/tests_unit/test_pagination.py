@@ -4,7 +4,7 @@ from django.test import RequestFactory
 from django.urls import reverse
 
 from farmacia.tests.tests_medicine_base import BaseTestMedicine
-from farmacia.utility.paginator import make_paginations
+from utility.paginator import make_paginations
 
 
 # @skip

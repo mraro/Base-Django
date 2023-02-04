@@ -10,6 +10,12 @@ pip install parameterized  # FAZ UM LOOP COM AS VARIAVEIS EM UMA FUNÇÃO (tests
 pip install coverage  # GERADOR DE LOGS de testes disponiveis e feitos (comando: coverage run -m pytest )
                                                                         comando: coverage html     (cria o html log)
 
+
+pip install selenium  # SELENIUM FAZ TESTES "FISICOS" DIRETO NO NAVEGADOR, PRA FUNCIONAR TEM DE BAIXAR O DRIVER DO
+    # NAVEGADOR QUE DESEJA USAR DE ACORDO COM A VERSÃO DO PROCESSADOR TBM (UM EXEMPLO NO "UTILITY/BROWSER.PY")
+
+
+
 ALLOWED_HOSTS: list[str] = [] # : list[str] is like typeof
 
 Em models.py:

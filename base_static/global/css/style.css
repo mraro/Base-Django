@@ -112,6 +112,26 @@ header{
 	background: radial-gradient(circle, rgba(2,0,36,0.4430147058823529) 0%, rgba(0,0,0,0.38699229691876746) 26%, rgba(0,255,196,0) 61%);
 	border: none;
 }
+/* ###################################################################### USER LOGGED */
+.logged-user{
+	display: flex;
+	padding: 0.6em;
+
+}
+.logged-user-hide {
+	display: none;
+	
+  }
+.logged-user-show,
+.logged-user-hide {
+	width: auto;
+	margin-right: 6px;
+}  
+.logged-user-show:hover + .logged-user-hide {
+    display: block;
+    /* color: rgb(136, 255, 0); */
+
+}
 /* ###################################################################### MESSAGES */
 .message{
 	padding: 1 rem;

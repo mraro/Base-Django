@@ -1,5 +1,6 @@
 <header>
 	
+
 	<a href="{% url 'farmacia:home' %}">
 		<h1  class="titulo-container">
 	    	FARMACIA
@@ -9,6 +10,15 @@
 	<form class="search-container" action=" {% url 'farmacia:search' %} " method="get">
 			<input name="q" class="search-input" maxlength="10" type="search" required></input> <button type="submit" class="search-button"><i class="fas fa-search"></i></button>
 	</form>
+	
+		
+		{% if request.user.is_authenticated %}
+			<a class="logged-user" href=" {% url 'authors:logout' %} ">
+				<div class="logged-user-show"> Usuario: {{ request.user.username }} </div>  
+				<div class="logged-user-hide"> click para deslogar</div>
+			</a>
+		{% endif %}
+	
 	<div class="loguin">
 	{% if 'singin' %}
 		<a class="loguin-element" href="{% url 'authors:register' %}"> <i class="fa-solid fa-pen-to-square"></i></a>

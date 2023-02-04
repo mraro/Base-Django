@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from farmacia.models import Category, Remedios, User
-from farmacia.utility.remediosautofill import factory
+from utility.remediosautofill import factory
 
 
 class BaseTestMedicine(TestCase):
