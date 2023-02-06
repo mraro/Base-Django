@@ -1,8 +1,9 @@
+import pytest
 from django.test import TestCase
 from django.urls import reverse
 
 
-
+@pytest.mark.medicine
 class RemedioURLsTest(TestCase):
     def test_farma_url_home_is_correct(self):
         home_url = reverse('farmacia:home')

@@ -1,3 +1,4 @@
+import pytest
 from django.urls import reverse, resolve
 from unittest import skip
 from farmacia import views
@@ -5,6 +6,7 @@ from .tests_medicine_base import BaseTestMedicine, TestCase
 
 
 # METODOLOGIA TDD, CRIA O TESTE DEPOIS O CODIGO ( TEST DRIVEN DEVELOPMENT )
+@pytest.mark.medicine
 class RemedioViewsHomeTest(BaseTestMedicine):
     def setUp(self):
         # Setup run before every test method.
@@ -13,6 +15,7 @@ class RemedioViewsHomeTest(BaseTestMedicine):
     def tearDown(self):
         # Clean up run after every test method.
         pass
+
     def test_farma_view_home_is_correct(self):
         view_resolve = resolve(reverse('farmacia:home'))
         self.assertIs(view_resolve.func, views.home)
@@ -43,6 +46,7 @@ class RemedioViewsHomeTest(BaseTestMedicine):
         self.assertEqual(len(context), 1)
 
 
+@pytest.mark.medicine
 class RemedioViewsSearchTest(BaseTestMedicine):
     def setUp(self):
         # Setup run before every test method.
@@ -80,11 +84,12 @@ class RemedioViewsSearchTest(BaseTestMedicine):
         self.assertIn("pesquisa1", response.content.decode('utf-8'))  # assert in title because I don't show description
         self.assertIn("pesquisa2", response.content.decode('utf-8'))  # assert in title because I don't show description
 
-
     def test_farma_view_serach_if_var_q_is_empty_and_return_error_404(self):
         response = self.client.get(reverse('farmacia:search') + '?q=')
         self.assertEqual(response.status_code, 404)
 
+
+@pytest.mark.medicine
 class RemedioViewsRemedioTest(BaseTestMedicine):
     def setUp(self):
         # Setup run before every test method.
@@ -107,6 +112,8 @@ class RemedioViewsRemedioTest(BaseTestMedicine):
         response = self.client.get(reverse('farmacia:remedio', kwargs={'idremedios': 1}))
         self.assertTemplateUsed(response, 'pages/remedio-view.html')
 
+
+@pytest.mark.medicine
 class RemedioViewsCategoryTest(BaseTestMedicine):
     def setUp(self):
         # Setup run before every test method.
@@ -129,6 +136,8 @@ class RemedioViewsCategoryTest(BaseTestMedicine):
         response = self.client.get(reverse('farmacia:categoria', kwargs={'idcategoria': 1}))
         self.assertTemplateUsed(response, 'pages/category-view.html')
 
+
+@pytest.mark.medicine
 class AuthorsViewRegisterTest(TestCase):
     def setUp(self):
         # Setup run before every test method.
@@ -137,6 +146,7 @@ class AuthorsViewRegisterTest(TestCase):
     def tearDown(self):
         # Clean up run after every test method.
         pass
+
     def test_author_view_register_if_template_loads_properly(self):
         response = self.client.get(reverse('authors:register'))
         self.assertTemplateUsed(response, 'pages/register_view.html')

@@ -12,3 +12,7 @@ tzdata==2022.7
 wincertstore==0.2
 
 parameterized~=0.8.1
+selenium~=4.8
+pypiwin32~=223
+pywin32~=225
+pytest~=7.2.0
