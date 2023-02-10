@@ -18,13 +18,13 @@
 		
 		<p>
 			{% if remedio.author.first_name != None %}
-			{% if remedio.author.first_name %}
+			{% if remedio.author.first_name %} 
 			Criado por: {{ remedio.author.first_name}} {{ remedio.author.last_name}} <br>
 			{% else %}
 			Criado por: {{ remedio.author.username}} <br>
 			{% endif %}
 			{% else %}
-			Autor Desconhecido
+			Autor Desconhecido <br>
 			{% endif %}
 			
 			Data de criação: {{ remedio.created_at|date:"d/m/Y" }} às {{ remedio.created_at|date:"H:i"}} <br>

@@ -28,20 +28,21 @@ def make_medicine():
         # 'id': fake.random_number(digits=2, fix_len=True),
         'title': fake.sentence(nb_words=2),
         'description': fake.sentence(nb_words=12),
+        'slug': slugify(fake.sentence(nb_words=2)),
+
         # 'preparation_time': fake.random_number(digits=2, fix_len=True),
         # 'preparation_time_unit': 'Minutos',
         # 'servings': fake.random_number(digits=2, fix_len=True),
         # 'servings_unit': 'Porção',
         # 'price': (fake.random_number(digits=2, fix_len=True),fake.random_number(digits=2, fix_len=True)),
         'price': (fake.random_number(digits=2, fix_len=True)),
+        'is_published': 'True',
         # 'created_at': fake.date_time(),
         'author_data': {
             'first_name': fake.first_name(),
-            'last_name': fake.last_name(),
+            'username': fake.sentence(nb_words=1),
         },
-        'category': {
-            'name': fake.word()
-        },
+        'category': fake.word(),
         # 'cover': {
         #     'url': 'https://loremflickr.com/%s/%s/' % rand_ratio(),
         # }

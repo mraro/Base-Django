@@ -6,20 +6,20 @@ from .models import Remedios
 
 from utility.paginator import make_paginations
 
-RANGE_PER_PAGE = int(
-    os.environ.get("PER_PAGE", 6))  # constant (means that not be modified, but you can) its a var global too.
-
+# constant (means that not be modified, but you can) its a var global too.
+RANGE_PER_PAGE = int(os.environ.get("RANGE_PER_PAGE", 6))
+OBJ_PER_PAGE = int(os.environ.get("OBJ_PER_PAGE", 9))
 
 # os.environ.get("PER_PAGE", 6) is a variable of system, that was set in .env and if not found use 6 in this case
 
 # https://docs.djangoproject.com/pt-br/3.2/topics/db/queries/#complex-lookups-with-q-objects
 def home(request):
     medicines = Remedios.objects.all().order_by('-id')
-    pages = make_paginations(request, medicines, RANGE_PER_PAGE, 9)
+    pages = make_paginations(request, medicines, RANGE_PER_PAGE, OBJ_PER_PAGE)
 
     # messages.success(request, "UMA MENSAGEM ENVIADA DO SERVIDOR de SUCCESS")
 
-    # a pasta templantes que herda a pasta home esta linkada na settings do django
+    # a pasta templates que herda a pasta home esta linkada na settings do django
     return render(request, "pages/home.html",
                   context={
                       # 'remedios': result[page],

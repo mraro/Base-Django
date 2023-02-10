@@ -53,6 +53,6 @@ class Paginationtest(BaseTestMedicine):
 
         with patch('farmacia.views.RANGE_PER_PAGE', new=3):  # teoricamente era para sobreescrever a variavel RANGE_PE..
             response = self.client.get(reverse('farmacia:home') + '?page=1A')
-            print(dir(response))
-            self.assertIn('<a class="pagination-options current" name="page" '
-                          'href="?page=1">1</a>', response.content.decode('utf-8'))
+
+            self.assertIn('<a aria-role="page 1" class="pagination-options" name="page" href="?q=&page=1">1</a>',
+                          response.content.decode('utf-8'))

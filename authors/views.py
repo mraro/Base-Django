@@ -65,17 +65,17 @@ def login_authenticate(request):
     login_page = reverse('authors:login')
 
     if form.is_valid:
-        print(form.is_valid)
+        # print(form.is_valid)
         user_authenticate = authenticate(
             username=form.cleaned_data.get('username'),
             password=form.cleaned_data.get('password'),
         )
-        print("\n", user_authenticate, "\n")
+        # print("\n", user_authenticate, "\n")
 
         if user_authenticate is not None:
-            messages.success(request, "Sucesso no Login")
             login(request, user_authenticate)
-            redirect(login_page)
+            messages.success(request, "Sucesso no Login!")
+            return redirect(reverse('farmacia:home'))
 
         else:
             messages.error(request, 'Usuario e/ou senha incorretos')

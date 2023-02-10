@@ -7,13 +7,12 @@ import time
 
 class BaseTest(StaticLiveServerTestCase, BaseMixing):
     def setUp(self) -> None:
-        self.make_medicine_no_defaults()
+        # self.make_medicine_no_defaults(10)
         self.browser = make_chrome_browser()
-        self.browser.get(self.live_server_url)
         return super().setUp()
 
     def tearDown(self) -> None:
-        self.sleep()
+        # self.sleep()
         self.browser.quit()
         return super().tearDown()
 

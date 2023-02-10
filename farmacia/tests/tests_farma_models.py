@@ -8,7 +8,7 @@ from parameterized import parameterized
 @pytest.mark.medicine
 class Tests_Models_Remedios(BaseTestMedicine):
     def setUp(self) -> None:  # SETUP WILL REPRODUCE BEFORE, IN EVERY funcions IN THIS class
-        self.medicine = self.make_medicine_no_defaults()  # WILL MAKE A DATA TO TEST
+        self.medicine = self.make_medicine_no_defaults()[0]  # WILL MAKE A DATA TO TEST
         self.medicine.is_published = False  # MODELING DATA
         self.medicine.full_clean()  # TESTS IF IS PROPERLY TO SAVE
         self.medicine.save()
@@ -44,9 +44,3 @@ class Tests_Models_Remedios(BaseTestMedicine):
         self.medicine.save()
         self.assertEqual(str(self.medicine), "TEST is the Same", msg="Erro,string representation isn't the same title")
 
-
-@pytest.mark.medicine
-class Test_Models_Category(BaseTestMedicine):
-    def setUp(self) -> None:
-        self.categoy = self.make_category("CATEGORIA TEST")
-        return super().setUp()
