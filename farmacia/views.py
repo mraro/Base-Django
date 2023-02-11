@@ -10,6 +10,7 @@ from utility.paginator import make_paginations
 RANGE_PER_PAGE = int(os.environ.get("RANGE_PER_PAGE", 6))
 OBJ_PER_PAGE = int(os.environ.get("OBJ_PER_PAGE", 9))
 
+
 # os.environ.get("PER_PAGE", 6) is a variable of system, that was set in .env and if not found use 6 in this case
 
 # https://docs.djangoproject.com/pt-br/3.2/topics/db/queries/#complex-lookups-with-q-objects

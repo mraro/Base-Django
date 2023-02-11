@@ -79,15 +79,16 @@ def login_authenticate(request):
 
         else:
             messages.error(request, 'Usuario e/ou senha incorretos')
-            redirect(login_page)
+            return redirect(login_page)
 
-    else:
-        messages.error(request, 'preencha os campos corretamente')
+    messages.error(request, 'preencha os campos corretamente')
 
     return redirect(login_page)
 
 
 @login_required(login_url='authors:login', redirect_field_name='next')
 def logout_backend(request):
+    if not request.POST:
+        raise Http404
     logout(request)
     return redirect(reverse('farmacia:home'))

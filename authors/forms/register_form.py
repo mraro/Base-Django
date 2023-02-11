@@ -21,7 +21,7 @@ class RegisterForm(forms.ModelForm):  # HERE WE CAN OVERWRITE THE FILDS AND ADAP
     first_name = forms.CharField(validators=[name_validator],
                                  min_length=4,
                                  max_length=150)
-    last_name = forms.CharField(validators=[name_validator],
+    last_name = forms.CharField(
                                 min_length=4,
                                 max_length=150)
     username = forms.CharField(min_length=4,

@@ -13,10 +13,13 @@
 	
 		
 		{% if request.user.is_authenticated %}
-			<a class="logged-user current" href=" {% url 'authors:logout' %} ">
-				<div class="logged-user-show"> Usuario: {{ request.user.username }} </div>  
-				<div class="logged-user-hide"> click para deslogar</div>
-			</a>
+			<form action="{% url 'authors:logout' %}" method='POST'>
+				{% csrf_token %}
+				<button class="logged-user current" type='submit'>
+					<div class="logged-user-show"> Usuario: {{ request.user.username }} </div>  
+					<div class="logged-user-hide"> click para deslogar</div>
+				</button>
+			</form>
 		{% endif %}
 	
 	<div class="loguin">
