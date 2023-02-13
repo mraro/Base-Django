@@ -15,7 +15,7 @@
 		{% if request.user.is_authenticated %}
 			<form action="{% url 'authors:logout' %}" method='POST'>
 				{% csrf_token %}
-				<button class="logged-user current" type='submit'>
+				<button class="logged-user current" type='submit' name='username' value={{ request.user.username }}>
 					<div class="logged-user-show"> Usuario: {{ request.user.username }} </div>  
 					<div class="logged-user-hide"> click para deslogar</div>
 				</button>
@@ -26,6 +26,7 @@
 	{% if 'singin' %}
 		<a class="loguin-element" href="{% url 'authors:register' %}"> <i class="fa-solid fa-pen-to-square"></i></a>
 		<a class="loguin-element" href="{% url 'authors:login' %}"> <i class="fas fa-user"></i> </a>
+		<a class="loguin-element" href="{% url 'authors:dashboard' %}"> <i class="fa fa-tachometer"></i> </a>
 	{% else %}
 		<a class="loguin-element" href="{% url 'authors:register' %}"> <i class="fa-solid fa-right-to-bracket"></i> </a>
 	{% endif %}

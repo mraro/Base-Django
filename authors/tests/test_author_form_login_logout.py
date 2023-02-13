@@ -15,7 +15,7 @@ class AuthorTest(TestCase):
     def test_logout_if_redirect(self):
         User.objects.create_user(username='user', password='true')
         self.client.login(username='user', password='true')
-        response = self.client.post(reverse('authors:logout'),follow=True)
+        response = self.client.post(reverse('authors:logout'), data={'username': 'user'}, follow=True)
         self.assertRedirects(response, reverse('farmacia:home'))
 
     def test_logout_if_method_not_post(self):
@@ -23,3 +23,9 @@ class AuthorTest(TestCase):
         self.client.login(username='user', password='true')
         response = self.client.get(reverse('authors:logout'))
         self.assertEqual(response.status_code, 404)
+
+    def test_user_tries_logout_another_user(self):
+        User.objects.create_user(username='user', password='true')
+        self.client.login(username='user', password='true')
+        response = self.client.post(reverse('authors:logout'), data={'username': 'otheruser'}, follow=True)
+        self.assertRedirects(response, reverse('authors:login'))

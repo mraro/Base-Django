@@ -90,5 +90,15 @@ def login_authenticate(request):
 def logout_backend(request):
     if not request.POST:
         raise Http404
+    # print(request.POST.get('username'), ' >< ', request.user.username)
+    if request.POST.get('username') != request.user.username:
+        return redirect(reverse('authors:login'))
+
     logout(request)
+    messages.success(request, f"Até mais {request.POST.get('username')}")
     return redirect(reverse('farmacia:home'))
+
+
+@login_required(login_url='authors:login', redirect_field_name='next')
+def dashboard(request):
+    return render(request, 'pages/dashboard.html')
