@@ -33,6 +33,11 @@ body {
 	font-family: var(--font-primary);
 
 }
+.center{
+	width: 1000px;
+	text-align: center;
+	margin: 0px auto;
+}
 /* ##################################################################### HEADER */
 a{
 	text-decoration: none;
@@ -44,7 +49,7 @@ header{
 	position: -webkit-sticky; 
 	top: 0;
 	width: 100%;
-	/*height: 100%;*/
+	height: 150px;
 	background: linear-gradient(90deg, var(--color-background) 0%, var(--color-background-secundary) 100%);
 	/*display: flex;*/
 	box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
@@ -54,16 +59,17 @@ header{
 .loguin{
 	
 	margin: 4px;
-	position: absolute;
+	position: fixed;
+	left: 0px;
+	top: 0px;
 }
 .loguin-element{
 	color: var(--color-primary-light);
-
 	display: flex;
 	align-items: baseline;
-	float: right;
+	float: left;
 	font-size: 2em;
-	background: var(--color-background-secundary);
+	/* background: var(--color-background-secundary); */
 	padding: 0.5em;
 	border-radius: 25px;
 	-webkit-border-radius: 25px;
@@ -72,6 +78,32 @@ header{
 	-o-border-radius: 25px;
 	margin: 4px;
 
+	background-image: linear-gradient(135deg, var(--color-background), var(--color-background-secundary));
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+.logged-user{
+	
+	align-self: flex-end;
+	padding: 0.8em;
+	font-size: 1em;
+	background: linear-gradient(to right, var(--color-background-secundary) 0%, rgba(0, 0, 0, 0) 100%);
+	border: none;
+	padding: 20px 40px;
+	font-size: 16px;
+	font-weight: bold;
+	color: white;
+	
+}
+.logged-user-hide {
+	display: none;
+	margin-left: 5px;
+  }
+
+.logged-user-show:hover + .logged-user-hide {
+    display: block;
+	/* background: linear-gradient(to right, #72afd3 0%, #37ecba 100%); */
+	
 }
 
 .titulo-container{
@@ -112,26 +144,7 @@ header{
 	background: radial-gradient(circle, rgba(2,0,36,0.4430147058823529) 0%, rgba(0,0,0,0.38699229691876746) 26%, rgba(0,255,196,0) 61%);
 	border: none;
 }
-/* ###################################################################### USER LOGGED */
-.logged-user{
-	display: flex;
-	padding: 0.6em;
 
-}
-.logged-user-hide {
-	display: none;
-	
-  }
-.logged-user-show,
-.logged-user-hide {
-	width: auto;
-	margin-right: 6px;
-}  
-.logged-user-show:hover + .logged-user-hide {
-    display: block;
-    /* color: rgb(136, 255, 0); */
-
-}
 /* ###################################################################### MESSAGES */
 .message{
 	padding: 1 rem;
@@ -307,8 +320,6 @@ header{
 	margin: auto;
 }
 .login-container .form-content{
-
-	
 	width: 500px;
 }
 /* ###################################################################################################################### DASHBOARD */
@@ -318,3 +329,6 @@ header{
 	text-align: center;
 
 }
+
+
+

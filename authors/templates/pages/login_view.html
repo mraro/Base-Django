@@ -2,8 +2,13 @@
 
 {% block 'title' %}Login{% endblock 'title' %}
 {% block 'content' %}
+
+    {% if not user.is_authenticated %}
     <div class="login-container">
         {% include 'global/partials/form.html' %}
     </div>
+    {% else %}
+    <div class="center"><h1>Você já esta logado como {{ user }} se deseja trocar de usuario faça logout primeiro.</h1></div>
+    {% endif %}
 
 {% endblock 'content' %}

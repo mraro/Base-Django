@@ -3,11 +3,12 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.checks import messages
 from django.http import Http404
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_list_or_404
 from django.contrib import messages
 from django.urls import reverse
 
 from authors.forms import RegisterForm, LoginForm
+from farmacia import models
 
 
 # Create your views here.
@@ -101,4 +102,7 @@ def logout_backend(request):
 
 @login_required(login_url='authors:login', redirect_field_name='next')
 def dashboard(request):
-    return render(request, 'pages/dashboard.html')
+    remedios = models.Remedios.objects.filter(is_published=False, author=request.user)
+    return render(request, 'pages/dashboard.html', context={
+        'remedios': remedios,
+    })

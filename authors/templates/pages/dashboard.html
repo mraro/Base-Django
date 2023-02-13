@@ -6,5 +6,12 @@
     <div class="dashboard-content">
         <h2>Dashboard ({{ user }})</h2>
     </div>
+    <ul>
+        {% for remedio in remedios %}
+            <li><a href={{ remedio.id }}> {{ remedio }} </a></li>
+        {% empty %}
+            <li>Sem remedios não publicados</li>
+        {% endfor %}
+    </ul>
 
 {% endblock 'content' %}
