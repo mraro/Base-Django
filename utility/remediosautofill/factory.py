@@ -7,19 +7,25 @@ import re
 import string as s
 from random import SystemRandom as sr
 
-def slugify(s):
-  s = s.lower().strip()
-  s = re.sub(r'[^\w\s-]', '', s)
-  s = re.sub(r'[\s_-]+', '-', s)
-  s = re.sub(r'^-+|-+$', '', s)
-  return s
+
+def slugify(slug_name):
+    slug_name = slug_name.lower().strip()
+    slug_name = re.sub(r'[^\w\s-]', '', slug_name)
+    slug_name = re.sub(r'[\s_-]+', '-', slug_name)
+    slug_name = re.sub(r'^-+|-+$', '', slug_name)
+    return slug_name
+
+
 def rand_ratio():
     return randint(840, 900), randint(473, 573)
 
 
 fake = Faker('pt_BR')
+
+
 def make_strong_string():
     print("".join(sr().choices(s.ascii_letters + s.punctuation, k=64)))
+
 
 # print(signature(fake.random_number))
 
@@ -61,7 +67,7 @@ def make_medicine_db():
         # 'servings_unit': 'Porção',
         # 'price': (fake.random_number(digits=2, fix_len=True),fake.random_number(digits=2, fix_len=True)),
         'price': (fake.random_number(digits=2, fix_len=True)),
-        'is_published':'True',
+        'is_published': 'True',
         # 'created_at': fake.date_time(),
         # 'author': {
         #     'first_name': fake.first_name(),
@@ -79,8 +85,6 @@ def make_medicine_db():
 if __name__ == '__main__':
     from pprint import pprint
 
-
     make_strong_string()
-
 
     pprint(make_medicine_db())

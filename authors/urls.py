@@ -15,7 +15,10 @@ urlpatterns = [
     path("login", login_view, name="login"),
     path("login/authenticate", login_authenticate, name="authenticate"),
     path("logout/", logout_backend, name="logout"),
-    path("dashboard/", dashboard, name="dashboard")
+    path("dashboard/create/", create_obj, name="create"),                # C     create
+    path("dashboard/", dashboard, name="dashboard"),                     # R     read
+    path("dashboard/<int:idobject>/edit/", edit_obj, name="edit"),        # U     update
+    path("dashboard/<int:idobject>/delete/", delete_obj, name="delete"),  # D     delete
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -33,11 +33,17 @@ body {
 	font-family: var(--font-primary);
 
 }
+img {
+	width: 100%;
+}
 .center{
 	width: 1000px;
 	text-align: center;
 	margin: 0px auto;
 }
+.span-2 {
+	grid-column: span 2;
+  }
 /* ##################################################################### HEADER */
 a{
 	text-decoration: none;
@@ -57,7 +63,7 @@ header{
 
 }
 .loguin{
-	
+	width: 20%;
 	margin: 4px;
 	position: fixed;
 	left: 0px;
@@ -65,39 +71,50 @@ header{
 }
 .loguin-element{
 	color: var(--color-primary-light);
+	
 	display: flex;
 	align-items: baseline;
 	float: left;
 	font-size: 2em;
 	/* background: var(--color-background-secundary); */
 	padding: 0.5em;
-	border-radius: 25px;
+	/* border-radius: 25px;
 	-webkit-border-radius: 25px;
 	-moz-border-radius: 25px;
 	-ms-border-radius: 25px;
-	-o-border-radius: 25px;
+	-o-border-radius: 25px; */
 	margin: 4px;
-
+	
 	background-image: linear-gradient(135deg, var(--color-background), var(--color-background-secundary));
-  border-radius: 6px;
-  box-sizing: border-box;
+	border-radius: 6px;
+	box-sizing: border-box;
 }
 .logged-user{
-	
-	align-self: flex-end;
-	padding: 0.8em;
+	/* display: flex; */
+	width: 100%;
+	/* align-self: flex-end; */
+	/* padding: 0.8em; */
 	font-size: 1em;
 	background: linear-gradient(to right, var(--color-background-secundary) 0%, rgba(0, 0, 0, 0) 100%);
 	border: none;
-	padding: 20px 40px;
+	/* padding: 20px 40px; */
 	font-size: 16px;
 	font-weight: bold;
 	color: white;
 	
 }
+.logged-user-show{
+	padding: 1em;
+	align-self: flex-start;
+	width: 100%;
+
+}
 .logged-user-hide {
 	display: none;
 	margin-left: 5px;
+	padding: 1em;
+	width: 100%;
+
   }
 
 .logged-user-show:hover + .logged-user-hide {
@@ -175,8 +192,12 @@ header{
 	width: 900px;
 	/*background: var(--color-primary-light);*/
 	justify-content: center;
+	justify-items: stretch;
 }
-.remedio{
+.content-label{
+	margin-right: 10px;
+}
+.object-view{
 	
 	box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 
@@ -187,25 +208,25 @@ header{
 	display: flex;
 	flex-direction: column;
 }
-.remedio-detail{
+.object-view-detail{
 	width: 500px;
 	text-align: center;
 	background: var(--color-primary-light);
 	margin: 20px;
 
 }
-.remedio:hover{
+.object-view:hover{
 	box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
 	/*transition: all 300ms ease-in-out;*/
 	transform: scale(1.02);
 }
-.remedio-img{
+.object-view-img{
 
 	background: white;
 	width: 100%;
 	height: 200px;
 }
-.remedio-nome{
+.object-view-nome{
 	align-self: center;
 	margin-top: 0px;
 	float: left;
@@ -216,7 +237,7 @@ header{
 	letter-spacing: 1px;
 	justify-content: flex-end;
 }
-.remedio-valor{
+.object-view-valor{
 	font-size: 1.5em;
 	margin: 0px;
 	height: 100px;
@@ -259,7 +280,7 @@ header{
 	position: -webkit-sticky;
 
 }
-.remedio-button {
+.object-view-button {
 		background: black;
 		color: white;
 }
@@ -273,14 +294,17 @@ header{
 	margin: 0px auto;
 	padding: 2em;
 	background: var(--color-background-transparent);
-  
+	display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
+.form-content select,
+.form-content textarea,
 .form-content button,
 .form-content input{
 	width: 95%;
 	padding: 0.5em;
 	font-size: 1.3em;
-	margin: 0.5em 0em;
 	align-self: center;
 	border-radius: 5px;
 	-webkit-border-radius: 5px;
@@ -288,9 +312,13 @@ header{
 	-ms-border-radius: 5px;
 	-o-border-radius: 5px;
 }
-.content-label{
-	font-size: 1.3em;
+.form-content textarea{
+	width: 100%;
+}
 
+.form-content{
+	margin: 0.3em 0.5em ;
+	
 }
 .help-text,
 .errorlist{
@@ -327,8 +355,53 @@ header{
 	width: 1000px;
 	margin: 0px auto;
 	text-align: center;
+	color: white;
 
 }
 
+.dashboard-container-object-views ul{
+	list-style: none;
+	text-align: left;
+}
+.dashboard-container-object-views li{
+	margin: 0.6rem;
+}
+.dashboard-container-object-views a{
+	color: white;
+}
+/* DASHBOARD EDIT */
+.price{
+	width: 10rem;
+}
+.quantity{
+	margin-right: 0.0rem;
+}
+.cover{
+	text-align: center;
+	width: 100%;
+	background: linear-gradient(90deg, var(--color-background) 0%, var(--color-background-secundary) 100%);
+	padding: 10px;
+	margin: 15px 0px;
+	border-radius: 15px;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	-ms-border-radius: 15px;
+	-o-border-radius: 15px;
 
 
+}
+#id_cover{
+		position: relative;
+    font-family: calibri;
+    padding: 10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border: 1px dashed #BBB;
+    text-align: center;
+    background-color: #DDD;
+}
+input[type=file]::file-selector-button {
+	display: none;
+
+}
+  

@@ -1,15 +1,29 @@
-<form action="{{ form_action }}" method="POST" class="form-content">
+<form   action="{{ form_action }}" 
+        method="POST" 
+        class="form-content"
+        enctype="multipart/form-data"> {% comment %}  ISSO É IMPORTANTE SE QUER ENVIAR IMAGEM OU QLQ ARQUIVO em views.py (files=request.FILES) {% endcomment %}
+    
+
     {% csrf_token %}
     {% for field in form %}
-        <div class="content-label">
-            <label for="{{ field.id_for_label }}">{{ field.label }}: </label>{{ field }}
+        <div class="content-label {{ field.name }}">
+            <label for="{{ field.id_for_label }}">{{ field.label }} </label>{{ field }}
             {% if field.help_text %}
                 <div class="help-text">{{ field.help_text }}</div>
             {% endif %}
         </div>    
-        {% if field.errors %}{{field.errors}}{% endif %}
+
+        {% if field.errors %}
+            {{field.errors}}
+        {% endif %}
+
+        {% if field.name == 'cover' and field.value.url %}
+            {% comment %} <img   {% endcomment %}
+            <img class="remedio-img" src="{{ field.value.url }}">
+        {% endif %}
+
     {% endfor %}
-        <div class="form-group">
-            <button type='submit'><b> {{ form_button }} </b></button>
-        </div>
+        <button type='submit'><b> {{ form_button }} </b></button>
+   
+    
 </form>

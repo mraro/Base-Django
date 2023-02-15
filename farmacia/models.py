@@ -14,13 +14,14 @@ class Category(models.Model):
 class Remedios(models.Model):  # ISSO É UMA TABELA NO DJANGO
 
     title = models.CharField(max_length=65)  # IS LIKE MYSQL VARCHAR(65)
-    description = models.CharField(max_length=165)
+    description = models.TextField()
     slug = models.SlugField(unique=True)
     # preparation_time = models.IntegerField()
     # preparation_time_unit = models.CharField(max_length=65)
     # servings = models.IntegerField()
     # servings_unit = models.CharField(max_length=65)
     price = models.FloatField(default=1)
+    quantity = models.IntegerField(default=0)
     preparetion_steps = models.TextField()
     preparetion_steps_is_html = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)

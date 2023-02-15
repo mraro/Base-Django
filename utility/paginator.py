@@ -1,7 +1,8 @@
 from django.core.paginator import Paginator
 
 
-def make_paginations(request, obj, qty_options, qty_obj_per_page=9):
+def make_pagination(request, obj, qty_options, qty_obj_per_page=9):
+
     try:
         is_int = int(request.GET.get('page', 1))
     except ValueError:

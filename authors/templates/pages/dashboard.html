@@ -1,17 +1,27 @@
 {% extends 'global/base.html' %}
 
-{% block 'title' %}Dashboard ({{ user }}){% endblock 'title' %}
+{% block 'title' %}Dashboard ({% if user.first_name %}{{ user.first_name }}{% else %}{{user}}{% endif %}){% endblock 'title' %}
 {% block 'content' %}
 
-    <div class="dashboard-content">
-        <h2>Dashboard ({{ user }})</h2>
-    </div>
-    <ul>
-        {% for remedio in remedios %}
-            <li><a href={{ remedio.id }}> {{ remedio }} </a></li>
-        {% empty %}
-            <li>Sem remedios não publicados</li>
-        {% endfor %}
-    </ul>
+<div class="dashboard-content">
+    <h1>Dashboard ({% if user.first_name %}{{ user.first_name }}{% else %}{{user}}{% endif %})</h1>
+    
+    <div class="dashboard-container-object-views">
+        <ul>
+            {% for remedio in remedios %}
+            <a href={% url 'authors:edit' remedio.id %}> <li>{{ remedio.title }}  ( R$ {{ remedio.price|floatformat:2 }} )| Categoria: {{ remedio.category }} </li></a>
+            
+            <form action= {% url 'authors:delete' remedio.id %} class="form-to-delete" method="post">
+                {% csrf_token %}
+                <button type='submit'>❌</button>
+            </form>
 
+
+            {% empty %}
+            <li class='center'><h1>Sem remedios não publicados<h1></li>
+            {% endfor %}
+            <li><a href={% url 'authors:create' %}><i class="fa fa-plus" aria-hidden="true"></i></a></li>
+        </ul>
+    </div>
+</div>
 {% endblock 'content' %}

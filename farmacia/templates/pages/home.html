@@ -9,6 +9,7 @@
 	<div class="main-content-container">
 
 		{% for remedio in remedios  %}
+			{% comment %} {{remedio}}<br> {% endcomment %}
 			{% include 'partials/remedio.html' %}	
 		{% empty %}
 			<h1> Sem Estoque </h1>

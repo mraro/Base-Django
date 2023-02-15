@@ -13,7 +13,7 @@
 	
 	<div class="loguin">
 		{% if request.user.is_authenticated %}
-		<a class="loguin-element" href="{% url 'authors:dashboard' %}"> <i class="fa fa-tachometer"></i> </a>
+		<a title="Dashboard" class="loguin-element" href="{% url 'authors:dashboard' %}"> <i class="fa fa-tachometer"></i> </a>
 			<form action="{% url 'authors:logout' %}" method='POST'>
 				{% csrf_token %}
 				<button class="logged-user" type='submit' name='username' value={{ request.user.username }}>
@@ -24,8 +24,8 @@
 
 		{% else %}
 		
-			<a class="loguin-element" href="{% url 'authors:register' %}"> <i class="fa-solid fa-pen-to-square"></i></a>
-			<a class="loguin-element" href="{% url 'authors:login' %}"> <i class="fas fa-user"></i> </a>
+			<a title="Registro" class="loguin-element" href="{% url 'authors:register' %}"> <i class="fa-solid fa-pen-to-square"></i></a>
+			<a title="Login" class="loguin-element" href="{% url 'authors:login' %}"> <i class="fas fa-user"></i> </a>
 		
 		
 		{% endif %}

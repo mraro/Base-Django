@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.shortcuts import render, get_list_or_404, get_object_or_404, Http404  # object é para um só elemento
 from .models import Remedios
 
-from utility.paginator import make_paginations
+from utility.paginator import make_pagination
 
 # constant (means that not be modified, but you can) its a var global too.
 RANGE_PER_PAGE = int(os.environ.get("RANGE_PER_PAGE", 6))
@@ -15,11 +15,18 @@ OBJ_PER_PAGE = int(os.environ.get("OBJ_PER_PAGE", 9))
 
 # https://docs.djangoproject.com/pt-br/3.2/topics/db/queries/#complex-lookups-with-q-objects
 def home(request):
-    medicines = Remedios.objects.all().order_by('-id')
-    pages = make_paginations(request, medicines, RANGE_PER_PAGE, OBJ_PER_PAGE)
-
-    # messages.success(request, "UMA MENSAGEM ENVIADA DO SERVIDOR de SUCCESS")
-
+    medicines = Remedios.objects.filter(is_published=True).order_by('-id')
+    pages = make_pagination(request, medicines, RANGE_PER_PAGE, OBJ_PER_PAGE)
+    # print(
+        # pages['pagination'], '\n',
+        # pages['middle_range'], '\n',
+        # pages['start_range'], '\n',
+        # pages['stop_range'], '\n',
+        # pages['last_range'], '\n',
+        # pages['first_page_out_of_range'], '\n',
+        # pages['last_page_out_of_range'], '\n',
+        # pages['current_page'], '\n',
+        # pages['medicines_page'])
     # a pasta templates que herda a pasta home esta linkada na settings do django
     return render(request, "pages/home.html",
                   context={
@@ -55,7 +62,7 @@ def categoria(request, idcategoria):
 
     # medicine = get_list_or_404(Remedios, category__id=idcategoria)  # ISSO É UMA LISTA DO PYTHON
     medicine = get_list_or_404(Remedios.objects.filter(category__id=idcategoria).order_by('-id'))
-    pages = make_paginations(request, medicine, RANGE_PER_PAGE)
+    pages = make_pagination(request, medicine, RANGE_PER_PAGE)
 
     return render(request, "pages/category-view.html",
                   context={
@@ -77,7 +84,7 @@ def search(request):
             '-id')
         medicine = medicine.filter(is_published=True)
 
-    pages = make_paginations(request, medicine, RANGE_PER_PAGE)
+    pages = make_pagination(request, medicine, RANGE_PER_PAGE)
 
     return render(request, "pages/search.html", context={
         'remedios': pages['medicines_page'],
