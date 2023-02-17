@@ -1,5 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.urls import reverse
+
 
 # Create your models here.
 
@@ -42,3 +44,17 @@ class Remedios(models.Model):  # ISSO É UMA TABELA NO DJANGO
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('farmacia:remedio', args=(self.id,))
+
+
+    '''  THIS IS AN EXAMPLE TO REWRITE A BUILTIN METHOD
+    I WONT USE THIS BECAUSE A HAD PUT A FUNC TO DO THE SAME THING IN clean_slug
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            slug = f'{slugfy(self.title)}'
+            self.slug = slug
+        return super().save(*args, **kwargs)
+    '''

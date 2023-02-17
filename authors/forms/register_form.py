@@ -1,4 +1,3 @@
-
 from django import forms
 from django.contrib.auth.models import User
 
@@ -22,8 +21,8 @@ class RegisterForm(forms.ModelForm):  # HERE WE CAN OVERWRITE THE FILDS AND ADAP
                                  min_length=4,
                                  max_length=150)
     last_name = forms.CharField(
-                                min_length=4,
-                                max_length=150)
+        min_length=4,
+        max_length=150)
     username = forms.CharField(min_length=4,
                                max_length=150)  # THIS WORKS BETTER THAN add_attr(self.fields['username'], 'min_length', '3')
     password = forms.CharField(
@@ -51,6 +50,7 @@ class RegisterForm(forms.ModelForm):  # HERE WE CAN OVERWRITE THE FILDS AND ADAP
         label='Repetir senha'
 
     )
+
     def clean_first_name(self):
         data = self.cleaned_data.get('first_name')  # THIS CLEANED_DATA WAS CHECKED BY DJANGO
         # data = self.clean # THIS IS DIRECT WITHOUT DJANGO VALIDATOR
@@ -115,5 +115,3 @@ class RegisterForm(forms.ModelForm):  # HERE WE CAN OVERWRITE THE FILDS AND ADAP
     #                                            }),
     #
     #     }
-
-

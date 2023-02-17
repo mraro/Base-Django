@@ -67,7 +67,7 @@ def make_medicine_db():
         # 'servings_unit': 'Porção',
         # 'price': (fake.random_number(digits=2, fix_len=True),fake.random_number(digits=2, fix_len=True)),
         'price': (fake.random_number(digits=2, fix_len=True)),
-        # 'is_published': 'True',
+        'is_published': 'True',
         # 'created_at': fake.date_time(),
         # 'author': {
         #     'first_name': fake.first_name(),

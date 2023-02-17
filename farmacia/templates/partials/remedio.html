@@ -4,12 +4,14 @@
 	{% else %}
 		<div class="object-view">
 	{% endif %}
-
+	
+	<a  href=" {{ remedio.get_absolute_url }} ">
 	{% if remedio.cover.url != "" %}
 		<img class="remedio-img" src= {{ remedio.cover.url }} >
 	{% else %}
 		<img class="remedio-img" src="/media/static/images/default.jpg" >
 	{% endif %}
+	</a>
 
 
 	<p class="object-view-nome">  {{ remedio.title }}  </p>
@@ -17,6 +19,7 @@
 		<p class="object-view-valor">  R$ {{ remedio.price|floatformat:2 }}  </p>
 		
 		<p>
+			{% comment %} {{ remedio.description }} {% endcomment %}
 			{% if remedio.author.first_name != None %}
 			{% if remedio.author.first_name %} 
 			Criado por: {{ remedio.author.first_name}} {{ remedio.author.last_name}} <br>
@@ -35,7 +38,8 @@
 		</p>
 		
 		{% if not is_detail %}
-		<a  class="object-view-button" href=" {% url 'farmacia:remedio' remedio.id %} "><span>Adicionar ao Carrinho</span></a>
+		{% comment %} <a  class="object-view-button" href=" {% url 'farmacia:remedio' remedio.id %} "><span>Adicionar ao Carrinho</span></a> {% endcomment %}
+		<a  class="object-view-button" href=" {{ remedio.get_absolute_url }} "><span>Adicionar ao Carrinho</span></a>
 		{% endif %}
 		
 	</div>

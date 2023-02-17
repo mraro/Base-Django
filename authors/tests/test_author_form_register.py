@@ -1,12 +1,13 @@
 from unittest import TestCase  # it's a raw test without things of django (Light)
 
+import pytest
 from django.test import TestCase as DjangoTestCase
 from django.urls import reverse
 from parameterized import parameterized
 
 from authors.forms import RegisterForm
 
-
+@pytest.mark.fast
 class AuthorsRegisterFormUnitTest(TestCase):
     def setUp(self):
         # Setup run before every test method.

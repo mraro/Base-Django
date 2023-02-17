@@ -1,7 +1,8 @@
-<form   action="{{ form_action }}" 
-        method="POST" 
-        class="form-content"
-        enctype="multipart/form-data"> {% comment %}  ISSO É IMPORTANTE SE QUER ENVIAR IMAGEM OU QLQ ARQUIVO em views.py (files=request.FILES) {% endcomment %}
+<form   
+    action="{{ form_action }}" 
+    method="POST" 
+    class="form-content"
+    enctype="multipart/form-data"> {% comment %}  ISSO É IMPORTANTE SE QUER ENVIAR IMAGEM OU QLQ ARQUIVO em views.py (files=request.FILES) {% endcomment %}
     
 
     {% csrf_token %}
@@ -25,5 +26,4 @@
     {% endfor %}
         <button type='submit'><b> {{ form_button }} </b></button>
    
-    
 </form>
