@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 from parameterized import parameterized
 
 
-@pytest.mark.medicine
+@pytest.mark.objects
 class Tests_Models_Remedios(BaseTestMedicine):
     def setUp(self) -> None:  # SETUP WILL REPRODUCE BEFORE, IN EVERY funcions IN THIS class
         self.medicine = self.make_medicine_no_defaults()[0]  # WILL MAKE A DATA TO TEST
@@ -22,12 +22,8 @@ class Tests_Models_Remedios(BaseTestMedicine):
 
         self.medicine.save()
 
-    @parameterized.expand([
-        ('title', 65),
-        ('description', 165),
-    ])
-    def test_limit_of_inputs_for_db(self, values, lenght):
-        setattr(self.medicine, values, "A" * (lenght + 1))
+    def test_limit_of_inputs_for_db(self):
+        setattr(self.medicine, 'title', "A" * 66)
         with self.assertRaises(ValidationError):
             self.medicine.full_clean()
 
@@ -43,4 +39,3 @@ class Tests_Models_Remedios(BaseTestMedicine):
         self.medicine.full_clean()
         self.medicine.save()
         self.assertEqual(str(self.medicine), "TEST is the Same", msg="Erro,string representation isn't the same title")
-

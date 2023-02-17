@@ -49,4 +49,4 @@ class TestFunctionalHomePage(BaseTest):
         # page_move = self.browser.find_element(By.XPATH, '//a[@aria-role="page 2"]')
         page_move = self.browser.find_element(By.XPATH, '/html/body/nav/form/a[2]')
         page_move.click()
-        self.assertEqual(len(self.browser.find_elements(By.CLASS_NAME, 'remedio')), 3)
+        self.assertEqual(len(self.browser.find_elements(By.CLASS_NAME, 'object-view')), 3)

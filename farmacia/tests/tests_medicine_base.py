@@ -56,7 +56,7 @@ class BaseMixing:
         )
 
 
-@pytest.mark.medicine
+@pytest.mark.objects
 class BaseTestMedicine(TestCase, BaseMixing):
     def setUp(self) -> None:
         # category = Category(name='Categoria')

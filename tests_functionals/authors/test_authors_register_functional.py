@@ -31,7 +31,7 @@ class AuthorsRegisterTest(AuthorsBaseTest):
         self.fill_fields_to_testing(form)
         self.get_by_placeholder(form, 'Sua senha').send_keys('123@Mudar')
         self.get_by_placeholder(form, 'Repetir a senha').send_keys('123@MudarDifernte')
-        self.browser.find_element(By.XPATH, '/html/body/form/div[7]/button').click()
+        self.browser.find_element(By.XPATH, '/html/body/form/button').click()
 
         form = self.browser.find_element(By.XPATH, '/html/body/form')
 
@@ -46,7 +46,7 @@ class AuthorsRegisterTest(AuthorsBaseTest):
         self.get_by_placeholder(form, 'Seu e-mail').send_keys('email@email.valid')
         self.get_by_placeholder(form, 'Sua senha').send_keys('123@Mudar')
         self.get_by_placeholder(form, 'Repetir a senha').send_keys('123@Mudar')
-        self.browser.find_element(By.XPATH, '/html/body/form/div[7]/button').click()
+        self.browser.find_element(By.XPATH, '/html/body/form/button').click()
 
         form = self.browser.find_element(By.TAG_NAME, 'body')
         self.assertIn("Usuario Cadastrado com Sucesso!!!", form.text)

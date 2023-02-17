@@ -6,7 +6,7 @@ from .tests_medicine_base import BaseTestMedicine, TestCase
 
 
 # METODOLOGIA TDD, CRIA O TESTE DEPOIS O CODIGO ( TEST DRIVEN DEVELOPMENT )
-@pytest.mark.medicine
+@pytest.mark.objects
 class RemedioViewsHomeTest(BaseTestMedicine):
     def setUp(self):
         # Setup run before every test method.
@@ -46,7 +46,7 @@ class RemedioViewsHomeTest(BaseTestMedicine):
         self.assertEqual(len(context), 1)
 
 
-@pytest.mark.medicine
+@pytest.mark.objects
 class RemedioViewsSearchTest(BaseTestMedicine):
     def setUp(self):
         # Setup run before every test method.
@@ -89,7 +89,7 @@ class RemedioViewsSearchTest(BaseTestMedicine):
         self.assertEqual(response.status_code, 404)
 
 
-@pytest.mark.medicine
+@pytest.mark.objects
 class RemedioViewsRemedioTest(BaseTestMedicine):
     def setUp(self):
         # Setup run before every test method.
@@ -113,7 +113,7 @@ class RemedioViewsRemedioTest(BaseTestMedicine):
         self.assertTemplateUsed(response, 'pages/remedio-view.html')
 
 
-@pytest.mark.medicine
+@pytest.mark.objects
 class RemedioViewsCategoryTest(BaseTestMedicine):
     def setUp(self):
         # Setup run before every test method.
@@ -137,7 +137,7 @@ class RemedioViewsCategoryTest(BaseTestMedicine):
         self.assertTemplateUsed(response, 'pages/category-view.html')
 
 
-@pytest.mark.medicine
+@pytest.mark.objects
 class AuthorsViewRegisterTest(TestCase):
     def setUp(self):
         # Setup run before every test method.
