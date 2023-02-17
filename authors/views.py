@@ -12,7 +12,7 @@ from authors.forms import RegisterForm, LoginForm, EditObjectForm
 from farmacia import models
 
 
-# Create your views here.
+# Create your views here. # FUNC BASE TO VIEWS
 def register_view(request):  # request is raw information that comes from browser
     session_data = request.session.get('register_form_data',
                                        None)  # Default None # session is a data that keeps after reload the page
