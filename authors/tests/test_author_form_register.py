@@ -1,4 +1,4 @@
-from unittest import TestCase  # it's a raw test without things of django (Light)
+from unittest import TestCase, skip  # it's a raw test without things of django (Light)
 
 import pytest
 from django.test import TestCase as DjangoTestCase
@@ -6,6 +6,7 @@ from django.urls import reverse
 from parameterized import parameterized
 
 from authors.forms import RegisterForm
+
 
 @pytest.mark.fast
 class AuthorsRegisterFormUnitTest(TestCase):
@@ -173,3 +174,17 @@ class AuthorRegisterFormIntegrationTest(DjangoTestCase):
         self.client.post(url, data=self.form_data, follow=True)
         bool_login = self.client.login(username='usertest', password='123@Mudar')
         self.assertTrue(bool_login)
+
+    def test_if_form_is_not_valid_redirect_to_register(self):
+        response = self.client.post(reverse('authors:register_create'), data={'username': 'invalid'}, follow=True)
+        self.assertRedirects(response, reverse('authors:register'))
+        self.assertNotIn('Falha ao criar o usuario', response.content.decode('utf-8'))
+
+    @skip("ainda não sei como fazer")
+    def test_invalid_form_user_data_returns_msg_error(self):
+        self.form_data.update({
+            'first_name': ('@'*200),
+                    })
+        response = self.client.post(reverse('authors:register_create'), data=self.form_data, follow=True)
+        self.assertIn('Falha ao criar o usuario', response.content.decode('utf-8'))
+        self.assertRedirects(response, reverse('authors:register'))

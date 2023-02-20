@@ -31,7 +31,7 @@ def register_create(request):
     request.session['register_form_data'] = POST  # Give data from POST to SESSION
     form = RegisterForm(POST)
 
-    if form.is_valid:  # form valid is important to able form.save
+    if form.is_valid():  # form valid is important to able form.save
         try:
             user = form.save(commit=False)  # receive data from form, after valid but don't save yet
             user.set_password(user.password)  # cryptography password
@@ -44,7 +44,7 @@ def register_create(request):
             messages.error(request, "Falha ao criar o usuario")
             return redirect('authors:register')
 
-    # return redirect('authors:register')
+    return redirect('authors:register')
 
 
 def login_view(request):
@@ -65,7 +65,7 @@ def login_authenticate(request):
 
     login_page = reverse('authors:login')
 
-    if form.is_valid:
+    if form.is_valid():
         # print(form.is_valid)
         user_authenticate = authenticate(
             username=form.cleaned_data.get('username'),

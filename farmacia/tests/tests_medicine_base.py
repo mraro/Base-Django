@@ -9,13 +9,13 @@ class BaseMixing:
         medicine = []
         for x in range(qty):
             resp = True
-            dictionary = factory.make_medicine()
+            dictionary = factory.make_medicine()  # get random data according to on demand
             if not medicine:  # this will avoid list out of index...
-                medicine.append(self.make_medicines(**dictionary))
-                resp = False
+                medicine.append(self.make_medicines(**dictionary))  # des-compact and make a list
+                resp = False  # avoid errors, making the first field
             if resp is True:
                 for c in range(len(medicine)):
-                    if str(dictionary['author_data']['username']) == str(medicine[c].author) or str(dictionary['slug']) == str(medicine[c].slug):
+                    if str(dictionary['author_data']['username']) == str(medicine[c].author) or str(dictionary['slug']) == str(medicine[c].slug):  # grant that never use same slug
                         resp = False
             if resp is True:
                 medicine.append(self.make_medicines(**dictionary))
