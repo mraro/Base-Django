@@ -1,3 +1,5 @@
+import os
+
 import pytest
 from django.urls import reverse, resolve
 from unittest import skip
@@ -6,8 +8,11 @@ from .tests_medicine_base import BaseTestMedicine, TestCase
 
 
 # METODOLOGIA TDD, CRIA O TESTE DEPOIS O CODIGO ( TEST DRIVEN DEVELOPMENT )
+METHOD_MODE = int(os.environ.get("METHOD_MODE", 1))
+
 @pytest.mark.objects
 class RemedioViewsHomeTest(BaseTestMedicine):
+
     def setUp(self):
         # Setup run before every test method.
         pass
@@ -18,7 +23,10 @@ class RemedioViewsHomeTest(BaseTestMedicine):
 
     def test_farma_view_home_is_correct(self):
         view_resolve = resolve(reverse('farmacia:home'))
-        self.assertIs(view_resolve.func, views.home)
+        if METHOD_MODE == 1:
+            self.assertIs(view_resolve.func, views.home)    # func mode
+        else:
+            self.assertIs(view_resolve.view_class, views.HomeView)  # class mode
 
     def test_farma_view_home_response_code_200_is_ok(self):
         response = self.client.get(reverse('farmacia:home'))
@@ -58,7 +66,10 @@ class RemedioViewsSearchTest(BaseTestMedicine):
 
     def test_farma_view_search_is_correct(self):
         resolved = resolve(reverse('farmacia:search'))
-        self.assertIs(resolved.func, views.search)
+        if METHOD_MODE == 1:
+            self.assertIs(resolved.func, views.search)
+        else:
+            self.assertIs(resolved.view_class, views.SearchView)
 
     def test_farma_view_search_loads_correct_template(self):
         response = self.client.get(reverse('farmacia:search') + '?q=teste')
@@ -84,7 +95,7 @@ class RemedioViewsSearchTest(BaseTestMedicine):
         self.assertIn("pesquisa1", response.content.decode('utf-8'))  # assert in title because I don't show description
         self.assertIn("pesquisa2", response.content.decode('utf-8'))  # assert in title because I don't show description
 
-    def test_farma_view_serach_if_var_q_is_empty_and_return_error_404(self):
+    def test_farma_view_search_if_var_q_is_empty_and_return_error_404(self):
         response = self.client.get(reverse('farmacia:search') + '?q=')
         self.assertEqual(response.status_code, 404)
 
@@ -101,7 +112,10 @@ class RemedioViewsRemedioTest(BaseTestMedicine):
 
     def test_farma_view_remedio_is_correct(self):
         view_resolve = resolve(reverse('farmacia:remedio', args=[1]))
-        self.assertIs(view_resolve.func, views.remedios)
+        if METHOD_MODE == 1:
+            self.assertIs(view_resolve.func, views.remedios)
+        else:
+            self.assertIs(view_resolve.view_class, views.RemedioView)
 
     def test_farma_view_remedio_response_code_404(self):
         response = self.client.get(reverse('farmacia:remedio', args=[100]))
@@ -109,7 +123,7 @@ class RemedioViewsRemedioTest(BaseTestMedicine):
 
     def test_farma_view_remedio_if_template_loads_properly(self):
         self.make_medicine_no_defaults()
-        response = self.client.get(reverse('farmacia:remedio', kwargs={'idremedios': 1}))
+        response = self.client.get(reverse('farmacia:remedio', args=[1]))
         self.assertTemplateUsed(response, 'pages/remedio-view.html')
 
 
@@ -125,9 +139,12 @@ class RemedioViewsCategoryTest(BaseTestMedicine):
 
     def test_farma_view_category_is_correct(self):
         view_resolve = resolve(reverse('farmacia:categoria', kwargs={'idcategoria': 1}))
-        self.assertIs(view_resolve.func, views.categoria)
+        if METHOD_MODE == 1:
+            self.assertIs(view_resolve.func, views.categoria)
+        else:
+            self.assertIs(view_resolve.view_class, views.CategoryView)
 
-    def test_farma_view_category_response_code_404(self):
+    def test_farma_view_category_response_code_404_if_no_obj(self):
         response = self.client.get(reverse('farmacia:categoria', kwargs={'idcategoria': 1}))
         self.assertEqual(response.status_code, 404)
 

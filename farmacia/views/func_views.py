@@ -2,31 +2,20 @@ import os
 
 from django.db.models import Q
 from django.shortcuts import render, get_list_or_404, get_object_or_404, Http404  # object é para um só elemento
-from .models import Remedios
+
+from farmacia.models import Remedios
 
 from utility.paginator import make_pagination
 
-# constant (means that not be modified, but you can) its a var global too.
+# constant (means that not be modified, but you can in .env file) its a var global too.
 RANGE_PER_PAGE = int(os.environ.get("RANGE_PER_PAGE", 6))
 OBJ_PER_PAGE = int(os.environ.get("OBJ_PER_PAGE", 9))
 
-
-# os.environ.get("PER_PAGE", 6) is a variable of system, that was set in .env and if not found use 6 in this case
 
 # https://docs.djangoproject.com/pt-br/3.2/topics/db/queries/#complex-lookups-with-q-objects
 def home(request):
     medicines = Remedios.objects.filter(is_published=True).order_by('-id')
     pages = make_pagination(request, medicines, RANGE_PER_PAGE, OBJ_PER_PAGE)
-    # print(
-        # pages['pagination'], '\n',
-        # pages['middle_range'], '\n',
-        # pages['start_range'], '\n',
-        # pages['stop_range'], '\n',
-        # pages['last_range'], '\n',
-        # pages['first_page_out_of_range'], '\n',
-        # pages['last_page_out_of_range'], '\n',
-        # pages['current_page'], '\n',
-        # pages['medicines_page'])
     # a pasta templates que herda a pasta home esta linkada na settings do django
     return render(request, "pages/home.html",
                   context={
@@ -38,9 +27,6 @@ def home(request):
                       # 'remedios': [factory.make_recipe() for _ in range(10)]  # CRIA UM DICIONARIO DENTRO DO
                       # DICIONARIO
 
-                      #      context={
-                      #     "qtdePorPagina":"10",
-                      #     "nomeUsuario":"none",
                   })
 
 

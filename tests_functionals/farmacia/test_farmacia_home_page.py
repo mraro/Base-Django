@@ -38,15 +38,16 @@ class TestFunctionalHomePage(BaseTest):
         self.assertIn(term, self.browser.find_element(By.TAG_NAME, 'body').text)
 
     @pytest.mark.slow
-    @patch('farmacia.views.OBJ_PER_PAGE', new=3)
+    @patch('farmacia.views.func_views.OBJ_PER_PAGE', new=3)
     def test_Pagination_Home_if_Page_2_is_has_3_elements(self):
         # make medicines data:
         self.make_medicine_no_defaults(10)
         # open the page:
         self.browser.get(self.live_server_url)
-        # self.sleep(4)
         # see that has a page 2 option and click there
         # page_move = self.browser.find_element(By.XPATH, '//a[@aria-role="page 2"]')
         page_move = self.browser.find_element(By.XPATH, '/html/body/nav/form/a[2]')
         page_move.click()
+        self.sleep(4)
+
         self.assertEqual(len(self.browser.find_elements(By.CLASS_NAME, 'object-view')), 3)

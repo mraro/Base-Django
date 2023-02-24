@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.core.checks import messages
@@ -13,7 +14,7 @@ from farmacia import models
 # THIS DECORATOR IS UTIL LIKE A FUNC BASE TO VIEW, BUT HERE WE HAVE TO USER @method_decorator and in the end use
 # name='dispatch' to refer where @login_required will be affecting (dispatch is in doc of django)
 @method_decorator(login_required(login_url='authors:login', redirect_field_name='next'), name='dispatch')
-class ObjectClassedView(View):
+class BaseObjectClassedView(View):
     def get_objects_to_view(self, id_obj):
         return models.Remedios.objects.filter(id=id_obj, is_published=False, author=self.request.user).first()
 
@@ -53,14 +54,17 @@ class ObjectClassedView(View):
             object_data.is_published = False
             object_data.save()
 
-            messages.success(request, "Remedio Salvo")
+            messages.success(request, "Remedio Salvo")          # TODO CRIAR UMA CLASS SÓ PRA CRIAR E SEPARAR DA EDIT PRA PODER TROCAR A MENSAGEM ENVIADA
             return redirect(reverse('authors:dashboard'))
 
         return self.render_view(form, idobject)
 
 
 @method_decorator(login_required(login_url='authors:login', redirect_field_name='next'), name='dispatch')
-class ObjectClassedViewDelete(ObjectClassedView):
+class ObjectClassedViewDelete(BaseObjectClassedView):
+    def get(self, *args, **kwargs):
+        raise Http404
+
     def post(self, *args, **kwargs):
 
         remedio = self.get_objects_to_view(kwargs['idobject'])
