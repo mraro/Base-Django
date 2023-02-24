@@ -15,10 +15,16 @@ urlpatterns = [
     path("login", login_view, name="login"),
     path("login/authenticate/", login_authenticate, name="authenticate"),
     path("logout/", logout_backend, name="logout"),
-    path("dashboard/create/", create_obj, name="create"),                 # C     create
+    # path("dashboard/create/", create_obj, name="create"),                 # C     create
     path("dashboard/", dashboard, name="dashboard"),                      # R     read
-    path("dashboard/<int:idobject>/edit/", edit_obj, name="edit"),        # U     update
-    path("dashboard/<int:idobject>/delete/", delete_obj, name="delete"),  # D     delete
+    # path("dashboard/<int:idobject>/edit/", edit_obj, name="edit"),        # U     update
+    # path("dashboard/<int:idobject>/delete/", delete_obj, name="delete"),  # D     delete
+
+    path("dashboard/<int:idobject>/edit/", ObjectClassedView.as_view(), name="edit"),  # update # this is a class base
+    # view, since path waits for func we use as_view() to use a classe as func here
+    path("dashboard/create/", ObjectClassedView.as_view() , name="create"),  # create
+    path("dashboard/<int:idobject>/delete/", ObjectClassedViewDelete.as_view(), name="delete"),  # D     delete
+
 ]
 # CUIDADO PARA NÃO REPETIR O NOME OU QLQR OUTRA COISA
 

@@ -1,7 +1,11 @@
 <form   
     action="{{ form_action }}" 
     method="POST" 
-    class="form-content"
+    {% if edit %}
+    class="form-content edit-view" 
+    {% else %}
+    class="form-content " 
+    {% endif %}
     enctype="multipart/form-data"> {% comment %}  ISSO É IMPORTANTE SE QUER ENVIAR IMAGEM OU QLQ ARQUIVO em views.py (files=request.FILES) {% endcomment %}
     
 
@@ -24,6 +28,6 @@
         {% endif %}
 
     {% endfor %}
-        <button type='submit'><b> {{ form_button }} </b></button>
+        <button id='button-form' type='submit'><span class="box span-2"><b> {{ form_button }} </b></span></button>
    
 </form>

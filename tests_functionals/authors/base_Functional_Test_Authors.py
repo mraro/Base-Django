@@ -23,7 +23,7 @@ class AuthorsBaseTestDashboard(StaticLiveServerTestCase, BaseMixing):
         body.find_element(By.XPATH, '//input[@placeholder="' + 'Digite seu usuario' + '"]').send_keys("username")
         body.find_element(By.XPATH, '//input[@placeholder="' + 'Digite sua senha' + '"]').send_keys("true")
         # time.sleep(3)
-        body.find_element(By.XPATH, '/html/body/div/form/button').click()
+        body.find_element(By.ID, 'button-form').click()
         self.obj = self.make_medicine_no_defaults(1)[0]  # creates a object to test
         self.obj.author = user
         self.obj.is_published = False

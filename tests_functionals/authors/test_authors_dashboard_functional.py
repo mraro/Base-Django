@@ -13,7 +13,7 @@ class DashboardFunctionalTest(AuthorsBaseTestDashboard):
         self.easy_edit_element_by_name_field('price', self.fake_data['price'])
         self.easy_edit_element_by_name_field('quantity', self.fake_data['quantity'])
         self.easy_edit_element_by_name_field('description', self.fake_data['description'])
-        self.browser.find_element(By.XPATH, '/html/body/div/form/button').click()
+        self.browser.find_element(By.ID, 'button-form').click()
         # sleep(5)
         self.assertIn('Remedio criado e enviado a analise', self.browser.find_element(By.TAG_NAME, 'body').text)
 
@@ -30,7 +30,7 @@ class DashboardFunctionalTest(AuthorsBaseTestDashboard):
 
     def test_functional_delete_obj(self):
         self.browser.get(self.live_server_url + reverse('authors:dashboard'))
-        self.browser.find_element(By.XPATH, '/html/body/div/div/ul/form/button').click()
+        self.browser.find_element(By.ID, 'button-delete').click()
         alert_obj = self.browser.switch_to.alert
         alert_obj.accept()
         self.assertIn(f"{self.obj.title} deletado!", self.browser.find_element(By.TAG_NAME, 'body').text)

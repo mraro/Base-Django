@@ -22,7 +22,7 @@ class AuthorsLoginTest(AuthorsBaseTest):
         self.get_by_placeholder(body, 'Digite seu usuario').send_keys("TOLO")
         self.get_by_placeholder(body, 'Digite sua senha').send_keys("Tolete@123")
         # time.sleep(3)
-        body.find_element(By.XPATH, '/html/body/div/form/button').click()
+        body.find_element(By.ID, 'button-form').click()
         # time.sleep(3)
 
         self.assertIn("Sucesso no Login!", self.browser.find_element(By.XPATH, '/html/body/div[1]').text)
@@ -37,7 +37,7 @@ class AuthorsLoginTest(AuthorsBaseTest):
 
         self.get_by_placeholder(body, 'Digite seu usuario').send_keys("False")
         self.get_by_placeholder(body, 'Digite sua senha').send_keys("Fail")
-        body.find_element(By.XPATH, '/html/body/div/form/button').click()
+        body.find_element(By.ID, 'button-form').click()
         time.sleep(3)
         body = self.browser.find_element(By.TAG_NAME, 'body')  # has this because has a redirect to same page
 

@@ -39,7 +39,14 @@
 		
 		{% if not is_detail %}
 		{% comment %} <a  class="object-view-button" href=" {% url 'farmacia:remedio' remedio.id %} "><span>Adicionar ao Carrinho</span></a> {% endcomment %}
-		<a  class="object-view-button" href=" {{ remedio.get_absolute_url }} "><span>Adicionar ao Carrinho</span></a>
+		<div class="buttons-container">
+			<a  class="object-car-button" href=" {{ remedio.get_absolute_url }} "><span>Adicionar ao Carrinho</span></a>
+			<a  class="object-view-button" href=" {{ remedio.get_absolute_url }} "><span>Visualizar</span></a>
+		</div>
+		{% else %}
+		<div class="descripition-detail">
+			{{ remedio.description }}
+		</div>
 		{% endif %}
 		
 	</div>

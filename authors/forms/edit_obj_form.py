@@ -14,10 +14,10 @@ class EditObjectForm(forms.ModelForm):
         # add_attr(self.fields.get('slug'), 'type', 'hidden')
 
     # cover = forms.ImageField(allow_empty_file=True)
-    title = forms.CharField(min_length=4, max_length=65)
+    title = forms.CharField(min_length=4, max_length=65, label='Titulo')
     slug = forms.CharField(widget=forms.HiddenInput(), empty_value=" ", label="")  # HERE I HAD TO GIVE SOME FAKE DATA
     # TO DJANGO SEND FORM PROPERLY, IN ORDER TO MAKE A SLUGFY LATER, BEFORE SEND TO IS_VALID
-    price = forms.DecimalField(min_value=0.00, max_value=100000.00, decimal_places=2)
+    price = forms.DecimalField(min_value=0.00, max_value=100000.00, decimal_places=2, label='Preço')
 
     def clean_slug(self):
         # print("Clean Slug")
@@ -34,9 +34,9 @@ class EditObjectForm(forms.ModelForm):
         model = Remedios  # database
         fields = 'title', 'price', 'quantity', 'description', 'cover', 'category', 'slug',
         labels = {
-            'title': 'Titulo: ',
+            # 'title': 'Titulo: ',
             'description': 'Descrição: ',
-            'price': 'Preço: ',
+            # 'price': 'Preço: ',
             'cover': '',
             'quantity': 'Quantidade: ',
             'category': 'Categoria: ',
