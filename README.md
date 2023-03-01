@@ -137,3 +137,4 @@ python manage.py migrate
 ... migrate to sinc database
 
 # GUNICORN config to nginx
+to install socket and service for our django project see more in <a href="./nxing gunicorn.txt"> 'nxing gunicorn.txt'</a>
