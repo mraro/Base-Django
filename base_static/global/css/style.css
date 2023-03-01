@@ -116,7 +116,7 @@ img {
 	background: transparent;
   }
   .box {
-  width: 140px;
+  width: 200px;
   height: auto;
   float: left;
   transition: .5s linear;
@@ -568,6 +568,9 @@ textarea{
 	-o-border-radius: 15px;
 
 
+}
+.span-2{
+	font-size: 2em;
 }
 #id_cover{
 	position: relative;

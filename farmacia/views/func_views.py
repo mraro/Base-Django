@@ -22,7 +22,7 @@ def home(request):
                       # 'remedios': result[page],
                       'remedios': pages['medicines_page'],
                       'pages': pages,
-                      # "nomefarmacia": "Farma TOP",
+                      "nameSite": "Farma func",
 
                       # 'remedios': [factory.make_recipe() for _ in range(10)]  # CRIA UM DICIONARIO DENTRO DO
                       # DICIONARIO

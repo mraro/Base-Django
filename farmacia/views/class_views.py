@@ -36,7 +36,8 @@ class ObjectListViewBase(ListView):
         context = super().get_context_data(*args, **kwargs)
         pages = make_pagination(self.request, context.get('remedios'), RANGE_PER_PAGE, OBJ_PER_PAGE)
         context.update(
-            {'remedios': pages['medicines_page'], 'pages': pages}
+            {'remedios': pages['medicines_page'], 'pages': pages, "nameSite": "Farma Class",
+}
         )
         return context  # UPDATE CONTEXT, IN THE OTHER WORDS, CUSTOMIZE WEB TEMPLATE WITH MY PAGINATION FUNC
 

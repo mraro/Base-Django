@@ -1,7 +1,14 @@
+import os
+
 from django.urls import reverse
 from time import sleep
 
 from .base_Functional_Test_Authors import AuthorsBaseTestDashboard, By
+import dotenv
+
+dotenv.load_dotenv()
+
+METHOD_MODE = int(os.environ.get("METHOD_MODE", 1))
 
 
 class DashboardFunctionalTest(AuthorsBaseTestDashboard):
@@ -14,11 +21,11 @@ class DashboardFunctionalTest(AuthorsBaseTestDashboard):
         self.easy_edit_element_by_name_field('quantity', self.fake_data['quantity'])
         self.easy_edit_element_by_name_field('description', self.fake_data['description'])
         self.browser.find_element(By.ID, 'button-form').click()
-        # sleep(5)
-        self.assertIn('Remedio criado e enviado a analise', self.browser.find_element(By.TAG_NAME, 'body').text)
-
-
-
+        sleep(5)
+        if METHOD_MODE == 1:
+            self.assertIn('Remedio criado e enviado a analise', self.browser.find_element(By.TAG_NAME, 'body').text)
+        else:
+            self.assertIn('Remedio Salvo', self.browser.find_element(By.TAG_NAME, 'body').text)
 
     def test_functional_edit_obj_and_save(self):
         self.browser.get(self.live_server_url + reverse('authors:edit', kwargs={'idobject': self.obj.id}))

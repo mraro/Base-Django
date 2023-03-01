@@ -6,8 +6,8 @@ from django.conf.urls.static import static
 ## PAGINA ADICIONADA MANUALMENTE QUE GERENCIA OS LINKS
 
 app_name = "farmacia"
-METHOD_MODE = int(os.environ.get("METHOD_MODE", 1))
-if METHOD_MODE == 0:
+METHOD_MODE = os.environ.get("METHOD_MODE")
+if METHOD_MODE == '0':
     urlpatterns = [
 
         path("", HomeView.as_view(), name="home"),  # HOME == INDEX

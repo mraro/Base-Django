@@ -5,28 +5,30 @@ from django.urls import reverse, resolve
 from unittest import skip
 from farmacia import views
 from .tests_medicine_base import BaseTestMedicine, TestCase
+import dotenv
 
-
+dotenv.load_dotenv()
 # METODOLOGIA TDD, CRIA O TESTE DEPOIS O CODIGO ( TEST DRIVEN DEVELOPMENT )
-METHOD_MODE = int(os.environ.get("METHOD_MODE", 1))
+METHOD_MODE = int(os.environ.get("METHOD_MODE"))
 
+
+@pytest.mark.fast
 @pytest.mark.objects
 class RemedioViewsHomeTest(BaseTestMedicine):
-
-    def setUp(self):
-        # Setup run before every test method.
-        pass
-
-    def tearDown(self):
-        # Clean up run after every test method.
-        pass
+    def test_name_site_loads_in_main_page(self):
+        view_resolve = self.client.get(reverse('farmacia:home'))
+        if METHOD_MODE == 1:
+            self.assertIn('Farma func', view_resolve.content.decode('utf-8'))
+        else:
+            self.assertIn('Farma Class', view_resolve.content.decode('utf-8'))
 
     def test_farma_view_home_is_correct(self):
         view_resolve = resolve(reverse('farmacia:home'))
+        # print(METHOD_MODE, 'tipo', type(METHOD_MODE))
         if METHOD_MODE == 1:
-            self.assertIs(view_resolve.func, views.home)    # func mode
+            self.assertIs(view_resolve.func, views.home)  # func mode
         else:
-            self.assertIs(view_resolve.view_class, views.HomeView)  # class mode
+            self.assertIs(view_resolve.func.view_class, views.HomeView)  # class mode
 
     def test_farma_view_home_response_code_200_is_ok(self):
         response = self.client.get(reverse('farmacia:home'))
@@ -54,6 +56,7 @@ class RemedioViewsHomeTest(BaseTestMedicine):
         self.assertEqual(len(context), 1)
 
 
+@pytest.mark.fast
 @pytest.mark.objects
 class RemedioViewsSearchTest(BaseTestMedicine):
     def setUp(self):
@@ -69,7 +72,7 @@ class RemedioViewsSearchTest(BaseTestMedicine):
         if METHOD_MODE == 1:
             self.assertIs(resolved.func, views.search)
         else:
-            self.assertIs(resolved.view_class, views.SearchView)
+            self.assertIs(resolved.func.view_class, views.SearchView)
 
     def test_farma_view_search_loads_correct_template(self):
         response = self.client.get(reverse('farmacia:search') + '?q=teste')
@@ -100,22 +103,15 @@ class RemedioViewsSearchTest(BaseTestMedicine):
         self.assertEqual(response.status_code, 404)
 
 
+@pytest.mark.fast
 @pytest.mark.objects
 class RemedioViewsRemedioTest(BaseTestMedicine):
-    def setUp(self):
-        # Setup run before every test method.
-        pass
-
-    def tearDown(self):
-        # Clean up run after every test method.
-        pass
-
     def test_farma_view_remedio_is_correct(self):
         view_resolve = resolve(reverse('farmacia:remedio', args=[1]))
         if METHOD_MODE == 1:
             self.assertIs(view_resolve.func, views.remedios)
         else:
-            self.assertIs(view_resolve.view_class, views.RemedioView)
+            self.assertIs(view_resolve.func.view_class, views.RemedioView)
 
     def test_farma_view_remedio_response_code_404(self):
         response = self.client.get(reverse('farmacia:remedio', args=[100]))
@@ -127,22 +123,15 @@ class RemedioViewsRemedioTest(BaseTestMedicine):
         self.assertTemplateUsed(response, 'pages/remedio-view.html')
 
 
+@pytest.mark.fast
 @pytest.mark.objects
 class RemedioViewsCategoryTest(BaseTestMedicine):
-    def setUp(self):
-        # Setup run before every test method.
-        pass
-
-    def tearDown(self):
-        # Clean up run after every test method.
-        pass
-
     def test_farma_view_category_is_correct(self):
         view_resolve = resolve(reverse('farmacia:categoria', kwargs={'idcategoria': 1}))
         if METHOD_MODE == 1:
             self.assertIs(view_resolve.func, views.categoria)
         else:
-            self.assertIs(view_resolve.view_class, views.CategoryView)
+            self.assertIs(view_resolve.func.view_class, views.CategoryView)
 
     def test_farma_view_category_response_code_404_if_no_obj(self):
         response = self.client.get(reverse('farmacia:categoria', kwargs={'idcategoria': 1}))
@@ -154,6 +143,7 @@ class RemedioViewsCategoryTest(BaseTestMedicine):
         self.assertTemplateUsed(response, 'pages/category-view.html')
 
 
+@pytest.mark.fast
 @pytest.mark.objects
 class AuthorsViewRegisterTest(TestCase):
     def setUp(self):
