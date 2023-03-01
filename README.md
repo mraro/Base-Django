@@ -2,7 +2,7 @@
 Base to use Python Django
 
 # First of all:
-in env:
+###### python env command
 ```
 pip install requirements.txt
 ```
@@ -19,7 +19,7 @@ if you use vscode:<br>
 
 
 # Deploy
-little steps to deploy an app django
+Little steps to deploy an app django
 
 ## Creating a Server
 
@@ -27,23 +27,23 @@ In this case we are using a vm-ubuntu 22
 but is soo much better have a vm in cloud, like azure, google cloud platform etc
 
 ### SSH Keys
-
+###### linux command
 To create ssh keys:
-```
-ssh-keygen -t rsa -b 4096 -f PATH+NAME_KEY
+```commandline
+ssh-keygen -t rsa -b 4096 -f PATH/NAME_KEY
 ```
 Remember, if you are using windows, you must have a folder .ssh on folders of your user, 
 it's common raise errors without it.
 
 To use ssh key:
-
-```
-ssh IP_HOST -i PATH+NAME_KEY
+###### linux command
+```commandline
+ssh IP_HOST -i PATH/NAME_KEY
 ```
 
 ### First actions before deploy the project:
-
-```
+###### linux command
+```commandline
 sudo apt update -y
 sudo apt upgrade -y
 sudo apt autoremove -y
@@ -53,5 +53,87 @@ sudo apt install nginx -y
 sudo apt install certbot python3-certbot-nginx -y
 sudo apt install postgresql postgresql-contrib -y
 sudo apt install libpq-dev -y
+sudo apt install curl -y
 sudo apt install git
 ```
+### Postgres as DB:
+replace username with your username preference and pass with one stronger;
+replace name_database too.
+###### postgres command
+```
+sudo -u postgres psql
+CREATE ROLE username WITH LOGIN SUPERUSER CREATEDB CREATEROLE PASSWORD 'pass';
+GRANT ALL PRIVILEGES ON DATABASE name_database to suporte;
+\q
+```
+```commandline
+systemctl restart postgresql
+```
+### Setup git
+###### linux command on server
+```commandline
+git config --global user.name 'your name'
+git config --global user.email 'your_email@domain.com'
+git config --global init.defaultBranch main
+ssh-keygen -t rsa -b 4096 -C "youremail@domain.com"
+```
+after run ssh-keygen chose a any name for repo that will be used to send project from dev
+### A Transistorise repo (like github).
+###### linux command on server
+```
+mkdir -p ~/app_bare
+cd ~/app_bare
+git init --bare
+cd ~
+```
+
+### The Repo for app
+###### linux command on server
+```
+mkdir -p ~/app_repo
+cd ~/app_repo
+git init
+git remote add origin ~/app_bare
+git add . && git commit -m 'Initial'
+cd ~
+```
+### git pull on app_bare
+##### git dev side: 
+```
+git remote add app_bare NAME_CREATED_AT_SSH_KEYGEN:~/app_bare
+or
+git remote add app_bare user_server@DJANGO-SERVER:~/app_bare
+
+git push app_bare <branch>
+```
+use properly branch instead <branch>
+#### Server side:
+```
+cd ~/app_repo
+git pull origin <branch>
+```
+## Create a virtual env:
+```commandline
+python3.9 -m venv venv
+. venv/bin/activate
+pip install -r requirements.txt
+...more
+pip install psycopg2
+pip install gunicorn
+```
+pyscopg2 serves to PostgreSQL and python
+gunicorn serves to communicate between nginx and django
+### Modify env variables
+##### on .env file fill the places according to demand
+```commandline
+cp .env-example .env
+nano .env
+```
+## After it, we've already able to turn on the server
+```commandline
+python manage.py runserver
+python manage.py migrate
+```
+... migrate to sinc database
+
+# GUNICORN config to nginx
