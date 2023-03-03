@@ -78,7 +78,7 @@ git config --global init.defaultBranch main
 ssh-keygen -t rsa -b 4096 -C "youremail@domain.com"
 ```
 after run ssh-keygen chose a any name for repo that will be used to send project from dev
-### A Transistorise repo (like github).
+### A Transitional repo (like github).
 ###### linux command on server
 ```
 mkdir -p ~/app_bare
@@ -137,13 +137,15 @@ python manage.py migrate
 ... migrate to sinc database
 
 # GUNICORN service and socket config
-to install socket and service for our django project do this: <a href="./DEPLOY-SERVER-UTILS/GUNICORN SERVICE AND SOCKET.txt"> 'GUNICORN SERVICE AND SOCKET'</a>
+To install socket and service for our django project do this: <a href="./DEPLOY-SERVER-UTILS/GUNICORN SERVICE AND SOCKET.txt"> 'GUNICORN SERVICE AND SOCKET'</a>
 
 # NGINX HTTP or HTTPS
-replace the fields __FIELDS__ according to is described and do this after:
+Replace the fields __ __FIELDS__ __ according to <a href="./DEPLOY-SERVER-UTILS/NGINX-HTTP">NGINX-HTTP CONFIG</a> or <a href="./DEPLOY-SERVER-UTILS/NGINX-HTTP">NGINX-HTTP CONFIG</a>
+<br>has described and do this after:
 ```
-sudo rm /etc/nginx/sites-enabled/default
-sudo ln -s /etc/nginx/sites-available/NAME-PROJECT /etc/nginx/sites-enabled/NAME-PROJECT
-sudo nginx -t
+
 sudo systemctl restart ndinx
+or
+sudo systemctl restart project-django.socket && sudo systemctl restart project-django.serv
+ice && sudo systemctl restart nginx
 ```

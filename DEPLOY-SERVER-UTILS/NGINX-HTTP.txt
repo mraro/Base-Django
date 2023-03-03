@@ -1,42 +1,48 @@
 # https://www.nginx.com/blog/using-free-ssltls-certificates-from-lets-encrypt-with-nginx/
 
-#   sudo nano /etc/nginx/sites-available/NAME-PROJECT
-#
+
+
 # REPLACES
-# 127.0.0.1 = Replace with your domain
-# /home/oem/app_repo = Replace with the path to the folder for the project
-# /home/oem/app_repo/static = Replace with the path to the folder for static files
-# /home/oem/app_repo/media = Replace with the path to the folder for media files
-# project-django.socket = Replace with your unix socket name
-# 
+# ____REPLACE_ME_WITH_YOUR_OWN_DOMAIN____ = Replace with your domain
+# __PROJECT_FOLDER__ = Replace with the path to the folder for the project
+# __STATIC_FOLDER_PATH__ = Replace with the path to the folder for static files
+# __MEDIA_FOLDER_PATH__ = Replace with the path to the folder for media files
+# __SOCKET_NAME__ = Replace with your unix socket name
+# __NAME-PROJECT__ = name of service made with unicorn
+#
 # Set timezone
 # List - timedatectl list-timezones
 # sudo timedatectl set-timezone America/Sao_Paulo
+#   sudo nano /etc/nginx/sites-available/project-django
+#   sudo rm /etc/nginx/sites-enabled/default
+#   sudo ln -s /etc/nginx/sites-available/__NAME-PROJECT__ /etc/nginx/sites-enabled/__NAME-PROJECT__
+#   sudo nginx -t
 #
+
 # HTTP
 server {
   listen 80;
   listen [::]:80;
-  server_name 127.0.0.1;
+  server_name ____REPLACE_ME_WITH_YOUR_OWN_DOMAIN____;
 
   # Add index.php to the list if you are using PHP
   index index.html index.htm index.nginx-debian.html index.php;
-  
-  # ATTENTION: /home/oem/app_repo/static
+
+  # ATTENTION: __STATIC_FOLDER_PATH__
   location /static {
     autoindex on;
-    alias /home/oem/app_repo/static;
+    alias __STATIC_FOLDER_PATH__;
   }
 
-  # ATTENTION: /home/oem/app_repo/media 
+  # ATTENTION: __MEDIA_FOLDER_PATH__
   location /media {
     autoindex on;
-    alias /home/oem/app_repo/media;
+    alias __MEDIA_FOLDER_PATH__;
   }
 
-  # ATTENTION: project-django.socket
+  # ATTENTION: __SOCKET_NAME__
   location / {
-    proxy_pass http://unix:/run/project-django.socket;
+    proxy_pass http://unix:/run/__SOCKET_NAME__;
     proxy_http_version 1.1;
     proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection 'upgrade';
@@ -78,9 +84,12 @@ server {
     image/svg+xml;
 
   access_log off;
-  #access_log  /var/log/nginx/127.0.0.1-access.log;
-  error_log   /var/log/nginx/127.0.0.1-error.log;
+  #access_log  /var/log/nginx/____REPLACE_ME_WITH_YOUR_OWN_DOMAIN____-access.log;
+  error_log   /var/log/nginx/____REPLACE_ME_WITH_YOUR_OWN_DOMAIN____-error.log;
 }
+
+
+
 
 
 #################################### EXTRA ##############################
