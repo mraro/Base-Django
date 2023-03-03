@@ -18,7 +18,7 @@ if you use vscode:<br>
   copy settings.json-example-vscode and paste in settings.json<br>
 
 
-# Deploy
+# Deploy -----------------------------------------------------------
 Little steps to deploy an app django
 
 ## Creating a Server
@@ -136,5 +136,14 @@ python manage.py migrate
 ```
 ... migrate to sinc database
 
-# GUNICORN config to nginx
-to install socket and service for our django project see more in <a href="./nginx gunicorn.txt"> 'nxing gunicorn.txt'</a>
+# GUNICORN service and socket config
+to install socket and service for our django project do this: <a href="./DEPLOY-SERVER-UTILS/GUNICORN SERVICE AND SOCKET.txt"> 'GUNICORN SERVICE AND SOCKET'</a>
+
+# NGINX HTTP or HTTPS
+replace the fields __FIELDS__ according to is described and do this after:
+```
+sudo rm /etc/nginx/sites-enabled/default
+sudo ln -s /etc/nginx/sites-available/NAME-PROJECT /etc/nginx/sites-enabled/NAME-PROJECT
+sudo nginx -t
+sudo systemctl restart ndinx
+```

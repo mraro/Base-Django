@@ -41,6 +41,7 @@ class BaseObjectClassedView(View):
 
     def post(self, request, idobject=None):
         remedio = self.get_objects_to_view(idobject)
+        author = models.User.objects.get(username=request.user)
 
         form = EditObjectForm(
             data=request.POST or None,  # receive a request data or none
@@ -49,12 +50,15 @@ class BaseObjectClassedView(View):
         )
         if form.is_valid():
             object_data = form.save(commit=False)
-            # print(type(object_data.author))
-
             object_data.is_published = False
+            object_data.author = author
             object_data.save()
 
-            messages.success(request, "Remedio Salvo")          # TODO CRIAR UMA CLASS SÓ PRA CRIAR E SEPARAR DA EDIT PRA PODER TROCAR A MENSAGEM ENVIADA
+            if idobject is not None:
+                messages.success(request, "Remedio Salvo")
+            else:
+                messages.success(request, "Remedio criado e enviado a analise")
+
             return redirect(reverse('authors:dashboard'))
 
         return self.render_view(form, idobject)

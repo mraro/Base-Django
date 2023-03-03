@@ -1,8 +1,6 @@
-from django.forms import CharField
 from django import forms
 
 from forms.django_forms import add_placeholder
-from django.contrib.auth.models import User
 
 
 class LoginForm(forms.Form):

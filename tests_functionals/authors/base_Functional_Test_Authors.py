@@ -24,15 +24,17 @@ class AuthorsBaseTestDashboard(StaticLiveServerTestCase, BaseMixing):
         body.find_element(By.XPATH, '//input[@placeholder="' + 'Digite sua senha' + '"]').send_keys("true")
         # time.sleep(3)
         body.find_element(By.ID, 'button-form').click()
-        self.obj = self.make_medicine_no_defaults(1)[0]  # creates a object to test
+        self.obj = self.make_medicine_no_defaults(1)[0]  # creates a object to test made in shell
         self.obj.author = user
         self.obj.is_published = False
         self.obj.save()
         return super().setUp()
+
     def tearDown(self) -> None:
         sleep(2)
         self.browser.quit()
         return super().tearDown()
+
     def easy_edit_element_by_name_field(self, field_name, new_value):
         return self.browser.find_element(By.NAME, field_name).send_keys(new_value)
 

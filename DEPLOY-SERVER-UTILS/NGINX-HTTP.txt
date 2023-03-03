@@ -1,0 +1,92 @@
+# https://www.nginx.com/blog/using-free-ssltls-certificates-from-lets-encrypt-with-nginx/
+
+#   sudo nano /etc/nginx/sites-available/NAME-PROJECT
+#
+# REPLACES
+# 127.0.0.1 = Replace with your domain
+# /home/oem/app_repo = Replace with the path to the folder for the project
+# /home/oem/app_repo/static = Replace with the path to the folder for static files
+# /home/oem/app_repo/media = Replace with the path to the folder for media files
+# project-django.socket = Replace with your unix socket name
+# 
+# Set timezone
+# List - timedatectl list-timezones
+# sudo timedatectl set-timezone America/Sao_Paulo
+#
+# HTTP
+server {
+  listen 80;
+  listen [::]:80;
+  server_name 127.0.0.1;
+
+  # Add index.php to the list if you are using PHP
+  index index.html index.htm index.nginx-debian.html index.php;
+  
+  # ATTENTION: /home/oem/app_repo/static
+  location /static {
+    autoindex on;
+    alias /home/oem/app_repo/static;
+  }
+
+  # ATTENTION: /home/oem/app_repo/media 
+  location /media {
+    autoindex on;
+    alias /home/oem/app_repo/media;
+  }
+
+  # ATTENTION: project-django.socket
+  location / {
+    proxy_pass http://unix:/run/project-django.socket;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+  }
+
+  # deny access to .htaccess files, if Apache's document root
+  # concurs with nginx's one
+  #
+  location ~ /\.ht {
+    deny all;
+  }
+
+  location ~ /\. {
+    access_log off;
+    log_not_found off;
+    deny all;
+  }
+
+  gzip on;
+  gzip_disable "msie6";
+
+  gzip_comp_level 6;
+  gzip_min_length 1100;
+  gzip_buffers 4 32k;
+  gzip_proxied any;
+  gzip_types
+    text/plain
+    text/css
+    text/js
+    text/xml
+    text/javascript
+    application/javascript
+    application/x-javascript
+    application/json
+    application/xml
+    application/rss+xml
+    image/svg+xml;
+
+  access_log off;
+  #access_log  /var/log/nginx/127.0.0.1-access.log;
+  error_log   /var/log/nginx/127.0.0.1-error.log;
+}
+
+
+#################################### EXTRA ##############################
+# if css or something don't show because "13: permission denied" do this:
+#
+# sudo -u www-data stat /home/oem/app_repo/static
+# sudo gpasswd -a www-data oem
+# chmod g+x /home/oem && chmod g+x /home/oem/app_repo && chmod g+x /home/oem/app_repo/static
+# sudo nginx -s reload

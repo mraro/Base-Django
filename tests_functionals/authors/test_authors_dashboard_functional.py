@@ -4,17 +4,13 @@ from django.urls import reverse
 from time import sleep
 
 from .base_Functional_Test_Authors import AuthorsBaseTestDashboard, By
-import dotenv
-
-dotenv.load_dotenv()
-
-METHOD_MODE = int(os.environ.get("METHOD_MODE", 1))
 
 
 class DashboardFunctionalTest(AuthorsBaseTestDashboard):
 
     def test_functional_create_obj_and_save(self):
-        """ THIS TEST SLUG IF TITLE HAS EXISTED AND SLUG HAS EXISTED TOO, HE TEST IF CANS MAKE ANOTHER SLUG """
+        """ THIS TEST SLUG IF TITLE HAS EXISTED AND SLUG HAS EXISTED TOO, HE TEST IF CANS MAKE ANOTHER SLUG
+        BESIDES THAT TEST IF WHEN CREATES A NEW OBJECT WILL GIVE HIS NAME AUTHOR TOO """
         self.browser.get(self.live_server_url + reverse('authors:create'))
         self.easy_edit_element_by_name_field('title', self.obj.title)
         self.easy_edit_element_by_name_field('price', self.fake_data['price'])
@@ -22,10 +18,9 @@ class DashboardFunctionalTest(AuthorsBaseTestDashboard):
         self.easy_edit_element_by_name_field('description', self.fake_data['description'])
         self.browser.find_element(By.ID, 'button-form').click()
         sleep(5)
-        if METHOD_MODE == 1:
-            self.assertIn('Remedio criado e enviado a analise', self.browser.find_element(By.TAG_NAME, 'body').text)
-        else:
-            self.assertIn('Remedio Salvo', self.browser.find_element(By.TAG_NAME, 'body').text)
+        body = self.browser.find_element(By.TAG_NAME, 'body').text
+        self.assertEqual(len(self.browser.find_elements(By.CLASS_NAME, 'li-delete')), 2)
+        self.assertIn('Remedio criado e enviado a analise', body)
 
     def test_functional_edit_obj_and_save(self):
         self.browser.get(self.live_server_url + reverse('authors:edit', kwargs={'idobject': self.obj.id}))
