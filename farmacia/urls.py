@@ -14,6 +14,11 @@ if METHOD_MODE == '0':
         path("search/", SearchView.as_view(), name="search"),
         path("category/<int:idcategoria>/", CategoryView.as_view(), name="categoria"),
         path("remedios/<int:pk>/", RemedioView.as_view(), name="remedio"),
+
+        # API:
+        path("api/v1/", ApiHomeView.as_view(), name="home_api"),
+        path("remedios/api/v1/<int:pk>/", ApiRemedioView.as_view(), name="remedio_api"),
+
     ]
 else:
     urlpatterns = [

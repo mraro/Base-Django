@@ -15,6 +15,7 @@ OBJ_PER_PAGE = int(os.environ.get("OBJ_PER_PAGE", 9))
 # https://docs.djangoproject.com/pt-br/3.2/topics/db/queries/#complex-lookups-with-q-objects
 def home(request):
     medicines = Remedios.objects.filter(is_published=True).order_by('-id')
+    medicines = medicines.select_related('author', 'category')  # THIS IMPROVE READ DATABASE (WORKS ON FOREIGN KEY)
     pages = make_pagination(request, medicines, RANGE_PER_PAGE, OBJ_PER_PAGE)
     # a pasta templates que herda a pasta home esta linkada na settings do django
     return render(request, "pages/home.html",
@@ -33,6 +34,7 @@ def home(request):
 def remedios(request, idremedios):
     # medicine = Remedios.objects.get(id=idremedios)
     medicine = get_object_or_404(Remedios, id=idremedios)
+
     return render(request, "pages/remedio-view.html",
 
                   context={
@@ -47,7 +49,10 @@ def categoria(request, idcategoria):
     # messages.error(request, "UMA MENSAGEM ENVIADA DO SERVIDOR de ERROR")
 
     # medicine = get_list_or_404(Remedios, category__id=idcategoria)  # ISSO É UMA LISTA DO PYTHON
-    medicine = get_list_or_404(Remedios.objects.filter(category__id=idcategoria).order_by('-id'))
+    medicine = get_list_or_404(
+        Remedios.objects.filter(category__id=idcategoria).order_by('-id').select_related('author', 'category')
+    )
+
     pages = make_pagination(request, medicine, RANGE_PER_PAGE)
 
     return render(request, "pages/category-view.html",
@@ -69,6 +74,7 @@ def search(request):
         medicine = Remedios.objects.filter(Q(title__contains=var_site) | Q(description__contains=var_site)).order_by(
             '-id')
         medicine = medicine.filter(is_published=True)
+        medicine = medicine.select_related('author', 'category')
 
     pages = make_pagination(request, medicine, RANGE_PER_PAGE)
 

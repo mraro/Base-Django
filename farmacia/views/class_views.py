@@ -30,7 +30,9 @@ class ObjectListViewBase(ListView):
     def get_queryset(self, *args, **kwargs):  # RETURN A QUERYSET IN THE ORDER WORDS READ DATABASE
         querySet = super(ObjectListViewBase, self).get_queryset()
         querySet = querySet.filter(is_published=True, )  # (FILTER) send data to web template html
-        return querySet
+        querySetLight = querySet.select_related('author', 'category')   # ! THIS IMPROVE DATABASE READ
+        # querySetLight = querySet.prefetch_related('author', 'category')   # ! THIS IMPROVES DATABASE READ TOO
+        return querySetLight
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -58,8 +60,9 @@ class CategoryView(ObjectListViewBase):
         querySet = super(ObjectListViewBase, self).get_queryset()
         querySet = querySet.filter(category__id=self.kwargs.get('idcategoria')).order_by(
             '-id')  # (FILTER) send data to web template html
-        get_list_or_404(querySet)
-        return querySet
+        querySetLight = querySet.select_related('author', 'category')   # ! THIS IMPROVE DATABASE READ
+        get_list_or_404(querySetLight)
+        return querySetLight
 
     def get_context_data(self, *args, **kwargs):
         context = super(CategoryView, self).get_context_data()
@@ -109,6 +112,8 @@ class SearchView(ObjectListViewBase):
 
 
 class RemedioView(DetailView):
+    # DETAIL VIEW WAITS PK
+
     model = Remedios
     context_object_name = 'remedio'
     template_name = 'pages/remedio-view.html'

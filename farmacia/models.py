@@ -36,7 +36,7 @@ class Remedios(models.Model):  # ISSO É UMA TABELA NO DJANGO
 
     category = models.ForeignKey(
         Category, on_delete=models.SET_NULL, null=True, blank=True, default=None
-    )  # FOREING KEY (CHAVE ESTRANGERIA COM A claa Category) on_delete definira o campo como null para não perder os
+    )  # FOREING KEY (CHAVE ESTRANGERIA COM A class Category) on_delete definira o campo como null para não perder os
     # links com demais informações
     author = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True

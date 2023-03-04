@@ -17,7 +17,8 @@ if you use vscode:<br>
   Click on small settings.json file icon in upper right corner.<br>
   copy settings.json-example-vscode and paste in settings.json<br>
 
-
+## Too to debug django
+https://django-debug-toolbar.readthedocs.io/en/latest/installation.html
 # Deploy -----------------------------------------------------------
 Little steps to deploy an app django
 
