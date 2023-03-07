@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # "recipes,"
     "farmacia",
     "authors",
+    "tags",
     "debug_toolbar",
 
 ]

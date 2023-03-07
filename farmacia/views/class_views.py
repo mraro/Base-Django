@@ -1,6 +1,7 @@
 import os
 
-from django.db.models import Q
+from django.db.models import Q, Value, F
+from django.db.models.functions import Concat
 from django.shortcuts import render, get_list_or_404, get_object_or_404, Http404  # object é para um só elemento
 from django.views.generic import ListView, DetailView
 
@@ -28,9 +29,17 @@ class ObjectListViewBase(ListView):
     template_name = 'pages/home.html'
 
     def get_queryset(self, *args, **kwargs):  # RETURN A QUERYSET IN THE ORDER WORDS READ DATABASE
+        # AQUI O get_published EM MODELS NÃO CHEGA
         querySet = super(ObjectListViewBase, self).get_queryset()
         querySet = querySet.filter(is_published=True, )  # (FILTER) send data to web template html
-        querySetLight = querySet.select_related('author', 'category')   # ! THIS IMPROVE DATABASE READ
+        querySet = querySet.annotate(  # GIVE MORE ONE VARIABLE INTO A LIST OF QUERYSET
+            author_full_name=Concat(
+                F('author__first_name'),
+                Value(" "),
+                F('author__last_name'),
+            )
+        )
+        querySetLight = querySet.select_related('author', 'category')  # ! THIS IMPROVE DATABASE READ
         # querySetLight = querySet.prefetch_related('author', 'category')   # ! THIS IMPROVES DATABASE READ TOO
         return querySetLight
 
@@ -39,7 +48,7 @@ class ObjectListViewBase(ListView):
         pages = make_pagination(self.request, context.get('remedios'), RANGE_PER_PAGE, OBJ_PER_PAGE)
         context.update(
             {'remedios': pages['medicines_page'], 'pages': pages, "nameSite": "Farma Class",
-}
+             }
         )
         return context  # UPDATE CONTEXT, IN THE OTHER WORDS, CUSTOMIZE WEB TEMPLATE WITH MY PAGINATION FUNC
 
@@ -60,7 +69,7 @@ class CategoryView(ObjectListViewBase):
         querySet = super(ObjectListViewBase, self).get_queryset()
         querySet = querySet.filter(category__id=self.kwargs.get('idcategoria')).order_by(
             '-id')  # (FILTER) send data to web template html
-        querySetLight = querySet.select_related('author', 'category')   # ! THIS IMPROVE DATABASE READ
+        querySetLight = querySet.select_related('author', 'category')  # ! THIS IMPROVE DATABASE READ
         get_list_or_404(querySetLight)
         return querySetLight
 
@@ -111,12 +120,44 @@ class SearchView(ObjectListViewBase):
         return context
 
 
+class TagView(ObjectListViewBase):
+    template_name = 'pages/tag.html'
+
+    def get_queryset(self, *args, **kwargs):
+        querySet = super(TagView, self).get_queryset()
+        var_site = self.kwargs.get('slug')
+
+        if not var_site:
+            raise Http404
+        # var_site = var_site.strip()  # # '''o | juntamente a função Q faz com que a pesquisa seja OR '''
+        querySet = querySet.filter(tags__slug=var_site).order_by('-id')
+        querySet = querySet.filter(is_published=True)
+        querySetLight = querySet.select_related('author', 'category')  # ! THIS IMPROVE DATABASE READ
+
+        return querySetLight
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(TagView, self).get_context_data()
+        # var_site = self.kwargs.get('slug')
+
+        pages = make_pagination(self.request, context.get('remedios'), RANGE_PER_PAGE, OBJ_PER_PAGE)
+        context.update(
+            {
+                'remedios': pages['medicines_page'],
+                'pages': pages,
+                # 'title': var_site
+            }
+        )
+        return context
+
+
 class RemedioView(DetailView):
     # DETAIL VIEW WAITS PK
 
     model = Remedios
     context_object_name = 'remedio'
     template_name = 'pages/remedio-view.html'
+
     def get_context_data(self, **kwargs):
         context = super(RemedioView, self).get_context_data()
 

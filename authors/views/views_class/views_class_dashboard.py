@@ -35,7 +35,7 @@ class BaseObjectClassedView(View):
     def get(self, request, idobject=None):
         remedio = self.get_objects_to_view(idobject)
         form = EditObjectForm(
-            instance=remedio  # if none receive what will be edited
+            instance=remedio  # fill the fields with sent data
         )
         return self.render_view(form, idobject)
 

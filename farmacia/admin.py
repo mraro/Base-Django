@@ -1,15 +1,24 @@
 from django.contrib import admin
+
+from tags.models import TAG
 from .models import Category, Remedios
+from django.contrib.contenttypes.admin import GenericStackedInline
 
 
-# AQUI É UMA EXTENSÃO DO localhost:8000/admin OS MODELOS ADICIONADOS AQUI PODERÃO SER GERENCIADOS DIRETAMENTE POR USUARIO
-
+# AQUI É UMA EXTENSÃO DO localhost:8000/admin OS MODELOS ADICIONADOS AQUI PODERÃO SER GERENCIADOS DIRETAMENTE POR
+# USUARIO
 
 class CategoryAdmin(admin.ModelAdmin):
     ...
 
 
 admin.site.register(Category, CategoryAdmin)
+
+
+class TagInLine(GenericStackedInline):
+    model = TAG
+    fields = 'name',
+    extra = 1
 
 
 # UMA FORMA DE REGISTRAR AS TABELAS NO ADMIN ...
@@ -25,4 +34,5 @@ class RemediosAdmin(admin.ModelAdmin):
     ordering = '-id',
     prepopulated_fields = {
         "slug": ('title',)  # this copy title and make a slug text in slug field
-                           }
+    }
+    inlines = [TagInLine, ]

@@ -1,10 +1,15 @@
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.urls import reverse
+from django.db.models import F, Value
+from django.db.models.functions import Concat
+
+from tags.models import TAG
 
 
 # Create your models here.
-
+# MODELS ARE DATABASE MODEL, HE MAKES CHANGES ON ANY DATABASE THAT IS SET UP HERE
 
 class Category(models.Model):
     name = models.CharField(max_length=65)
@@ -13,8 +18,23 @@ class Category(models.Model):
         return self.name  # !IMPORTANT ISSO FARA COM QUE NO ADMIN DO DJANGO RETORNE O NOME DO OBJETO
 
 
-class Remedios(models.Model):  # ISSO É UMA TABELA NO DJANGO
+class Manager(models.Manager):
+    """ CAN I USE THIS IN A VIEW, IN THIS CASE TESTS IF IS PUBLISHED """
 
+    @staticmethod
+    def get_published():
+        return Remedios.objects.filter(is_published=True).order_by('-id').annotate(
+            # GIVE MORE ONE VARIABLE INTO A LIST OF QUERYSET
+            author_full_name=Concat(
+                F('author__first_name'),
+                Value(" "),
+                F('author__last_name'),
+            )
+        ).select_related('author', 'category')  # THIS IMPROVE READ DATABASE (WORKS ON FOREIGN KEY)
+
+
+class Remedios(models.Model):  # ISSO É UMA TABELA NO DJANGO
+    objects = Manager()
     title = models.CharField(max_length=65)  # IS LIKE MYSQL VARCHAR(65)
     description = models.TextField()
     slug = models.SlugField(unique=True)
@@ -42,12 +62,15 @@ class Remedios(models.Model):  # ISSO É UMA TABELA NO DJANGO
         User, on_delete=models.SET_NULL, null=True
     )
 
+    tags = GenericRelation(
+        TAG, related_query_name='Remedios'
+    )
+
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
         return reverse('farmacia:remedio', args=(self.id,))
-
 
     '''  THIS IS AN EXAMPLE TO REWRITE A BUILTIN METHOD
     I WONT USE THIS BECAUSE A HAD PUT A FUNC TO DO THE SAME THING IN clean_slug

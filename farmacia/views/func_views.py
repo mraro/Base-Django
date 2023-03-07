@@ -1,6 +1,7 @@
 import os
 
-from django.db.models import Q
+from django.db.models import Q, Count, F, Value
+from django.db.models.functions import Concat
 from django.shortcuts import render, get_list_or_404, get_object_or_404, Http404  # object é para um só elemento
 
 from farmacia.models import Remedios
@@ -13,9 +14,18 @@ OBJ_PER_PAGE = int(os.environ.get("OBJ_PER_PAGE", 9))
 
 
 # https://docs.djangoproject.com/pt-br/3.2/topics/db/queries/#complex-lookups-with-q-objects
+# https://docs.djangoproject.com/pt-br/4.0/ref/models/querysets/#field-lookups
+# https://docs.djangoproject.com/pt-br/4.0/ref/models/querysets/#operators-that-return-new-querysets
 def home(request):
-    medicines = Remedios.objects.filter(is_published=True).order_by('-id')
-    medicines = medicines.select_related('author', 'category')  # THIS IMPROVE READ DATABASE (WORKS ON FOREIGN KEY)
+    medicines = Remedios.objects.get_published()
+    # medicines = medicines.annotate( # GIVE MORE ONE VARIABLE INTO A LIST OF QUERYSET
+    #     author_full_name=Concat(
+    #         F('author__first_name'),
+    #         Value(" "),
+    #         F('author__last_name'),
+    #     )
+    # )
+    # medicines = medicines.select_related('author', 'category')  # THIS IMPROVE READ DATABASE (WORKS ON FOREIGN KEY)
     pages = make_pagination(request, medicines, RANGE_PER_PAGE, OBJ_PER_PAGE)
     # a pasta templates que herda a pasta home esta linkada na settings do django
     return render(request, "pages/home.html",
@@ -82,3 +92,14 @@ def search(request):
         'remedios': pages['medicines_page'],
         'pages': pages,
         'search_done': var_site, })
+
+
+def theory(request):
+    remedio = Remedios.objects.all()
+    remedio = remedio.values('title', 'price', 'author', 'created_at', 'category')[:10]  # desempacotamento
+    num_of_objects = remedio.aggregate(Count('id'))
+    context = {
+        'remedio': remedio,
+        'num_len': num_of_objects,
+    }
+    return render(request, 'pages/theory.html', context=context)

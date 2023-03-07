@@ -33,6 +33,7 @@ class EditObjectForm(forms.ModelForm):
     class Meta:
         model = Remedios  # database
         fields = 'title', 'price', 'quantity', 'description', 'cover', 'category', 'slug',
+        # exclude = []
         labels = {
             # 'title': 'Titulo: ',
             'description': 'Descrição: ',

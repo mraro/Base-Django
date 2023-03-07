@@ -20,14 +20,15 @@
 		
 		<p>
 			{% comment %} {{ remedio.description }} {% endcomment %}
-			{% if remedio.author.first_name != None %}
-			{% if remedio.author.first_name %} 
-			Criado por: {{ remedio.author.first_name}} {{ remedio.author.last_name}} <br>
+			{% if remedio.author_full_name != None %}
+				{% if remedio.author_full_name %} 
+					Criado por: {{ remedio.author_full_name}} <br>
+					{{ remedio.author_full_name }}
+				{% else %}
+					Criado por: {{ remedio.author.username}} <br>
+				{% endif %}
 			{% else %}
-			Criado por: {{ remedio.author.username}} <br>
-			{% endif %}
-			{% else %}
-			Autor Desconhecido <br>
+				Autor Desconhecido <br>
 			{% endif %}
 			
 			Data de criação: {{ remedio.created_at|date:"d/m/Y" }} às {{ remedio.created_at|date:"H:i"}} <br>
@@ -44,6 +45,12 @@
 			<a  class="object-view-button" href=" {{ remedio.get_absolute_url }} "><span>Visualizar</span></a>
 		</div>
 		{% else %}
+		TAGS:
+		{% for tag in remedio.tags.all %}
+		<a href="{% url 'farmacia:tag' tag.slug %}">
+			{{ tag }}
+		</a>
+		{% endfor %}
 		<div class="descripition-detail">
 			{{ remedio.description }}
 		</div>

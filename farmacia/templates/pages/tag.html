@@ -1,0 +1,17 @@
+{% extends 'global/base.html' %}
+{% comment %} GLOBAL É UMA PASTA NA RAIZ DO APP NO MESMO NIVEL DO PROJETO {% endcomment %}
+
+{% block 'title' %}
+	Tags 
+{% endblock 'title' %}
+
+{% block 'content' %}
+	<div class="main-content-container">
+
+		{% for remedio in remedios  %}
+			{% include 'partials/remedio.html' %}	
+		{% endfor %}
+		
+	</div>
+{% endblock 'content' %}
+
