@@ -6,20 +6,11 @@
 	
 </head>
 <body>
-	
+	{% include 'global/partials/side_menu.html' %}
 	{% include 'global/partials/header.html' %}	
+	{% include 'global/partials/messages.html' %}
 	
-	{% if messages %}
-		{% for message in messages %}	
-			<div class="message {{ message.tags }}">
-				{{ message }}
-			</div>
-		{% endfor %}
-	{% endif %}
-	
-	{% block 'content' %}
-	{% endblock 'content' %}	
-			
+	{% block 'content' %} 			{% endblock 'content' %}				
 	{% include 'global/partials/pagination.html' %}
 
 	{% include 'global/partials/footer.html' %}

@@ -46,7 +46,37 @@ img {
 	width: 100%;
 	
 }
+/* Works on Firefox */
+* {
+	opacity: 5;
+	scrollbar-width: thin;
+	scrollbar-color: var(--color-background)  var(--color-background-secundary);
+  }
+  
+  /* Works on Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+	width: 12px;
+	opacity: 5;
+
+  }
+  
+  *::-webkit-scrollbar-track {
+	background: var(--color-background);
+	opacity: 5;
+
+  }
+  
+  *::-webkit-scrollbar-thumb {
+	background-color: var(--color-background-secundary);
+	border-radius: 20px;
+	border: 3px solid var(--color-background);
+	opacity: 5;
+
+  }
+
 /* ### button */
+
+
 .box {
 	width: 140px;
 	height: auto;
@@ -209,6 +239,7 @@ header{
 }
 /* CURRENT USER */
 .scene {
+	z-index: 100;
 	width: 0em;
 	position: absolute;
 	top: 5%;
@@ -218,6 +249,8 @@ header{
    }
    
    .cube {
+	position: fixed;
+
 	color: #ccc;
 	cursor: pointer;
 	font-family: 'Roboto', sans-serif;
@@ -238,7 +271,7 @@ header{
 	position: absolute;
 	/* display: inline-block; */
 	height: 4em;
-	width: 10em;
+	width: 11em;
 	text-align: center;
 	text-transform: uppercase;
 	padding-top: 0.88em;
@@ -262,11 +295,13 @@ header{
    /*  */
 #mySidenav{
 	top: 0px;	
+	position: fixed;
+
 }
 #mySidenav a, 
 #mySidenav button {
 	position: absolute;
-	left: -100px;
+	left: -90px;
 	transition: 0.3s;
 	padding: 15px;
 	width: 120px;
@@ -302,6 +337,8 @@ header{
   } */
   
   .btn {
+	position: fixed;
+
 	width: 150px;
 	/* height: 50px; */
 	border-radius: 5px;
@@ -343,6 +380,69 @@ header{
 	transition: all 0.5s;
 	opacity: 0;
   }
+.side-bar-content-categorys{
+	position: fixed;
+	/* text-align: justify; */
+	text-align: center;
+	width: 260px;
+	top: 0;
+	left: -280px;
+	bottom: 0;
+	background: var(--color-background-secundary);
+	padding: 0.8em;
+	padding-bottom: 2em;
+	/* height: 100vh; */
+	z-index: 1;
+	display: flex;
+	/* flex-flow: column wrap; */
+	transition: all 0.5s ease-in-out;
+	padding-top: 300px;
+	/* justify-content: center; */
+	overflow-y: scroll;
+	overflow-x: hidden;
+	direction: rtl;
+	flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: stretch;
+}
+.side-bar-content-categorys a{
+  padding-top: 0.5em;
+  width: -moz-fit-content;
+  width: fit-content;
+  width: 100%;
+
+  background-color: var(--color-background);
+  border-radius:5px;
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  -ms-border-radius:5px;
+  -o-border-radius:5px;
+  padding: 9px 15px;
+  border: solid 1px black;
+  /* height: 40px; */
+}
+.btn-cate{
+	position: absolute;
+	position: fixed;
+    top: 50vh;
+    transition: 0.3s;
+    padding: 15px;
+    width: 20px;
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    border-radius: 0 5px 5px 0;
+	background: var(--color-background-secundary);
+
+}
+.side-bar-content-categorys:hover,
+.btn-cate:hover + .side-bar-content-categorys{
+  left: 0;
+  box-shadow: 0 0 20px 0px #2e2e2e3a;
+	transition: all 0.5s ease-in-out;
+
+}
+
 /* ################# SEARCH */
 .search-container{
 	width: 600px;

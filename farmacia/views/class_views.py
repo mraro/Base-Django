@@ -2,14 +2,14 @@ import os
 
 from django.db.models import Q, Value, F
 from django.db.models.functions import Concat
-from django.shortcuts import render, get_list_or_404, get_object_or_404, Http404  # object é para um só elemento
+from django.shortcuts import get_list_or_404, Http404  # object é para um só elemento
 from django.views.generic import ListView, DetailView
 
-from farmacia.models import Remedios
+from farmacia.models import Remedios, Category
 
 from utility.paginator import make_pagination
 
-# constant (means that not be modified, but you can in .env file) its a var global too.
+# constant (means that not be modified, but you can in .env file) it's a var global too.
 RANGE_PER_PAGE = int(os.environ.get("RANGE_PER_PAGE", 6))
 OBJ_PER_PAGE = int(os.environ.get("OBJ_PER_PAGE", 9))
 
@@ -31,7 +31,7 @@ class ObjectListViewBase(ListView):
     def get_queryset(self, *args, **kwargs):  # RETURN A QUERYSET IN THE ORDER WORDS READ DATABASE
         # AQUI O get_published EM MODELS NÃO CHEGA
         querySet = super(ObjectListViewBase, self).get_queryset()
-        querySet = querySet.filter(is_published=True, )  # (FILTER) send data to web template html
+        querySet = querySet.filter(is_published=True, )  # (FILTER),, send data to web template html
         querySet = querySet.annotate(  # GIVE MORE ONE VARIABLE INTO A LIST OF QUERYSET
             author_full_name=Concat(
                 F('author__first_name'),
@@ -46,8 +46,12 @@ class ObjectListViewBase(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         pages = make_pagination(self.request, context.get('remedios'), RANGE_PER_PAGE, OBJ_PER_PAGE)
+        category = Category.objects.filter(remedios__isnull=False).distinct()
         context.update(
-            {'remedios': pages['medicines_page'], 'pages': pages, "nameSite": "Farma Class",
+            {'remedios': pages['medicines_page'],
+             'pages': pages,
+             'nameSite': 'Farma Class',
+             'categories': category,
              }
         )
         return context  # UPDATE CONTEXT, IN THE OTHER WORDS, CUSTOMIZE WEB TEMPLATE WITH MY PAGINATION FUNC
@@ -98,11 +102,13 @@ class SearchView(ObjectListViewBase):
         if not var_site:
             raise Http404
         var_site = var_site.strip()  # # '''o | juntamente a função Q faz com que a pesquisa seja OR '''
-        querySet = querySet.filter(Q(title__contains=var_site) | Q(description__contains=var_site)).order_by(
-            '-id')
+        querySet = querySet.filter(Q(title__contains=var_site) |
+                                   Q(description__contains=var_site) |
+                                   Q(category__name__contains=var_site)).order_by('-id')
         querySet = querySet.filter(is_published=True)
+        querySetLight = querySet.select_related('author', 'category')  # ! THIS IMPROVE DATABASE READ
 
-        return querySet
+        return querySetLight
 
     def get_context_data(self, *args, **kwargs):
         context = super(SearchView, self).get_context_data()

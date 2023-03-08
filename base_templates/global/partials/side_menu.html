@@ -1,0 +1,34 @@
+{% if request.user.is_authenticated %}
+    <div id="mySidenav">
+
+        <a id="dashboard" title="Dashboard" class="login-element btn" href="{% url 'authors:dashboard' %}"><span class="text">Dashboard</span> <span class="icon"><i class="fa fa-tachometer"></i></span> </a>
+        
+    </div>
+    
+    <form class="scene" action="{% url 'authors:logout' %}" method='POST'>
+        {% csrf_token %}
+        <button class="cube" type='submit' name='username' value={{ request.user.username }}>
+            <div class="side front"> Usuario:<br> {{ request.user.username }} </div>  
+            <div class="side top"> click para deslogar <i class="fa-solid fa-right-to-bracket"></i></div>
+        </button>
+    </form>
+
+{% else %}
+    <div id="mySidenav">
+			
+        <a id="register" title="Registro" class="loguin-element btn" href="{% url 'authors:register' %}"> 	<span class="text">Registro</span>	<span class="icon"><i class="fa-solid fa-pen-to-square"></i></span></a>
+        <a id="login" title="Login" class="loguin-element btn" href="{% url 'authors:login' %}"> 				<span class="text">Login</span>		<span class="icon"><i class="fas fa-user"></i></span> </a>
+			
+    </div>
+{% endif %}
+
+{% if categories %}
+<div class="btn-cate"><span class="icon"><i class='fas fa-bars'></i></span></div>
+<div class="side-bar-content-categorys">
+    <h3>Categorias</h3>
+    {% for category in categories  %}
+    <a href="{%  url 'farmacia:categoria' category.id %}">{{category}} </a><br>
+
+    {% endfor %}
+</div>
+{% endif %}

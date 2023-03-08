@@ -1,5 +1,8 @@
+from collections import defaultdict
+
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericRelation
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
 from django.db.models import F, Value
@@ -61,16 +64,29 @@ class Remedios(models.Model):  # ISSO É UMA TABELA NO DJANGO
     author = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True
     )
-
-    tags = GenericRelation(
-        TAG, related_query_name='Remedios'
-    )
+    # GENERIC
+    # tags = GenericRelation(
+    #     TAG, related_query_name='Remedios'
+    # )
+    # MANY TO MANY
+    tags = models.ManyToManyField(TAG)
 
     def __str__(self):
         return self.title
 
-    def get_absolute_url(self):
+    def get_absolute_url(self):  # THIS IS SO IMPORTANT, THIS IS CALLED IN TEMPLATE HTML (HAS THIS IN remedio.html)
         return reverse('farmacia:remedio', args=(self.id,))
+
+    def clean(self, *args, **kwargs):   # VALIDAÇÃO GLOBAL | GLOBAL VALIDATION                  !IMPORTANT
+        error_messages = defaultdict(list)
+
+        remedio_from_db = Remedios.objects.filter(title__iexact=self.title).first()
+
+        if remedio_from_db and remedio_from_db.pk != self.pk:
+            error_messages['title'].append("Esse titulo já existe")
+
+        if error_messages:
+            raise ValidationError(error_messages)
 
     '''  THIS IS AN EXAMPLE TO REWRITE A BUILTIN METHOD
     I WONT USE THIS BECAUSE A HAD PUT A FUNC TO DO THE SAME THING IN clean_slug

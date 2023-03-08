@@ -15,11 +15,6 @@ class CategoryAdmin(admin.ModelAdmin):
 admin.site.register(Category, CategoryAdmin)
 
 
-class TagInLine(GenericStackedInline):
-    model = TAG
-    fields = 'name',
-    extra = 1
-
 
 # UMA FORMA DE REGISTRAR AS TABELAS NO ADMIN ...
 @admin.register(Remedios)
@@ -35,4 +30,4 @@ class RemediosAdmin(admin.ModelAdmin):
     prepopulated_fields = {
         "slug": ('title',)  # this copy title and make a slug text in slug field
     }
-    inlines = [TagInLine, ]
+    autocomplete_fields = 'tags',
