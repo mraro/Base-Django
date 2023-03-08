@@ -25,7 +25,7 @@ class AuthorsLoginTest(AuthorsBaseTest):
         body.find_element(By.ID, 'button-form').click()
         # time.sleep(3)
 
-        self.assertIn("Sucesso no Login!", self.browser.find_element(By.XPATH, '/html/body/div[1]').text)
+        self.assertIn("Sucesso no Login!", self.browser.find_element(By.TAG_NAME, 'body').text)
 
     def test_login_create_raises_404_if_not_POST(self):
         self.browser.get(self.live_server_url + reverse('authors:register_create'))
