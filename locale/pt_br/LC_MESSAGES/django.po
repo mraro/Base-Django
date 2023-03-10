@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-10 10:52-0300\n"
+"POT-Creation-Date: 2023-03-10 12:42-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-#: .\authors\templates\pages\dashboard.html:20
+
+#: .\authors\templates\pages\dashboard.html:20 .\farmacia\models.py:25
+#: .\farmacia\models.py:63
 msgid "Category"
 msgstr "Categoria"
 
@@ -62,13 +64,61 @@ msgstr "Login"
 msgid "Categorys"
 msgstr "Categorias"
 
+#: .\farmacia\models.py:26
+#, fuzzy
+#| msgid "Categorys"
+msgid "Categories"
+msgstr "Categorias"
+
+#: .\farmacia\models.py:46
+msgid "Title"
+msgstr "Título"
+
+#: .\farmacia\models.py:47
+msgid "Description"
+msgstr "Descrição"
+
+#: .\farmacia\models.py:49
+msgid "Price"
+msgstr "Preço"
+
+#: .\farmacia\models.py:50
+msgid "Quantity"
+msgstr "Quantidade"
+
+#: .\farmacia\models.py:53
+#, fuzzy
+#| msgid "Create"
+msgid "Created at"
+msgstr "Criar"
+
+#: .\farmacia\models.py:54
+msgid "Update at"
+msgstr "Ultima Att"
+
+#: .\farmacia\models.py:55
+msgid "Is Published"
+msgstr "Está Publicado"
+
+#: .\farmacia\models.py:67
+msgid "Author"
+msgstr "Autor"
+
+#: .\farmacia\models.py:105
+msgid "Medicine"
+msgstr "Remedio"
+
+#: .\farmacia\models.py:106
+msgid "Medicines"
+msgstr "Remedios"
+
 #: .\farmacia\templates\pages\home.html:19
 msgid "Out of stock"
-msgstr "Sem estoque"
+msgstr "Sem Estoque"
 
 #: .\farmacia\templates\pages\search.html:17
 msgid "No results found about "
-msgstr "Sem resultados encontrados sobre "
+msgstr "Nenhum resultado encontrado sobre "
 
 #: .\farmacia\templates\partials\remedio.html:28
 #: .\farmacia\templates\partials\remedio.html:31

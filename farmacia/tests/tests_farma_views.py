@@ -8,7 +8,7 @@ from .tests_medicine_base import BaseTestMedicine, TestCase
 import dotenv
 
 dotenv.load_dotenv()
-# METODOLOGIA TDD, CRIA O TESTE DEPOIS O CODIGO ( TEST DRIVEN DEVELOPMENT )
+# METODOLOGIA TDD, CRIA O TESTE DEPOIS O CODIGO ( TEST DRIVEN DEVELOPMENT ) # noqa
 METHOD_MODE = int(os.environ.get("METHOD_MODE"))
 
 

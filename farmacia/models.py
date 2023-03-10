@@ -7,6 +7,7 @@ from django.db import models
 from django.urls import reverse
 from django.db.models import F, Value
 from django.db.models.functions import Concat
+from django.utils.translation import gettext_lazy as _  # TRANSLATE as _
 
 from tags.models import TAG
 
@@ -19,6 +20,10 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name  # !IMPORTANT ISSO FARA COM QUE NO ADMIN DO DJANGO RETORNE O NOME DO OBJETO
+
+    class Meta:
+        verbose_name = _("Category")
+        verbose_name_plural = _("Categories")
 
 
 class Manager(models.Manager):
@@ -38,34 +43,35 @@ class Manager(models.Manager):
 
 class Remedios(models.Model):  # ISSO É UMA TABELA NO DJANGO
     objects = Manager()
-    title = models.CharField(max_length=65)  # IS LIKE MYSQL VARCHAR(65)
-    description = models.TextField()
+    title = models.CharField(max_length=65, verbose_name=_("Title"))  # IS LIKE MYSQL VARCHAR(65)
+    description = models.TextField(verbose_name=_("Description"))
     slug = models.SlugField(unique=True)
-    price = models.FloatField(default=1)
-    quantity = models.IntegerField(default=0)
-    preparetion_steps = models.TextField()
+    price = models.FloatField(default=1, verbose_name=_("Price"))
+    quantity = models.IntegerField(default=0, verbose_name=_("Quantity"))
+    preparetion_steps = models.TextField(null=True, blank=True)
     preparetion_steps_is_html = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    update_at = models.DateTimeField(auto_now=True)
-    is_published = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Created at"))
+    update_at = models.DateTimeField(auto_now=True, verbose_name=_("Update at"))
+    is_published = models.BooleanField(default=False, verbose_name=_("Is Published"))
     cover = models.ImageField(upload_to='farmacia/covers/%Y/%m/%d/',
                               blank=True,
-                              default='static/images/default.jpg')  # campo de imagem
+                              default='static/images/default.jpg',
+                              verbose_name="Cover/Image")  # campo de imagem
     # (blank=True permite campo vazio, default é a imagem padrão caso não exista
 
     category = models.ForeignKey(
-        Category, on_delete=models.SET_NULL, null=True, blank=True, default=None
+        Category, on_delete=models.SET_NULL, null=True, blank=True, default=None, verbose_name=_("Category"),
     )  # FOREING KEY (CHAVE ESTRANGERIA COM A class Category) on_delete definira o campo como null para não perder os
     # links com demais informações
     author = models.ForeignKey(
-        User, on_delete=models.SET_NULL, null=True
+        User, on_delete=models.SET_NULL, null=True, verbose_name=_("Author")
     )
     # GENERIC
     # tags = GenericRelation(
     #     TAG, related_query_name='Remedios'
     # )
     # MANY TO MANY
-    tags = models.ManyToManyField(TAG)
+    tags = models.ManyToManyField(TAG, verbose_name="TAG", blank=True)
 
     def __str__(self):
         return self.title
@@ -73,7 +79,7 @@ class Remedios(models.Model):  # ISSO É UMA TABELA NO DJANGO
     def get_absolute_url(self):  # THIS IS SO IMPORTANT, THIS IS CALLED IN TEMPLATE HTML (HAS THIS IN remedio.html)
         return reverse('farmacia:remedio', args=(self.id,))
 
-    def clean(self, *args, **kwargs):   # VALIDAÇÃO GLOBAL | GLOBAL VALIDATION                  !IMPORTANT
+    def clean(self, *args, **kwargs):  # VALIDAÇÃO GLOBAL | GLOBAL VALIDATION                  !IMPORTANT
         error_messages = defaultdict(list)
 
         remedio_from_db = Remedios.objects.filter(title__iexact=self.title).first()
@@ -93,3 +99,8 @@ class Remedios(models.Model):  # ISSO É UMA TABELA NO DJANGO
             self.slug = slug
         return super().save(*args, **kwargs)
     '''
+
+    class Meta:
+        """ THIS JUST OVERWRITE THE LABEL, IN ORDER TO _ """
+        verbose_name = _("Medicine")
+        verbose_name_plural = _("Medicines")

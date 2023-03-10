@@ -4,6 +4,7 @@ from django.db.models import Q, Value, F
 from django.db.models.functions import Concat
 from django.shortcuts import get_list_or_404, Http404  # object é para um só elemento
 from django.views.generic import ListView, DetailView
+from django.utils import translation
 
 from farmacia.models import Remedios, Category
 
@@ -72,11 +73,13 @@ class ObjectListViewBase(ListView):
         context = super().get_context_data(*args, **kwargs)
         pages = make_pagination(self.request, context.get('remedios'), RANGE_PER_PAGE, OBJ_PER_PAGE)
         category = Category.objects.filter(remedios__isnull=False, remedios__is_published=True).distinct()
+        language = translation.get_language()
         context.update(
             {'remedios': pages['medicines_page'],
              'pages': pages,
              'nameSite': 'Farma Class',
              'categories': category,
+             'language': language,
              }
         )
         return context  # UPDATE CONTEXT, IN THE OTHER WORDS, CUSTOMIZE WEB TEMPLATE WITH MY PAGINATION FUNC
