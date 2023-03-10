@@ -5,8 +5,8 @@ from .models import Category, Remedios
 from django.contrib.contenttypes.admin import GenericStackedInline
 
 
-# AQUI É UMA EXTENSÃO DO localhost:8000/admin OS MODELOS ADICIONADOS AQUI PODERÃO SER GERENCIADOS DIRETAMENTE POR
-# USUARIO
+# AQUI É UMA EXTENSÃO DO localhost:8000/admin OS MODELOS ADICIONADOS AQUI PODERÃO SER GERENCIADOS DIRETAMENTE POR # noqa
+# USUARIO   # noqa
 
 class CategoryAdmin(admin.ModelAdmin):
     ...
@@ -15,8 +15,7 @@ class CategoryAdmin(admin.ModelAdmin):
 admin.site.register(Category, CategoryAdmin)
 
 
-
-# UMA FORMA DE REGISTRAR AS TABELAS NO ADMIN ...
+# UMA FORMA DE REGISTRAR AS TABELAS NO ADMIN ... # noqa
 @admin.register(Remedios)
 class RemediosAdmin(admin.ModelAdmin):
     list_display = ['id', 'title', 'created_at', 'author',

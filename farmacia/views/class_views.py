@@ -40,7 +40,7 @@ class ObjectListViewBase(ListView):
             )
         )
         querySetLight = querySet.select_related('author', 'category')  # ! THIS IMPROVE DATABASE READ
-        # querySetLight = querySet.prefetch_related('author', 'category')   # ! THIS IMPROVES DATABASE READ TOO
+        querySetLight = querySetLight.prefetch_related('tags', 'author__profile')   # ! THIS IMPROVES DATABASE READ TOO
         return querySetLight
 
     def get_context_data(self, *args, **kwargs):

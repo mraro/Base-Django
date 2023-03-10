@@ -11,8 +11,8 @@ METHOD_MODE = int(os.environ.get("METHOD_MODE", 1))
 if METHOD_MODE == 0:
     urlpatterns = [
         path("", HomeView.as_view(), name="home"),  # HOME == INDEX
-        path("register/", register_view, name="register"),  # TODO
-        path("register/create/", register_create, name="register_create"),  # TODO
+        path("register/", RegisterView.as_view(), name="register"),
+        path("register/create/", RegisterCreate.as_view(), name="register_create"),  # TODO
         path("login", login_view, name="login"),  # TODO
         path("login/authenticate/", login_authenticate, name="authenticate"),  # TODO
         path("logout/", logout_backend, name="logout"),  # TODO

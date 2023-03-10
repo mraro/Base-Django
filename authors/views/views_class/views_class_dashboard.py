@@ -16,16 +16,17 @@ from farmacia import models
 @method_decorator(login_required(login_url='authors:login', redirect_field_name='next'), name='dispatch')
 class BaseObjectClassedView(View):
     def get_objects_to_view(self, id_obj):
+        """ THIS WILL RENDER A FORM OF REMEDIO TO EDIT """
         return models.Remedios.objects.filter(id=id_obj, is_published=False, author=self.request.user).first()
 
-    def render_view(self, form, id):
+    def render_view(self, form, id):    # noqa
+        """ RENDER TO VIEW, NEED A FORM """
         if id is not None:
             title_site = 'Editar'
         else:
             title_site = 'Criar'
 
         return render(self.request, 'pages/edit_obj_view.html', context={
-            # 'remedio': remedio[0],
             'form': form,
             'form_button': 'Salvar',
             'edit': 'tru',
@@ -33,8 +34,9 @@ class BaseObjectClassedView(View):
         })
 
     def get(self, request, idobject=None):
+        """ WHEN HAS A GET DATA TO USE """
         remedio = self.get_objects_to_view(idobject)
-        form = EditObjectForm(
+        form = EditObjectForm( # EditObjectForm is class made to load filds, clean e some think else
             instance=remedio  # fill the fields with sent data
         )
         return self.render_view(form, idobject)
