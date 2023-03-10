@@ -6,9 +6,11 @@ from django.core.checks import messages
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.urls import reverse
+from django.views.generic import ListView
 
 from authors.forms import EditObjectForm
 from farmacia import models
+from farmacia.models import Remedios
 
 
 # THIS DECORATOR IS UTIL LIKE A FUNC BASE TO VIEW, BUT HERE WE HAVE TO USER @method_decorator and in the end use
@@ -19,7 +21,7 @@ class BaseObjectClassedView(View):
         """ THIS WILL RENDER A FORM OF REMEDIO TO EDIT """
         return models.Remedios.objects.filter(id=id_obj, is_published=False, author=self.request.user).first()
 
-    def render_view(self, form, id):    # noqa
+    def render_view(self, form, id):  # noqa
         """ RENDER TO VIEW, NEED A FORM """
         if id is not None:
             title_site = 'Editar'
@@ -36,7 +38,7 @@ class BaseObjectClassedView(View):
     def get(self, request, idobject=None):
         """ WHEN HAS A GET DATA TO USE """
         remedio = self.get_objects_to_view(idobject)
-        form = EditObjectForm( # EditObjectForm is class made to load filds, clean e some think else
+        form = EditObjectForm(  # EditObjectForm is class made to load filds, clean e some think else
             instance=remedio  # fill the fields with sent data
         )
         return self.render_view(form, idobject)
@@ -82,3 +84,20 @@ class ObjectClassedViewDelete(BaseObjectClassedView):
             messages.error(self.request, f"{titulo} não foi deletado!")
 
         return redirect(reverse('authors:dashboard'))
+
+
+@method_decorator(login_required(login_url='authors:login', redirect_field_name='next'), name='dispatch')
+class DashboardView(ListView):
+    model = Remedios  # DATABASE
+    # paginate_by = None
+    # paginate_orphans = 0
+    context_object_name = 'remedios'  # TABLE
+    # page_kwarg = "page"
+    ordering = ['-id']  # ORDERBY
+    template_name = 'pages/dashboard.html'
+
+    def get_queryset(self):
+        query = super().get_queryset()
+        query = query.filter(is_published=False, author=self.request.user)
+        queryLight = query.select_related('author', 'category')  # ! THIS IMPROVE DATABASE READ
+        return queryLight

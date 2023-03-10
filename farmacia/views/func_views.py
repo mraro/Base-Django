@@ -18,7 +18,8 @@ OBJ_PER_PAGE = int(os.environ.get("OBJ_PER_PAGE", 9))
 # https://docs.djangoproject.com/pt-br/4.0/ref/models/querysets/#operators-that-return-new-querysets
 def home(request):
     medicines = Remedios.objects.get_published()
-    category = Category.objects.filter(remedios__isnull=False).distinct()   # DISTINCT REMOVES DUPLICATES
+    category = Category.objects.filter(remedios__isnull=False, remedios__is_published=True).distinct()  # DISTINCT
+    # REMOVES DUPLICATES
 
     medicines = medicines.annotate(  # GIVE MORE ONE VARIABLE INTO A LIST OF QUERYSET
                 author_full_name=Concat(

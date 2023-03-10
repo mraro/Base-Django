@@ -9,6 +9,31 @@ from farmacia.models import Remedios, Category
 
 from utility.paginator import make_pagination
 
+"""
+- LoginView - exibe um formulário de login e processa os dados de entrada
+- LogoutView - encerra a sessão do usuário e redireciona para outra URL
+- PasswordChangeView - exibe um formulário para alterar a senha do usuário e processa os dados de entrada
+- PasswordResetView - exibe um formulário para redefinir a senha do usuário e processa os dados de entrada
+- PasswordResetConfirmView - exibe um formulário para confirmar a redefinição da senha do usuário e processa os dados de entrada
+
+- TemplateView - exibe um único template
+- ListView - exibe um conjunto de objetos em um template
+- DetailView - exibe detalhes de um objeto específico em um template
+- FormView - exibe um formulário e processa dados de entrada
+- CreateView - exibe um formulário para criar um novo objeto e processa os dados de entrada
+- UpdateView - exibe um formulário para atualizar um objeto existente e processa os dados de entrada
+- DeleteView - exibe um formulário para excluir um objeto existente e processa os dados de entrada
+
+- RedirectView - redireciona o usuário para outra URL
+- ArchiveIndexView - exibe um índice de objetos arquivados
+- YearArchiveView - exibe um índice de objetos arquivados por ano
+- MonthArchiveView - exibe um índice de objetos arquivados por mês
+- DayArchiveView - exibe um índice de objetos arquivados por dia
+- DateDetailView - exibe detalhes de um objeto arquivado específico
+- WeekArchiveView - exibe um índice de objetos arquivados por semana
+- TodayArchiveView - exibe um índice de objetos arquivados para o dia atual
+""" # noqa
+
 # constant (means that not be modified, but you can in .env file) it's a var global too.
 RANGE_PER_PAGE = int(os.environ.get("RANGE_PER_PAGE", 6))
 OBJ_PER_PAGE = int(os.environ.get("OBJ_PER_PAGE", 9))
@@ -46,7 +71,7 @@ class ObjectListViewBase(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         pages = make_pagination(self.request, context.get('remedios'), RANGE_PER_PAGE, OBJ_PER_PAGE)
-        category = Category.objects.filter(remedios__isnull=False).distinct()
+        category = Category.objects.filter(remedios__isnull=False, remedios__is_published=True).distinct()
         context.update(
             {'remedios': pages['medicines_page'],
              'pages': pages,

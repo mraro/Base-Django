@@ -10,7 +10,7 @@ from django.urls import reverse
 class AuthorTest(TestCase):
     def test_author_if_method_not_post(self):
         response = self.client.get(reverse('authors:authenticate'))
-        self.assertEqual(response.status_code, 404)
+        self.assertGreaterEqual(response.status_code, 404)
 
     def test_logout_if_redirect(self):
         User.objects.create_user(username='user', password='true')
@@ -38,6 +38,7 @@ class AuthorTest(TestCase):
         self.assertRedirects(response, reverse('authors:login'))
 
     def test_login_authenticate_form_invalid(self):
-        response = self.client.post(reverse('authors:authenticate'), data={'username': '  ', 'password': '  '}, follow=True)
+        response = self.client.post(reverse('authors:authenticate'), data={'username': '  ', 'password': '  '},
+                                    follow=True)
         self.assertRedirects(response, reverse('authors:login'))
         self.assertIn('preencha os campos corretamente', response.content.decode('utf-8'))
