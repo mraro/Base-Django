@@ -1,11 +1,12 @@
 {% extends 'global/base.html' %}
 {% load static %}
+{% load i18n %}
 
-{% block 'title' %}Dashboard ({% if user.first_name %}{{ user.first_name }}{% else %}{{user}}{% endif %}){% endblock 'title' %}
+{% block 'title' %} Dashboard ({% if user.first_name %}{{ user.first_name }}{% else %}{{user}}{% endif %}){% endblock 'title' %}
 {% block 'content' %}
 
 <div class="dashboard-content">
-    <h1>Dashboard ({% if user.first_name %}{{ user.first_name }}{% else %}{{user}}{% endif %})</h1>
+    <h1> Dashboard ({% if user.first_name %}{{ user.first_name }}{% else %}{{user}}{% endif %})</h1>
     
     <div class="dashboard-container-object-views">
         <ul>
@@ -16,10 +17,10 @@
                     <button id='button-delete' type='submit'>❌</button>
                 </form>
             
-                <a href={% url 'authors:edit' remedio.id %}> {{ remedio.title }}  ( R$ {{ remedio.price|floatformat:2 }} ) ----- Categoria: {{ remedio.category }} </a>
+                <a href={% url 'authors:edit' remedio.id %}> {{ remedio.title }}  ( R$ {{ remedio.price|floatformat:2 }} ) ----- {% translate "Category" %}: {{ remedio.category }} </a>
             </li>
             {% empty %}
-            <li class='center'><h1>Sem remedios não publicados<h1></li>
+            <li class='center'><h1>{% translate "No objects created yet" %}<h1></li>
             {% endfor %}
             <li><a href={% url 'authors:create' %}><i class="fa fa-plus" aria-hidden="true"></i></a></li>
         </ul>

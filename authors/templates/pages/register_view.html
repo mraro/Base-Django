@@ -1,6 +1,7 @@
 {% extends 'global/base.html' %}
+{% load i18n %}
 
-{% block 'title' %}Registro{% endblock 'title' %}
+{% block 'title' %}{% translate "Register" %}{% endblock 'title' %}
 {% block 'content' %}
 
     {% include 'global/partials/form.html' %} 

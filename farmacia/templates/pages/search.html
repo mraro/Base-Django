@@ -1,4 +1,6 @@
 {% extends 'global/base.html' %}
+{% load i18n %}
+
 {% comment %} GLOBAL É UMA PASTA NA RAIZ DO APP NO MESMO NIVEL DO PROJETO {% endcomment %}
 
 	{% block 'title' %}
@@ -11,7 +13,7 @@
 	   {% for remedio in remedios  %}
 		   {% include 'partials/remedio.html' %}	
 	   {% empty %}
-		   <h1> Nenhum resultado encontrado sobre {{ search_done }}😒 </h1>
+		   <h1>{% translate "No results found about " %} {{ search_done }}😒 </h1>
 	   {% endfor %}
 	   
    </div>

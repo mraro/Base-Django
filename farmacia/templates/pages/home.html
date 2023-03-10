@@ -1,4 +1,6 @@
- {% extends 'global/base.html' %}
+{% extends 'global/base.html' %}
+{% load i18n %}
+ 
  {% comment %} GLOBAL É UMA PASTA NA RAIZ DO APP NO MESMO NIVEL DO PROJETO {% endcomment %}
 
  	{% block 'title' %}
@@ -12,7 +14,7 @@
 			{% comment %} {{remedio}}<br> {% endcomment %}
 			{% include 'partials/remedio.html' %}	
 		{% empty %}
-			<h1> Sem Estoque </h1>
+			<h1> {% translate "Out of stock" %} </h1>
 		{% endfor %}
 		
 	</div>

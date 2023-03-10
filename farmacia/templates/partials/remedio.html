@@ -1,3 +1,5 @@
+{% load i18n %}
+
 {% if remedio.is_published %}
 	{% if is_detail %}
 		<div class="object-view-detail">
@@ -20,20 +22,20 @@
 		
 		<p>
 			{% comment %} {{ remedio.description }} {% endcomment %}
-			{% if remedio.author_full_name != None %}
-				{% if remedio.author_full_name %} 
-					Criado por: {{ remedio.author_full_name}} <br>
+			{% if remedio.author.first_name != None %}
+				{% if remedio.author.first_name %} 
+					{% translate "Made by: " %} {{ remedio.author_full_name}} <br>
 					{{ remedio.author_full_name }}
 				{% else %}
-					Criado por: {{ remedio.author.username}} <br>
+					{% translate "Made by: " %} {{ remedio.author.username}} <br>
 				{% endif %}
 			{% else %}
-				Autor Desconhecido <br>
+				{% translate "Unknow Autor" %} <br>
 			{% endif %}
 			
-			Data de criação: {{ remedio.created_at|date:"d/m/Y" }} às {{ remedio.created_at|date:"H:i"}} <br>
+			{% translate "Creation date: " %} {{ remedio.created_at|date:"d/m/Y" }} às {{ remedio.created_at|date:"H:i"}} <br>
 			{% if remedio.category.id is not None %}
-			<a href="{%  url 'farmacia:categoria' remedio.category.id %}">Tipo: {{remedio.category}} </a>
+			<a href="{%  url 'farmacia:categoria' remedio.category.id %}">{% translate "Category: " %} {{remedio.category}} </a>
 			{% endif %}
 			
 		</p>
@@ -41,8 +43,8 @@
 		{% if not is_detail %}
 		{% comment %} <a  class="object-view-button" href=" {% url 'farmacia:remedio' remedio.id %} "><span>Adicionar ao Carrinho</span></a> {% endcomment %}
 		<div class="buttons-container">
-			<a  class="object-car-button" href=" {{ remedio.get_absolute_url }} "><span>Adicionar ao Carrinho</span></a>
-			<a  class="object-view-button" href=" {{ remedio.get_absolute_url }} "><span>Visualizar</span></a>
+			<a  class="object-car-button" href=" {{ remedio.get_absolute_url }} "><span> {% translate "Add to Cart" %}</span></a>
+			<a  class="object-view-button" href=" {{ remedio.get_absolute_url }} "><span> {% translate "To View" %}</span></a>
 		</div>
 		{% else %}
 		TAGS:

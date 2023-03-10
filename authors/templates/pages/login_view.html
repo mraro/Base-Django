@@ -1,4 +1,5 @@
 {% extends 'global/base.html' %}
+{% load i18n %}
 
 {% block 'title' %}Login{% endblock 'title' %}
 {% block 'content' %}
@@ -9,7 +10,7 @@
         {% comment %} <p>Sem uma conta ainda? <a href=" {% url 'authors:register' %} " class="a2">Cadastre-se!</a></p> {% endcomment %}
     {% comment %} </div> {% endcomment %}
     {% else %}
-    <div class="center"><h1>Você já esta logado como {{ user }} se deseja trocar de usuario faça logout primeiro.</h1></div>
+    <div class="center"><h1>{% translate "You are logued with " %}{{ user }} {% translate "if want to change, do logout first." %}</h1></div>
     {% endif %}
 
 {% endblock 'content' %}

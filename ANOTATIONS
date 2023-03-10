@@ -58,6 +58,14 @@ settings.py:
     ]
     ...
     ...
+>   # ARQUIVOS DE TRADUÇÃO
+    # add em middlewares: >> "django.middleware.locale.LocaleMiddleware",
+
+    LOCALE_PATHS = [
+        BASE_DIR / 'locale',
+    ]
+    ...
+    ...
 >   # PLURAL DE PASTAS COM ARQUIVOS ESTATICOS (ARQUIVOS ESTATICOS SERVEM PARA OTIMIZAR OS REQUEST AO SERVIDOR
     STATICFILES_DIRS = [
         BASE_DIR / 'pasta_static',

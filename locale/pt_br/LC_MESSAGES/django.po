@@ -1,0 +1,96 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-03-10 10:52-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+#: .\authors\templates\pages\dashboard.html:20
+msgid "Category"
+msgstr "Categoria"
+
+#: .\authors\templates\pages\dashboard.html:23
+msgid "No objects created yet"
+msgstr "Nenhum objecto criado ainda"
+
+#: .\authors\templates\pages\login_view.html:16
+msgid "You are logued with "
+msgstr "Você esta logado com "
+
+#: .\authors\templates\pages\login_view.html:16
+msgid "if want to change, do logout first."
+msgstr "se deseja trocar de usuario, faça logout primeiro"
+
+#: .\authors\templates\pages\new_obj_view.html:4
+msgid "Create"
+msgstr "Criar"
+
+#: .\authors\templates\pages\new_obj_view.html:8
+msgid "Dashboard Create"
+msgstr "Dashboard para criar"
+
+#: .\authors\templates\pages\register_view.html:4
+#: .\base_templates\global\partials\side_menu.html:28
+msgid "Register"
+msgstr "Registro"
+
+#: .\base_templates\global\partials\side_menu.html:18
+msgid "User:"
+msgstr "Usuario"
+
+#: .\base_templates\global\partials\side_menu.html:19
+msgid "click to logout"
+msgstr "click para sair"
+
+#: .\base_templates\global\partials\side_menu.html:34
+msgid "Login"
+msgstr "Login"
+
+#: .\base_templates\global\partials\side_menu.html:44
+msgid "Categorys"
+msgstr "Categorias"
+
+#: .\farmacia\templates\pages\home.html:19
+msgid "Out of stock"
+msgstr "Sem estoque"
+
+#: .\farmacia\templates\pages\search.html:17
+msgid "No results found about "
+msgstr "Sem resultados encontrados sobre "
+
+#: .\farmacia\templates\partials\remedio.html:28
+#: .\farmacia\templates\partials\remedio.html:31
+msgid "Made by: "
+msgstr "Criado por: "
+
+#: .\farmacia\templates\partials\remedio.html:34
+msgid "Unknow Autor"
+msgstr "Author desconhecido"
+
+#: .\farmacia\templates\partials\remedio.html:37
+msgid "Creation date: "
+msgstr "Data de criação: "
+
+#: .\farmacia\templates\partials\remedio.html:39
+msgid "Category: "
+msgstr "Categoria: "
+
+#: .\farmacia\templates\partials\remedio.html:48
+msgid "Add to Cart"
+msgstr "Adicionar ao carrinho"
+
+#: .\farmacia\templates\partials\remedio.html:49
+msgid "To View"
+msgstr "Preview"

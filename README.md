@@ -1,6 +1,12 @@
 # Base-Django
-Base to use Python Django
-
+<h3>Base to use Python Django</h3>
+with two languages:<br>
+###### for ubuntu:
+```commandline
+sudo apt-get install gettext
+```
+###### for windows:
+https://mlocati.github.io/articles/gettext-iconv-windows.html
 # First of all:
 ###### python env command
 ```
