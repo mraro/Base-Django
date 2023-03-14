@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.utils.translation import gettext as _  # TRANSLATE as _
 
 # import re
 
@@ -10,55 +11,67 @@ class RegisterForm(forms.ModelForm):  # HERE WE CAN OVERWRITE THE FILDS AND ADAP
     # FOR EVERY FIELDS
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        add_placeholder(self.fields['username'], 'Seu Nome')
+        add_placeholder(self.fields['username'], _('Your name'))
         # add_attr(self.fields['username'], 'placeholder', 'Give me your name')
-        add_placeholder(self.fields['email'], 'Seu e-mail')
-        add_placeholder(self.fields['first_name'], 'Primeiro nome')
-        add_placeholder(self.fields['last_name'], 'Sobrenome')
+        add_placeholder(self.fields['email'], _('Your email'))
+        add_placeholder(self.fields['first_name'], _('First Name'))
+        add_placeholder(self.fields['last_name'], _('Last Name'))
         # add_attr(self.fields['username'], 'min_length', '3')
+
 
     first_name = forms.CharField(validators=[name_validator],
                                  min_length=4,
-                                 max_length=150)
-    last_name = forms.CharField(
-        min_length=4,
-        max_length=150)
+                                 max_length=150,
+                                 label=_('First name'),
+                                 )
+
+    last_name = forms.CharField(min_length=4,
+                                max_length=150,
+                                label=_('Last name'),
+                                )
+
     username = forms.CharField(min_length=4,
-                               max_length=150)  # THIS WORKS BETTER THAN add_attr(self.fields['username'], 'min_length', '3')
+                               max_length=150,
+                               label=_('Username'),
+                               )  # THIS WORKS BETTER THAN add_attr(self.fields['username'],
+    # 'min_length', '3')
     password = forms.CharField(
         required=True,
         widget=forms.PasswordInput(attrs={
-            'placeholder': 'Sua senha',
+            'placeholder': _('Your Password'),
         }),
         error_messages={
-            'required': 'A senha não pode ser vazia'
+            'required': _("Pass can't be empty")
         },
         validators=[password_validator],
         help_text=(
-            '''A senha deve conter caracters especiais, letra maiuscula e minuscula com numeros,
-            com pelo menos 8 caracters'''
-        )
+            _('The password must contain special characters, uppercase and lowercase letters with numbers, with at least 8 characters')
+        # noqa
+        ),
+        label=_('Password'),
     )
     password2 = forms.CharField(
         required=True,
         widget=forms.PasswordInput(attrs={
-            'placeholder': 'Repetir a senha'
+            'placeholder': _('Repeat password')
         }),
         error_messages={
-            'required': 'A senha não pode ser vazia'
+            'required': _("Pass can't be empty")
         },
-        label='Repetir senha'
+        label=_('Repeat password')
 
     )
+    email = forms.EmailField(label='E-mail',
+                             help_text='Ex: mail@mail.com',)
 
     def clean_first_name(self):
         data = self.cleaned_data.get('first_name')  # THIS CLEANED_DATA WAS CHECKED BY DJANGO
         # data = self.clean # THIS IS DIRECT WITHOUT DJANGO VALIDATOR
-        if 'Alessandro' in data:
+        if 'root' in data:
             raise ValidationError(
-                'Nome em uso %(value)s ',
+                f'{_("Name already in use")}: %(value)s',
                 code='invalid',
-                params={'value': 'Alessandro'}
+                params={'value': 'root'}
             )
         return data
 
@@ -66,7 +79,7 @@ class RegisterForm(forms.ModelForm):  # HERE WE CAN OVERWRITE THE FILDS AND ADAP
         email = self.cleaned_data.get('email', '')
         exists = User.objects.filter(email=email).exists()
         if exists:
-            raise ValidationError("Email já em uso")
+            raise ValidationError(_("Email already used"))
         return email
 
     def clean(self):  # DEFINED IN SUPER CLASS
@@ -76,13 +89,14 @@ class RegisterForm(forms.ModelForm):  # HERE WE CAN OVERWRITE THE FILDS AND ADAP
 
         if password != password2:
             raise ValidationError({
-                'password2': 'As senhas são divergentes'  # SET MESSAGE AND WHERE SHOULD SHOW
+                'password2': _('Passwords are different')  # SET MESSAGE AND WHERE SHOULD SHOW
 
             },
                 code='invalid'
             )  # IT'S POSSIBLE SEND A LIST OF PROBLEMS
 
     # HERE WE CAN OVERWRITE THE FILDS AND ADAPTATE  # THIS IS AN EXAMPLE WAY TO DO WHAT IT DID ABOVE
+
     class Meta:
         model = User
         fields = [
@@ -93,19 +107,19 @@ class RegisterForm(forms.ModelForm):  # HERE WE CAN OVERWRITE THE FILDS AND ADAP
             'password',
         ]
         # exclude = ['first_name']
-        labels = {
-            'username': 'Username',
-            'first_name': 'First name',
-            'last_name': 'Last name',
-            'email': 'E-mail',
-            'password': 'Password',
-        }
-        help_texts = {
-            'email': 'Ex: mail@mail.com',
-        }
+        # labels = {    # deactivate by fail, can't translate here, will be done above
+        #     'username': _('Username'),
+        #     'first_name': _('First name'),
+        #     'last_name': _('Last name'),
+        #     'email': _('E-mail'),
+        #     'password': _('Password'),
+        # }
+        # help_texts = {    # fail
+        #     'email': 'Ex: mail@mail.com',
+        # }
         error_messages = {
             'username': {
-                'required': 'não pode ser vazio',
+                'required': _("Can't be empty"),
             }
         }
 

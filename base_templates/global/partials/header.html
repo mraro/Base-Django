@@ -1,3 +1,5 @@
+{% load i18n %}     {% comment %}  THIS SERVES TO TRANSLATE {% endcomment %}
+
 <header>
 	
 	<a href="{% url 'farmacia:home' %}">
@@ -7,7 +9,12 @@
 	</a>
 
 	<form class="search-container" action=" {% url 'farmacia:search' %} " method="get">
-			<input placeholder="Digite aqui sua busca" name="q" class="search-input" maxlength="100" type="search" required></input> 
+		<input placeholder='{% translate "Type here your search" %}'
+			name="q" 
+			class="search-input" 
+			maxlength="100" 
+			type="search" required>
+		</input> 
 			<button type="submit" class="search-button"><i class="fas fa-search"></i></button>
 	</form>		
 	

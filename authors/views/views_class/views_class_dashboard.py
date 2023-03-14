@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.urls import reverse
 from django.views.generic import ListView
+from django.utils.translation import gettext_lazy as _  # TRANSLATE as _
 
 from authors.forms import EditObjectForm
 from farmacia import models
@@ -24,13 +25,13 @@ class BaseObjectClassedView(View):
     def render_view(self, form, id):  # noqa
         """ RENDER TO VIEW, NEED A FORM """
         if id is not None:
-            title_site = 'Editar'
+            title_site = _('Edit')
         else:
-            title_site = 'Criar'
+            title_site = _('Create')
 
         return render(self.request, 'pages/edit_obj_view.html', context={
             'form': form,
-            'form_button': 'Salvar',
+            'form_button': _('Save'),
             'edit': 'tru',
             'title': title_site,
         })
@@ -59,9 +60,9 @@ class BaseObjectClassedView(View):
             object_data.save()
 
             if idobject is not None:
-                messages.success(request, "Remedio Salvo")
+                messages.success(request, _('Medicine Saved'))
             else:
-                messages.success(request, "Remedio criado e enviado a analise")
+                messages.success(request, _('Medicine Created and send to analise'))
 
             return redirect(reverse('authors:dashboard'))
 
@@ -78,10 +79,12 @@ class ObjectClassedViewDelete(BaseObjectClassedView):
         remedio = self.get_objects_to_view(kwargs['idobject'])
         titulo = remedio.title
 
+        translated_success = _('deleted')
+        translated_fail = _("wasn't deleted")
         if remedio.delete():
-            messages.success(self.request, f"{titulo} deletado!")
+            messages.success(self.request, f"{titulo} {translated_success}!")
         else:
-            messages.error(self.request, f"{titulo} não foi deletado!")
+            messages.error(self.request, f"{titulo} {translated_fail}!")
 
         return redirect(reverse('authors:dashboard'))
 

@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-10 12:42-0300\n"
+"POT-Creation-Date: 2023-03-14 10:30-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,8 +17,101 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: .\authors\templates\pages\dashboard.html:20 .\farmacia\models.py:25
-#: .\farmacia\models.py:63
+#: .\authors\forms\edit_obj_form.py:18 .\farmacia\models.py:47
+msgid "Title"
+msgstr "Título"
+
+#: .\authors\forms\edit_obj_form.py:21 .\farmacia\models.py:50
+msgid "Price"
+msgstr "Preço"
+
+#: .\authors\forms\edit_obj_form.py:40
+msgid "Description: "
+msgstr "Descrição"
+
+#: .\authors\forms\edit_obj_form.py:43
+msgid "Quantity: "
+msgstr "Quantidade"
+
+#: .\authors\forms\edit_obj_form.py:44
+#: .\farmacia\templates\partials\remedio.html:39
+msgid "Category: "
+msgstr "Categoria: "
+
+#: .\authors\forms\login_form.py:11
+msgid "Type your username"
+msgstr "Digite seu usuário"
+
+#: .\authors\forms\login_form.py:12
+msgid "Type your password"
+msgstr "Digite sua senha"
+
+#: .\authors\forms\login_form.py:15 .\authors\forms\register_form.py:35
+msgid "Username"
+msgstr "Usuário"
+
+#: .\authors\forms\login_form.py:16 .\authors\forms\register_form.py:51
+msgid "Password"
+msgstr "Senha"
+
+#: .\authors\forms\register_form.py:14
+msgid "Your name"
+msgstr "Seu Nome"
+
+#: .\authors\forms\register_form.py:16
+msgid "Your email"
+msgstr "Seu e-mail"
+
+#: .\authors\forms\register_form.py:17
+msgid "First Name"
+msgstr "Primeiro nome"
+
+#: .\authors\forms\register_form.py:18
+msgid "Last Name"
+msgstr "Sobrenome"
+
+#: .\authors\forms\register_form.py:25
+msgid "First name"
+msgstr "Primeiro nome"
+
+#: .\authors\forms\register_form.py:30
+msgid "Last name"
+msgstr "Sobrenome"
+
+#: .\authors\forms\register_form.py:41
+msgid "Your Password"
+msgstr "Sua senha"
+
+#: .\authors\forms\register_form.py:44 .\authors\forms\register_form.py:59
+msgid "Pass can't be empty"
+msgstr "A senha não pode ser vazia"
+
+#: .\authors\forms\register_form.py:48
+msgid ""
+"The password must contain special characters, uppercase and lowercase "
+"letters with numbers, with at least 8 characters"
+msgstr ""
+"A senha deve conter caracters especiais, letra maiuscula e minuscula com "
+"numeros, com pelo menos 8 caracters"
+
+#: .\authors\forms\register_form.py:56 .\authors\forms\register_form.py:61
+msgid "Repeat password"
+msgstr "Repetir a senha"
+
+#: .\authors\forms\register_form.py:81
+msgid "Email already used"
+msgstr "Email já em uso"
+
+#: .\authors\forms\register_form.py:91
+msgid "Passwords are different"
+msgstr "As senhas são divergentes"
+
+#: .\authors\forms\register_form.py:121
+msgid "Can't be empty"
+msgstr "não pode ser vazio"
+
+#: .\authors\templates\pages\dashboard.html:20 .\farmacia\models.py:26
+#: .\farmacia\models.py:64
 msgid "Category"
 msgstr "Categoria"
 
@@ -33,9 +125,10 @@ msgstr "Você esta logado com "
 
 #: .\authors\templates\pages\login_view.html:16
 msgid "if want to change, do logout first."
-msgstr "se deseja trocar de usuario, faça logout primeiro"
+msgstr "se deseja trocar de usuário, faça logout primeiro"
 
 #: .\authors\templates\pages\new_obj_view.html:4
+#: .\authors\views\views_class\views_class_dashboard.py:30
 msgid "Create"
 msgstr "Criar"
 
@@ -44,13 +137,78 @@ msgid "Dashboard Create"
 msgstr "Dashboard para criar"
 
 #: .\authors\templates\pages\register_view.html:4
+#: .\authors\views\views_class\views_class_user.py:50
+#: .\authors\views\views_func\views_func_user.py:22
 #: .\base_templates\global\partials\side_menu.html:28
 msgid "Register"
 msgstr "Registro"
 
+#: .\authors\views\views_class\views_class_dashboard.py:28
+msgid "Edit"
+msgstr "Editar"
+
+#: .\authors\views\views_class\views_class_dashboard.py:34
+#: .\authors\views\views_func\views_func_dashboard.py:44
+#: .\authors\views\views_func\views_func_dashboard.py:66
+msgid "Save"
+msgstr "Salvar"
+
+#: .\authors\views\views_class\views_class_dashboard.py:63
+#: .\authors\views\views_func\views_func_dashboard.py:38
+msgid "Medicine Saved"
+msgstr "Remedio Salvo"
+
+#: .\authors\views\views_class\views_class_dashboard.py:65
+#: .\authors\views\views_func\views_func_dashboard.py:62
+msgid "Medicine Created and send to analise"
+msgstr "Remedio criado e enviado a analise"
+
+#: .\authors\views\views_class\views_class_dashboard.py:82
+#: .\authors\views\views_func\views_func_dashboard.py:77
+msgid "deleted"
+msgstr "deletado"
+
+#: .\authors\views\views_class\views_class_dashboard.py:83
+#: .\authors\views\views_func\views_func_dashboard.py:78
+msgid "wasn't deleted"
+msgstr "não foi deletado"
+
+#: .\authors\views\views_class\views_class_user.py:69
+#: .\authors\views\views_func\views_func_user.py:39
+msgid "User registered successfully!!!"
+msgstr "Usuario Cadastrado com Sucesso!!!"
+
+#: .\authors\views\views_class\views_class_user.py:73
+#: .\authors\views\views_func\views_func_user.py:44
+msgid "Fail in create user"
+msgstr "Falha ao criar o usuário"
+
+#: .\authors\views\views_class\views_class_user.py:110
+msgid "Success on Login!"
+msgstr "Sucesso no Login!"
+
+#: .\authors\views\views_class\views_class_user.py:114
+#: .\authors\views\views_func\views_func_user.py:82
+msgid "User and/or password wrong"
+msgstr "Usuário e/ou senha incorretos"
+
+#: .\authors\views\views_class\views_class_user.py:117
+#: .\authors\views\views_func\views_func_user.py:85
+msgid "fill the fields properly"
+msgstr "preencha os campos corretamente"
+
+#: .\authors\views\views_class\views_class_user.py:128
+#: .\authors\views\views_func\views_func_user.py:99
+msgid "See you"
+msgstr "Até mais"
+
+#: .\base_templates\global\partials\header.html:13
+msgid "Type here your search"
+msgstr "Digite aqui sua busca"
+
 #: .\base_templates\global\partials\side_menu.html:18
 msgid "User:"
-msgstr "Usuario"
+msgstr "Usuário"
 
 #: .\base_templates\global\partials\side_menu.html:19
 msgid "click to logout"
@@ -64,51 +222,39 @@ msgstr "Login"
 msgid "Categorys"
 msgstr "Categorias"
 
-#: .\farmacia\models.py:26
-#, fuzzy
-#| msgid "Categorys"
+#: .\farmacia\models.py:27
 msgid "Categories"
 msgstr "Categorias"
 
-#: .\farmacia\models.py:46
-msgid "Title"
-msgstr "Título"
-
-#: .\farmacia\models.py:47
+#: .\farmacia\models.py:48
 msgid "Description"
 msgstr "Descrição"
 
-#: .\farmacia\models.py:49
-msgid "Price"
-msgstr "Preço"
-
-#: .\farmacia\models.py:50
+#: .\farmacia\models.py:51
 msgid "Quantity"
 msgstr "Quantidade"
 
-#: .\farmacia\models.py:53
-#, fuzzy
-#| msgid "Create"
+#: .\farmacia\models.py:54
 msgid "Created at"
 msgstr "Criar"
 
-#: .\farmacia\models.py:54
+#: .\farmacia\models.py:55
 msgid "Update at"
 msgstr "Ultima Att"
 
-#: .\farmacia\models.py:55
+#: .\farmacia\models.py:56
 msgid "Is Published"
 msgstr "Está Publicado"
 
-#: .\farmacia\models.py:67
+#: .\farmacia\models.py:68
 msgid "Author"
 msgstr "Autor"
 
-#: .\farmacia\models.py:105
+#: .\farmacia\models.py:113
 msgid "Medicine"
 msgstr "Remedio"
 
-#: .\farmacia\models.py:106
+#: .\farmacia\models.py:114
 msgid "Medicines"
 msgstr "Remedios"
 
@@ -117,8 +263,8 @@ msgid "Out of stock"
 msgstr "Sem Estoque"
 
 #: .\farmacia\templates\pages\search.html:17
-msgid "No results found about "
-msgstr "Nenhum resultado encontrado sobre "
+msgid "No results found about"
+msgstr "Nenhum resultado encontrado sobre"
 
 #: .\farmacia\templates\partials\remedio.html:28
 #: .\farmacia\templates\partials\remedio.html:31
@@ -133,14 +279,29 @@ msgstr "Author desconhecido"
 msgid "Creation date: "
 msgstr "Data de criação: "
 
-#: .\farmacia\templates\partials\remedio.html:39
-msgid "Category: "
-msgstr "Categoria: "
-
 #: .\farmacia\templates\partials\remedio.html:48
 msgid "Add to Cart"
-msgstr "Adicionar ao carrinho"
+msgstr "Adicionar ao Carrionho"
 
 #: .\farmacia\templates\partials\remedio.html:49
 msgid "To View"
-msgstr "Preview"
+msgstr "Visualizar"
+
+#: .\forms\django_forms.py:19
+msgid ""
+"Invalid password, use Upper and down case with numbers and especial "
+"characters"
+msgstr ""
+"A senha é invalida, deve conter letras maiusculas e minusculas alem de "
+"numeros"
+
+#: .\forms\django_forms.py:26
+msgid "Just letters and numbers are allowed"
+msgstr "Somente letras e numeros são permitidos"
+
+#: .\forms\django_forms.py:27
+msgid "Only first name here"
+msgstr "Somente o primeiro nome nesse campo"
+
+msgid "Name already in use"
+msgstr "Nome em uso"

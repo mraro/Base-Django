@@ -1,5 +1,6 @@
 import re
 from django.core.exceptions import ValidationError
+from django.utils.translation import gettext as _  # TRANSLATE as _
 
 
 # # VALIDATORS::
@@ -15,18 +16,20 @@ def add_placeholder(field, placeholder_val):
 
 
 def password_validator(password):
-    regex = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$')
+    msg_translated = _("Invalid password, use Upper and down case with numbers and especial characters")
+    regex = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$')  # noqa
     if not regex.match(password):
-        raise ValidationError('A senha é invalida, deve conter letras maiusculas e minusculas alem de numeros'
-                              , code='invalid')
+        raise ValidationError(msg_translated, code='invalid')
 
 
 def name_validator(name):
-    regex = re.compile('[@_!#$%^&*()<>?/\|}{~ :]')
+    msg_translated_first_error = _('Just letters and numbers are allowed')
+    msg_translated_sec_error = _('Only first name here')
+    regex = re.compile('[@_!#$%^&*()<>?/\|}{~ :]')  # noqa
     if regex.match(name):
-        raise ValidationError("Somente letras e numeros são permitidos", code='invalid')
+        raise ValidationError(msg_translated_first_error, code='invalid')
 
     if " " in name:
-        raise ValidationError("Somente o primeiro nome nesse campo", code='invalid')
+        raise ValidationError(msg_translated_sec_error, code='invalid')
 
     # def clean_field(self): VALIDATE JUST ONE FILD

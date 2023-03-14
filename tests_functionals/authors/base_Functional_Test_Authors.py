@@ -20,7 +20,7 @@ class AuthorsBaseTestDashboard(StaticLiveServerTestCase, BaseMixing):
         self.browser.get(self.live_server_url + reverse('authors:login'))
         body = self.browser.find_element(By.TAG_NAME, 'body')
         # will add login credentials
-        body.find_element(By.XPATH, '//input[@placeholder="' + 'Digite seu usuario' + '"]').send_keys("username")
+        body.find_element(By.XPATH, '//input[@placeholder="' + 'Digite seu usuário' + '"]').send_keys("username")
         body.find_element(By.XPATH, '//input[@placeholder="' + 'Digite sua senha' + '"]').send_keys("true")
         # time.sleep(3)
         body.find_element(By.ID, 'button-form').click()

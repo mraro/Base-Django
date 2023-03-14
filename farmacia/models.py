@@ -10,6 +10,7 @@ from django.db.models.functions import Concat
 from django.utils.translation import gettext_lazy as _  # TRANSLATE as _
 
 from tags.models import TAG
+from utility.image_utils import resize_img
 
 
 # Create your models here.
@@ -99,6 +100,13 @@ class Remedios(models.Model):  # ISSO É UMA TABELA NO DJANGO
             self.slug = slug
         return super().save(*args, **kwargs)
     '''
+
+    def save(self, *args, **kwargs):
+        saved = super().save(*args, **kwargs)
+        if self.cover:
+            resize_img(self.cover.path, 700, 500)  # noqa
+
+        return saved
 
     class Meta:
         """ THIS JUST OVERWRITE THE LABEL, IN ORDER TO _ """

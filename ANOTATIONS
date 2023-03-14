@@ -14,7 +14,8 @@ pip install coverage  # GERADOR DE LOGS de testes disponiveis e feitos (comando:
 pip install selenium  # SELENIUM FAZ TESTES "FISICOS" DIRETO NO NAVEGADOR, PRA FUNCIONAR TEM DE BAIXAR O DRIVER DO
     # NAVEGADOR QUE DESEJA USAR DE ACORDO COM A VERSÃO DO PROCESSADOR TBM (UM EXEMPLO NO "UTILITY/BROWSER.PY")
 
-
+python manage.py makemessages -l "pt_br" -i 'venv'   # o -i 'venv' é para ele ignorar o ambiete virtual
+python manage.py compilemessages -l "pt_br" -i 'venv'   # o -i 'venv'  compile to compile kk
 
 ALLOWED_HOSTS: list[str] = [] # : list[str] is like typeof
 

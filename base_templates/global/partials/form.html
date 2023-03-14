@@ -1,33 +1,43 @@
+{% load static %}
+
 <form   
     action="{{ form_action }}" 
     method="POST" 
     {% if edit %}
     class="form-content edit-view" 
     {% else %}
-    class="form-content " 
+    class="form-content" 
     {% endif %}
     enctype="multipart/form-data"> {% comment %}  ISSO É IMPORTANTE SE QUER ENVIAR IMAGEM OU QLQ ARQUIVO em views.py (files=request.FILES) {% endcomment %}
     
 
     {% csrf_token %}
     {% for field in form %}
+        
         <div class="content-label {{ field.name }}">
-            <label for="{{ field.id_for_label }}">{{ field.label }} </label>{{ field }}
+            <label for="{{ field.id_for_label }}">{{ field.label }} </label>
+            {{ field }}
             {% if field.help_text %}
-                <div class="help-text">{{ field.help_text }}</div>
+                <div class="help-text">{{ field.help_text }}</div> 
+                {% endif %}
+       
+            
+           
+
+
+            {% if field.name == 'cover' and field.value.url %}
+                {% comment %} <img   {% endcomment %}
+                <img class="remedio-img" src="{{ field.value.url }}">
             {% endif %}
-        </div>    
-
-        {% if field.errors %}
-            {{field.errors}}
-        {% endif %}
-
-        {% if field.name == 'cover' and field.value.url %}
-            {% comment %} <img   {% endcomment %}
-            <img class="remedio-img" src="{{ field.value.url }}">
-        {% endif %}
-
+        </div> 
+        <div class="errors-content">
+            {% if field.errors %}
+                {{field.errors}}
+            {% endif %}
+        </div>
     {% endfor %}
+        <script src="{% static 'global/js/script.js' %}"></script>
+
         <button id='button-form' type='submit'><span class="box span-2"><b> {{ form_button }} </b></span></button>
    
 </form>

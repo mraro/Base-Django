@@ -4,6 +4,7 @@ from django.http import Http404
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _  # TRANSLATE as _
 
 from authors.forms import RegisterForm, LoginForm, EditObjectForm
 
@@ -18,7 +19,7 @@ def register_view(request):  # request is raw information that comes from browse
     return render(request, 'pages/register_view.html', {
         'form': form,
         'form_action': reverse('authors:register_create'),
-        'form_button': 'Cadastrar',
+        'form_button': _('Register'),
     })
 
 
@@ -30,17 +31,17 @@ def register_create(request):
     request.session['register_form_data'] = POST  # Give data from POST to SESSION
     form = RegisterForm(POST)
 
-    if form.is_valid():  # form valid is important to able form.save
+    if form.is_valid():  # form valid is important to be able to form.save
         try:
             user = form.save(commit=False)  # receive data from form, after valid but don't save yet
             user.set_password(user.password)  # cryptography password
             user.save()  # save data in DB
-            messages.success(request, "Usuario Cadastrado com Sucesso!!!")
+            messages.success(request, _("User registered successfully!!!"))
 
             del (request.session['register_form_data'])  # kill session
             return redirect('farmacia:home')
         except ValueError:
-            messages.error(request, "Falha ao criar o usuario")
+            messages.error(request, _("Fail in create user"))
             return redirect('authors:register')
 
     return redirect('authors:register')
@@ -78,10 +79,10 @@ def login_authenticate(request):
             return redirect(reverse('farmacia:home'))
 
         else:
-            messages.error(request, 'Usuario e/ou senha incorretos')
+            messages.error(request, _('User and/or password wrong'))
             return redirect(login_page)
 
-    messages.error(request, 'preencha os campos corretamente')
+    messages.error(request, _('fill the fields properly'))
 
     return redirect(login_page)
 
@@ -95,9 +96,11 @@ def logout_backend(request):
         return redirect(reverse('authors:login'))
 
     logout(request)
+    see_you = _('See you')
+    logout(request)
     if request.POST.get('first_name'):
-        messages.success(request, f"Até mais {request.POST.get('first_name')}")
+        messages.success(request, f"{see_you} {request.POST.get('first_name')}")
     else:
-        messages.success(request, f"Até mais {request.POST.get('username')}")
+        messages.success(request, f"{see_you} {request.POST.get('username')}")
 
     return redirect(reverse('farmacia:home'))

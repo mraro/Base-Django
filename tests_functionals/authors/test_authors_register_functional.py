@@ -11,7 +11,7 @@ class AuthorsRegisterTest(AuthorsBaseTest):
         ("Sobrenome",       '     ',  'Este campo é obrigatório.'),
         ("Seu Nome",        '     ',  'Este campo é obrigatório.'),
         ("Seu e-mail",      '     ',  'Informe um endereço de email válido.'),
-        ("Sua senha", '     ', 'A senha não pode ser vazia'),
+        ("Sua senha",       '     ', 'A senha não pode ser vazia'),
         ("Repetir a senha", '     ', 'A senha não pode ser vazia'),
     ])
     def test_form_fields_errors_in_register(self, field, value, asserted):

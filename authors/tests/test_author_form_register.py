@@ -36,8 +36,8 @@ class AuthorsRegisterFormUnitTest(TestCase):
         ('username', ''),
         ('email', 'Ex: mail@mail.com'),
         ('password', (
-                '''A senha deve conter caracters especiais, letra maiuscula e minuscula com numeros,
-            com pelo menos 8 caracters'''
+                'A senha deve conter caracters especiais, letra maiuscula e minuscula com numeros, com pelo menos 8 '
+                'caracters'
         )),
 
     ])
@@ -48,11 +48,11 @@ class AuthorsRegisterFormUnitTest(TestCase):
         self.assertEqual(must_be, placeholder)
 
     @parameterized.expand([
-        ('first_name', 'First name'),
-        ('last_name', 'Last name'),
-        ('username', 'Username'),
+        ('first_name', 'Primeiro nome'),
+        ('last_name', 'Sobrenome'),
+        ('username', 'Usuário'),
         ('email', 'E-mail'),
-        ('password', 'Password'),
+        ('password', 'Senha'),
     ])
     def test_author_if_labels_name_is_correct(self, field, must_be):
         form = RegisterForm()
@@ -115,7 +115,8 @@ class AuthorRegisterFormIntegrationTest(DjangoTestCase):
         self.assertIn(value, response.context['form'].errors.get(field))
 
     def test_field_password_has_Upper_Lower_case_and_numbers(self):
-        value = 'A senha é invalida, deve conter letras maiusculas e minusculas alem de numeros'
+        value = 'A senha deve conter caracters especiais, letra maiuscula e minuscula com numeros, com pelo menos 8 ' \
+                'caracters'  # noqa
         url = reverse('authors:register_create')
         self.form_data['password'] = 'abc'
         response = self.client.post(url, data=self.form_data, follow=True)
@@ -130,7 +131,7 @@ class AuthorRegisterFormIntegrationTest(DjangoTestCase):
         self.assertIn(error_value, response.content.decode('utf-8'))
 
     @parameterized.expand([
-        ('first_name', 'Alessandro', 'Nome em uso Alessandro'),
+        ('first_name', 'root', 'Nome em uso: root'),
         ('first_name', '#AnyName', 'Somente letras e numeros são permitidos'),
         ('first_name', 'two names', 'Somente o primeiro nome nesse campo'),
         ('username', 'two names', 'Informe um nome de usuário válido. Este valor pode conter apenas letras, números e '
@@ -183,8 +184,8 @@ class AuthorRegisterFormIntegrationTest(DjangoTestCase):
     @skip("ainda não sei como fazer")
     def test_invalid_form_user_data_returns_msg_error(self):
         self.form_data.update({
-            'first_name': ('@'*200),
-                    })
+            'first_name': ('@' * 200),
+        })
         response = self.client.post(reverse('authors:register_create'), data=self.form_data, follow=True)
         self.assertIn('Falha ao criar o usuario', response.content.decode('utf-8'))
         self.assertRedirects(response, reverse('authors:register'))

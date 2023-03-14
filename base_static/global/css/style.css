@@ -610,6 +610,11 @@ left: 0; */
   }
 
 /* #################################################################### FORMS */
+.help-text{
+	font-size: 0.1rem;
+	margin: 0rem;
+	color: #1f1c13;
+}
 .form-content{
 	position: absolute;
 	top: 500px;
@@ -688,6 +693,9 @@ input[type=file]::file-selector-button {
 }
 .quantity{
 	grid-area: area2;
+}
+.errors-content{
+	width: 30rem;
 }
 /* ######################################################## DASHBOARD */
 .dashboard-container-object-views{

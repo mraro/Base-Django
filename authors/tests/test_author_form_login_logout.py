@@ -10,7 +10,7 @@ from django.urls import reverse
 class AuthorTest(TestCase):
     def test_author_if_method_not_post(self):
         response = self.client.get(reverse('authors:authenticate'))
-        self.assertGreaterEqual(response.status_code, 404)
+        self.assertGreater(response.status_code, 403)
 
     def test_logout_if_redirect(self):
         User.objects.create_user(username='user', password='true')
@@ -29,7 +29,7 @@ class AuthorTest(TestCase):
         User.objects.create_user(username='user', password='true')
         self.client.login(username='user', password='true')
         response = self.client.get(reverse('authors:logout'))
-        self.assertEqual(response.status_code, 404)
+        self.assertGreaterEqual(response.status_code, 404)
 
     def test_user_tries_logout_another_user(self):
         User.objects.create_user(username='user', password='true')

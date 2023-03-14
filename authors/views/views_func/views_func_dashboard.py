@@ -4,6 +4,7 @@ from django.http import Http404
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _  # TRANSLATE as _
 
 from authors.forms import EditObjectForm
 from farmacia import models
@@ -34,13 +35,13 @@ def edit_obj(request, idobject):
         object_data.is_published = False
         object_data.save()
 
-        messages.success(request, "Remedio Salvo")
+        messages.success(request, _("Medicine Saved"))
         return redirect(reverse('authors:dashboard'))
 
     return render(request, 'pages/edit_obj_view.html', context={
         # 'remedio': remedio[0],
         'form': form,
-        'form_button': 'Salvar',
+        'form_button': _('Save'),
         'edit':'tru',
     })
 
@@ -58,11 +59,11 @@ def create_obj(request):
         object_data.is_published = False
         object_data.author = author
         object_data.save()
-        messages.success(request, "Remedio criado e enviado a analise")
+        messages.success(request, _("Medicine Created and send to analise"))
         return redirect(reverse('authors:dashboard'))
     return render(request, 'pages/new_obj_view.html', context={
         'form': form,
-        'form_button': 'Salvar',
+        'form_button': _('Save'),
     })
 
 
@@ -73,9 +74,12 @@ def delete_obj(request, idobject):
     remedio = models.Remedios.objects.get(id=idobject, is_published=False, author=request.user)
     titulo = remedio.title
 
+    translated_success = _('deleted')
+    translated_fail = _("wasn't deleted")
+
     if remedio.delete():
-        messages.success(request, f"{titulo} deletado!")
+        messages.success(request, f"{titulo} {translated_success}!")
     else:
-        messages.error(request, f"{titulo} não foi deletado!")
+        messages.error(request, f"{titulo} {translated_fail}!")
 
     return redirect(reverse('authors:dashboard'))
