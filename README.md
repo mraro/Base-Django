@@ -5,14 +5,15 @@ with two languages:<br>
 ```commandline
 sudo apt-get install gettext
 ```
+
 ###### for windows:
 https://mlocati.github.io/articles/gettext-iconv-windows.html
+
 # First of all:
 ###### python env command
 ```
 pip install requirements.txt
-```
-```
+
 python manage.py migrate
 ```
 copy .env-example to .env and replace a fill variables<br>
@@ -21,11 +22,11 @@ if you use vscode:<br>
   Select Preferences.<br>
   Then select Settings.<br>
   Click on small settings.json file icon in upper right corner.<br>
-  copy settings.json-example-vscode and paste in settings.json<br>
+  copy settings.json-example-vscode and paste in settings.json
 
 ## Too to debug django
 https://django-debug-toolbar.readthedocs.io/en/latest/installation.html
-# Deploy -----------------------------------------------------------
+# Deploy ------------------------------------------------------
 Little steps to deploy an app django
 
 ## Creating a Server
