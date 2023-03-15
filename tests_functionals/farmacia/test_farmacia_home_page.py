@@ -37,7 +37,7 @@ class TestFunctionalHomePage(BaseTest):
         search_input.send_keys(Keys.ENTER)
         self.assertIn(term, self.browser.find_element(By.TAG_NAME, 'body').text)
 
-    if METHOD_MODE == 1:
+    if METHOD_MODE == '1':
         @patch('farmacia.views.func_views.OBJ_PER_PAGE', new=3)
         def test_Pagination_Home_if_Page_2_is_has_3_elements(self):
             # make medicines data:

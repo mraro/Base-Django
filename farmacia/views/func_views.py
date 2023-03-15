@@ -88,8 +88,8 @@ def search(request):
     else:
         var_site = var_site.strip()  # # '''o | juntamente a função Q faz com que a pesquisa seja OR '''
         medicine = Remedios.objects.filter(Q(title__contains=var_site) |
-                                           Q(description__contains=var_site) |
-                                           Q(category__contains=var_site)).order_by('-id')
+                                   Q(description__contains=var_site) |
+                                   Q(category__name__contains=var_site)).order_by('-id')
         medicine = medicine.filter(is_published=True)
         medicine = medicine.select_related('author', 'category')
 
