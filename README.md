@@ -1,7 +1,9 @@
 # Base-Django
 <h3>Base to use Python Django</h3>
 with two languages:<br>
+
 ###### for ubuntu:
+
 ```commandline
 sudo apt-get install gettext
 ```
