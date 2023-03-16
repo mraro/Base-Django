@@ -18,6 +18,9 @@ if METHOD_MODE == '0':
 
         # API:
         path("api/v1/", ApiHomeView.as_view(), name="home_api"),
+        path("search/api/v1/", ApiSearchView.as_view(), name="search_api"),
+        path("tag/api/v1/<slug:slug>", ApiTagView.as_view(), name="tag_api"),
+        path("category/api/v1/<int:idcategoria>/", ApiCategoryView.as_view(), name="categoria_api"),
         path("remedios/api/v1/<int:pk>/", ApiRemedioView.as_view(), name="remedio_api"),
         # TODO MAIS APIS
     ]
@@ -30,7 +33,7 @@ else:
         path("remedios/<int:idremedios>/", remedios, name="remedio"),
         path("category/<int:idcategoria>/", categoria, name="categoria"),
 
-        path("theory/", theory, name='theory')
+        path("theory/", theory, name='theory')  # not important, just tests personals
     ]
     print('FUNC MODE')
 

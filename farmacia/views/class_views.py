@@ -98,7 +98,7 @@ class CategoryView(ObjectListViewBase):
     #     raise Http404
 
     def get_queryset(self, *args, **kwargs):  # RETURN A QUERYSET IN THE ORDER WORDS READ DATABASE
-        querySet = super(ObjectListViewBase, self).get_queryset()
+        querySet = super(CategoryView, self).get_queryset()
         querySet = querySet.filter(category__id=self.kwargs.get('idcategoria')).order_by(
             '-id')  # (FILTER) send data to web template html
         querySetLight = querySet.select_related('author', 'category')  # ! THIS IMPROVE DATABASE READ
