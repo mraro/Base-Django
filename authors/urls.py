@@ -38,16 +38,16 @@ else:
 
         path("dashboard/create/", create_obj, name="create"),                   # C     create
         path("dashboard/", dashboard, name="dashboard"),                        # R     read
-        path("dashboard/<int:pk>/edit/", edit_obj, name="edit"),          # U     update
-        path("dashboard/<int:pk>/delete/", delete_obj, name="delete"),    # D     delete
+        path("dashboard/<int:pk>/edit/", edit_obj, name="edit"),                # U     update
+        path("dashboard/<int:pk>/delete/", delete_obj, name="delete"),          # D     delete
 
-        path("dashboard/create/", api_create_obj, name="create_rest"),                  # C     create  (POST)
-        path("dashboard/", api_dashboard, name="dashboard_rest"),                       # R     read  (GET)
-        path("dashboard/<int:pk>/edit/", api_edit_obj, name="edit_rest"),         # U     update  (PATCH ou put)
-        path("dashboard/<int:pk>/delete/", api_delete_obj, name="delete_rest"),   # D     delete   (DELETE)
+        path("dashboard/api/v2/create/", api_create_obj, name="create_rest"),            # C     create  (POST)
+        path("dashboard/api/v2/", api_dashboard, name="dashboard_rest"),                 # R     read  (GET)
+        path("dashboard/api/v2/<int:pk>/edit/", api_edit_obj, name="edit_rest"),         # U     update  (PATCH ou put)
+        path("dashboard/api/v2/<int:pk>/delete/", api_delete_obj, name="delete_rest"),   # D     delete   (DELETE)
     ]
 
-# CUIDADO PARA NÃO REPETIR O NOME OU QLQR OUTRA COISA
+# CUIDADO PARA NÃO REPETIR O NOME OU QLQR OUTRA COISA # noqa
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

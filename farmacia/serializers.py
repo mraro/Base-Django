@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 from farmacia.models import Remedios
 from tags.models import TAG
+from utility.remediosautofill import slugify
 
 
 # serializer server to transform queryset in json api (here appears with models, but he gets by models to use here)
@@ -33,8 +34,9 @@ class Remedio_Serializer(serializers.ModelSerializer):  # noqa
     id = serializers.IntegerField(read_only=True, )
     link_remedio = serializers.HyperlinkedIdentityField(
         source='pk',
-        view_name='farmacia:remedio_rest',  # tem que passar o lookup_field, caso contrario não encontrará o campo # noqa
-        )
+        view_name='farmacia:remedio_rest',
+        # tem que passar o lookup_field, caso contrario não encontrará o campo # noqa
+    )
     title = serializers.CharField(read_only=True, max_length=65)
     description = serializers.CharField(read_only=True, )
     slug = serializers.SlugField(read_only=True, )
@@ -72,3 +74,26 @@ class Remedio_Serializer(serializers.ModelSerializer):  # noqa
 
     # VALIDATE == CLEAN:  > # authors/views/views_func/views_func_dashboard.py
 
+
+class Dashboard_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Remedios  # database
+        fields = 'title', 'price', 'quantity', 'description', 'cover', 'category', 'slug', \
+            # 'link_dashboard_remedio'
+        # exclude = []
+
+    # link_dashboard_remedio = serializers.HyperlinkedIdentityField(source='id', view_name='authors:edit_rest')
+    title = serializers.CharField(min_length=4, max_length=65, label='Title')
+    # TO DJANGO SEND FORM PROPERLY, IN ORDER TO MAKE A SLUGFY LATER, BEFORE SEND TO IS_VALID
+    price = serializers.DecimalField(min_value=0.00, max_digits=4, decimal_places=2, label=_('Price'))
+
+    # def validate(self, values):
+    #     # print("Clean Slug")
+    #     # title = values.get('title')
+    #     data = slugify('Earum6')
+    #
+    #     while Remedios.objects.filter(slug=data).exists():
+    #         data += "X"
+    #         # THIS IS A DANGEROUS FORM TO GRANT THAT NEVER HAS SAME SLUG
+    #         # raise ValidationError('My unique field should be unique.')
+    #     return data
