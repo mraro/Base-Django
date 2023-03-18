@@ -35,7 +35,7 @@ class DashboardFunctionalTest(AuthorsBaseTestDashboard):
         self.assertIn('Remedio criado e enviado a analise', body)
 
     def test_functional_edit_obj_and_save(self):
-        self.browser.get(self.live_server_url + reverse('authors:edit', kwargs={'idobject': self.obj.id}))
+        self.browser.get(self.live_server_url + reverse('authors:edit', kwargs={'pk': self.obj.id}))
         self.browser.find_element(By.TAG_NAME, 'body')
         self.easy_edit_element_by_name_field('title', self.fake_data['title'])
         self.browser.find_element(By.XPATH, '/html/body/div/form/button').click()

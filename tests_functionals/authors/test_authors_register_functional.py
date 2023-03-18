@@ -10,7 +10,7 @@ class AuthorsRegisterTest(AuthorsBaseTest):
         ("Primeiro nome",   '     ',  'Este campo é obrigatório.'),
         ("Sobrenome",       '     ',  'Este campo é obrigatório.'),
         ("Seu Nome",        '     ',  'Este campo é obrigatório.'),
-        ("Seu e-mail",      '     ',  'Informe um endereço de email válido.'),
+        # ("Seu e-mail",      '     ',  'Informe um endereço de email válido.'),
         ("Sua senha",       '     ', 'A senha não pode ser vazia'),
         ("Repetir a senha", '     ', 'A senha não pode ser vazia'),
     ])

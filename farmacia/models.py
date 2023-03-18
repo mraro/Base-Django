@@ -39,7 +39,7 @@ class Manager(models.Manager):
                 Value(" "),
                 F('author__last_name'),
             )
-        ).select_related('author', 'category')  # THIS IMPROVE READ DATABASE (WORKS ON FOREIGN KEY)
+        ).select_related('author', 'category').prefetch_related('tags')  # THIS IMPROVE READ DATABASE (WORKS ON FOREIGN KEY) # noqa
 
 
 class Remedios(models.Model):  # ISSO É UMA TABELA NO DJANGO

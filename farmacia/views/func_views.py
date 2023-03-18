@@ -22,12 +22,12 @@ def home(request):
     # REMOVES DUPLICATES
 
     medicines = medicines.annotate(  # GIVE MORE ONE VARIABLE INTO A LIST OF QUERYSET
-                author_full_name=Concat(
-                    F('author__first_name'),
-                    Value(" "),
-                    F('author__last_name'),
-                )
-            )
+        author_full_name=Concat(
+            F('author__first_name'),
+            Value(" "),
+            F('author__last_name'),
+        )
+    )
     medicines = medicines.select_related('author', 'category')  # ! THIS IMPROVE DATABASE READ
 
     # medicines = medicines.select_related('author', 'category')  # THIS IMPROVES READ DATABASE (WORKS ON FOREIGN KEY)
@@ -47,9 +47,9 @@ def home(request):
                   })
 
 
-def remedios(request, idremedios):
+def remedios(request, pk):
     # medicine = Remedios.objects.get(id=idremedios)
-    medicine = get_object_or_404(Remedios, id=idremedios)
+    medicine = get_object_or_404(Remedios, pk=pk)
 
     return render(request, "pages/remedio-view.html",
 
@@ -88,8 +88,8 @@ def search(request):
     else:
         var_site = var_site.strip()  # # '''o | juntamente a função Q faz com que a pesquisa seja OR '''
         medicine = Remedios.objects.filter(Q(title__contains=var_site) |
-                                   Q(description__contains=var_site) |
-                                   Q(category__name__contains=var_site)).order_by('-id')
+                                           Q(description__contains=var_site) |
+                                           Q(category__name__contains=var_site)).order_by('-id')
         medicine = medicine.filter(is_published=True)
         medicine = medicine.select_related('author', 'category')
 
@@ -99,6 +99,18 @@ def search(request):
         'remedios': pages['medicines_page'],
         'pages': pages,
         'search_done': var_site, })
+
+
+def tag(request, slug):
+    var_site = slug
+    remedios = Remedios.objects.get_published().filter(tags__slug=var_site).order_by('-id')
+    remedios = remedios.select_related("author", "category")
+    pages = make_pagination(request, remedios, RANGE_PER_PAGE, OBJ_PER_PAGE)
+    return render(request, "pages/tag.html", context={
+        'remedios': pages['medicines_page'],
+        'pages': pages,
+        # 'title': var_site
+    })
 
 
 def theory(request):

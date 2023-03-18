@@ -45,11 +45,11 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # NOSSO APP:
     # "recipes,"
-    "rest_framework",
     "farmacia",
     "authors",
     "tags",
     "debug_toolbar",
+    "rest_framework",
 
 ]
 

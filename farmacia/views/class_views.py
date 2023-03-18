@@ -101,7 +101,7 @@ class CategoryView(ObjectListViewBase):
         querySet = super(CategoryView, self).get_queryset()
         querySet = querySet.filter(category__id=self.kwargs.get('idcategoria')).order_by(
             '-id')  # (FILTER) send data to web template html
-        querySetLight = querySet.select_related('author', 'category')  # ! THIS IMPROVE DATABASE READ
+        querySetLight = querySet.select_related('author', 'category').prefetch_related('tags')  # ! THIS IMPROVE DATABASE READ
         get_list_or_404(querySetLight)
         return querySetLight
 

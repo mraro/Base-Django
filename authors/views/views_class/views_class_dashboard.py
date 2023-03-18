@@ -36,16 +36,16 @@ class BaseObjectClassedView(View):
             'title': title_site,
         })
 
-    def get(self, request, idobject=None):
+    def get(self, request, pk=None):
         """ WHEN HAS A GET DATA TO USE """
-        remedio = self.get_objects_to_view(idobject)
+        remedio = self.get_objects_to_view(pk)
         form = EditObjectForm(  # EditObjectForm is class made to load filds, clean e some think else
             instance=remedio  # fill the fields with sent data
         )
-        return self.render_view(form, idobject)
+        return self.render_view(form, pk)
 
-    def post(self, request, idobject=None):
-        remedio = self.get_objects_to_view(idobject)
+    def post(self, request, pk=None):
+        remedio = self.get_objects_to_view(pk)
         author = models.User.objects.get(username=request.user)
 
         form = EditObjectForm(
@@ -59,14 +59,14 @@ class BaseObjectClassedView(View):
             object_data.author = author
             object_data.save()
 
-            if idobject is not None:
+            if pk is not None:
                 messages.success(request, _('Medicine Saved'))
             else:
                 messages.success(request, _('Medicine Created and send to analise'))
 
             return redirect(reverse('authors:dashboard'))
 
-        return self.render_view(form, idobject)
+        return self.render_view(form, pk)
 
 
 @method_decorator(login_required(login_url='authors:login', redirect_field_name='next'), name='dispatch')
@@ -76,7 +76,7 @@ class ObjectClassedViewDelete(BaseObjectClassedView):
 
     def post(self, *args, **kwargs):
 
-        remedio = self.get_objects_to_view(kwargs['idobject'])
+        remedio = self.get_objects_to_view(kwargs['pk'])
         titulo = remedio.title
 
         translated_success = _('deleted')

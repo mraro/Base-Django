@@ -22,8 +22,8 @@ if METHOD_MODE == 0:
 
         path("dashboard/", DashboardView.as_view(), name="dashboard"),  # R     read
         path("dashboard/create/", BaseObjectClassedView.as_view(), name="create"),  # create
-        path("dashboard/<int:idobject>/edit/", BaseObjectClassedView.as_view(), name="edit"),
-        path("dashboard/<int:idobject>/delete/", ObjectClassedViewDelete.as_view(), name="delete"),  # D     delete
+        path("dashboard/<int:pk>/edit/", BaseObjectClassedView.as_view(), name="edit"),
+        path("dashboard/<int:pk>/delete/", ObjectClassedViewDelete.as_view(), name="delete"),  # D     delete
     ]
 
 else:
@@ -38,8 +38,13 @@ else:
 
         path("dashboard/create/", create_obj, name="create"),                   # C     create
         path("dashboard/", dashboard, name="dashboard"),                        # R     read
-        path("dashboard/<int:idobject>/edit/", edit_obj, name="edit"),          # U     update
-        path("dashboard/<int:idobject>/delete/", delete_obj, name="delete"),    # D     delete
+        path("dashboard/<int:pk>/edit/", edit_obj, name="edit"),          # U     update
+        path("dashboard/<int:pk>/delete/", delete_obj, name="delete"),    # D     delete
+
+        path("dashboard/create/", api_create_obj, name="create_rest"),                  # C     create  (POST)
+        path("dashboard/", api_dashboard, name="dashboard_rest"),                       # R     read  (GET)
+        path("dashboard/<int:pk>/edit/", api_edit_obj, name="edit_rest"),         # U     update  (PATCH ou put)
+        path("dashboard/<int:pk>/delete/", api_delete_obj, name="delete_rest"),   # D     delete   (DELETE)
     ]
 
 # CUIDADO PARA NÃO REPETIR O NOME OU QLQR OUTRA COISA

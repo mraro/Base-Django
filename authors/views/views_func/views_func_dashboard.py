@@ -21,8 +21,8 @@ def dashboard(request):
 
 
 @login_required(login_url='authors:login', redirect_field_name='next')
-def edit_obj(request, idobject):
-    remedio = models.Remedios.objects.filter(id=idobject, is_published=False, author=request.user)
+def edit_obj(request, pk):
+    remedio = models.Remedios.objects.filter(pk=pk, is_published=False, author=request.user)
     form = EditObjectForm(
         data=request.POST or None,  # receive a request data or none
         files=request.FILES or None,
@@ -68,10 +68,10 @@ def create_obj(request):
 
 
 @login_required(login_url='authors:login', redirect_field_name='next')
-def delete_obj(request, idobject):
+def delete_obj(request, pk):
     if not request.POST:
         raise Http404
-    remedio = models.Remedios.objects.get(id=idobject, is_published=False, author=request.user)
+    remedio = models.Remedios.objects.get(pk=pk, is_published=False, author=request.user)
     titulo = remedio.title
 
     translated_success = _('deleted')

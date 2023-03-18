@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from tags.models import TAG
+# from tags.models import TAG
 from .models import Category, Remedios
-from django.contrib.contenttypes.admin import GenericStackedInline
+# from django.contrib.contenttypes.admin import GenericStackedInline
 
 
 # AQUI É UMA EXTENSÃO DO localhost:8000/admin OS MODELOS ADICIONADOS AQUI PODERÃO SER GERENCIADOS DIRETAMENTE POR # noqa
