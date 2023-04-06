@@ -20,7 +20,6 @@ class DashboardFunctionalTest(AuthorsBaseTestDashboard):
 
         alert_obj = self.browser.switch_to.alert
         alert_obj.accept()
-        # sleep(5)
 
         body = self.browser.find_element(By.TAG_NAME, 'body').text
         self.assertIn('Esse titulo já existe', body)
@@ -29,6 +28,7 @@ class DashboardFunctionalTest(AuthorsBaseTestDashboard):
 
         alert_obj = self.browser.switch_to.alert
         alert_obj.accept()
+        # sleep(5)
 
         body = self.browser.find_element(By.TAG_NAME, 'body').text
         self.assertEqual(len(self.browser.find_elements(By.CLASS_NAME, 'li-delete')), 2)
@@ -39,7 +39,7 @@ class DashboardFunctionalTest(AuthorsBaseTestDashboard):
         self.browser.find_element(By.TAG_NAME, 'body')
         self.easy_edit_element_by_name_field('title', self.fake_data['title'])
         self.browser.find_element(By.XPATH, '/html/body/div/form/button').click()
-        # sleep(5)
+        sleep(5)
         self.assertIn('Remedio Salvo', self.browser.find_element(By.TAG_NAME, 'body').text)
 
     def test_functional_delete_obj(self):

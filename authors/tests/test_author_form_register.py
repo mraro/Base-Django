@@ -131,7 +131,7 @@ class AuthorRegisterFormIntegrationTest(DjangoTestCase):
         self.assertIn(error_value, response.content.decode('utf-8'))
 
     @parameterized.expand([
-        ('first_name', 'root', 'Nome em uso: root'),
+        ('first_name', 'root', 'Nome já esta em uso: root'),
         ('first_name', '#AnyName', 'Somente letras e numeros são permitidos'),
         ('first_name', 'two names', 'Somente o primeiro nome nesse campo'),
         ('username', 'two names', 'Informe um nome de usuário válido. Este valor pode conter apenas letras, números e '

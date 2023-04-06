@@ -23,6 +23,13 @@ if METHOD_MODE == '0':
         path("category/api/v1/<int:idcategoria>/", ApiCategoryView.as_view(), name="categoria_api"),
         path("remedios/api/v1/<int:pk>/", ApiRemedioView.as_view(), name="remedio_api"),
 
+        # API REST_FRAMEWORK
+        path("api/v2/", Remedios_List_APIv2.as_view(), name="home_rest"),
+        path("search/api/v2/", Search_APIv2.as_view(), name="search_rest"),
+        path("tag/api/v2/<slug:slug>", Tag_list_APIv2.as_view(), name="tag_rest"),
+        path("remedios/api/v2/<int:pk>/", Remedios_Detail_APIv2.as_view(), name="remedio_rest"),
+        path("category/api/v2/<int:idcategoria>/", Category_View_APIv2.as_view(), name="categoria_rest"),
+
     ]
     print('CLASS MODE')
 else:

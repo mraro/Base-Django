@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-14 10:30-0300\n"
+"POT-Creation-Date: 2023-04-06 07:30-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,23 +17,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: .\authors\forms\edit_obj_form.py:18 .\farmacia\models.py:47
+#: .\authors\forms\edit_obj_form.py:19 .\farmacia\models.py:47
 msgid "Title"
 msgstr "Título"
 
-#: .\authors\forms\edit_obj_form.py:21 .\farmacia\models.py:50
+#: .\authors\forms\edit_obj_form.py:22 .\farmacia\models.py:50
 msgid "Price"
 msgstr "Preço"
 
-#: .\authors\forms\edit_obj_form.py:40
+#: .\authors\forms\edit_obj_form.py:39
+msgid "This Title already in use"
+msgstr "Esse titulo já existe"
+
+#: .\authors\forms\edit_obj_form.py:47
 msgid "Description: "
 msgstr "Descrição"
 
-#: .\authors\forms\edit_obj_form.py:43
+#: .\authors\forms\edit_obj_form.py:50
 msgid "Quantity: "
 msgstr "Quantidade"
 
-#: .\authors\forms\edit_obj_form.py:44
+#: .\authors\forms\edit_obj_form.py:51
 #: .\farmacia\templates\partials\remedio.html:39
 msgid "Category: "
 msgstr "Categoria: "
@@ -46,47 +50,47 @@ msgstr "Digite seu usuário"
 msgid "Type your password"
 msgstr "Digite sua senha"
 
-#: .\authors\forms\login_form.py:15 .\authors\forms\register_form.py:35
+#: .\authors\forms\login_form.py:15 .\authors\forms\register_form.py:37
 msgid "Username"
 msgstr "Usuário"
 
-#: .\authors\forms\login_form.py:16 .\authors\forms\register_form.py:51
+#: .\authors\forms\login_form.py:16 .\authors\forms\register_form.py:53
 msgid "Password"
 msgstr "Senha"
 
-#: .\authors\forms\register_form.py:14
+#: .\authors\forms\register_form.py:17
 msgid "Your name"
 msgstr "Seu Nome"
 
-#: .\authors\forms\register_form.py:16
+#: .\authors\forms\register_form.py:19
 msgid "Your email"
 msgstr "Seu e-mail"
 
-#: .\authors\forms\register_form.py:17
+#: .\authors\forms\register_form.py:20
 msgid "First Name"
 msgstr "Primeiro nome"
 
-#: .\authors\forms\register_form.py:18
+#: .\authors\forms\register_form.py:21
 msgid "Last Name"
 msgstr "Sobrenome"
 
-#: .\authors\forms\register_form.py:25
+#: .\authors\forms\register_form.py:27
 msgid "First name"
 msgstr "Primeiro nome"
 
-#: .\authors\forms\register_form.py:30
+#: .\authors\forms\register_form.py:32
 msgid "Last name"
 msgstr "Sobrenome"
 
-#: .\authors\forms\register_form.py:41
+#: .\authors\forms\register_form.py:43
 msgid "Your Password"
 msgstr "Sua senha"
 
-#: .\authors\forms\register_form.py:44 .\authors\forms\register_form.py:59
+#: .\authors\forms\register_form.py:46 .\authors\forms\register_form.py:61
 msgid "Pass can't be empty"
 msgstr "A senha não pode ser vazia"
 
-#: .\authors\forms\register_form.py:48
+#: .\authors\forms\register_form.py:50
 msgid ""
 "The password must contain special characters, uppercase and lowercase "
 "letters with numbers, with at least 8 characters"
@@ -94,19 +98,23 @@ msgstr ""
 "A senha deve conter caracters especiais, letra maiuscula e minuscula com "
 "numeros, com pelo menos 8 caracters"
 
-#: .\authors\forms\register_form.py:56 .\authors\forms\register_form.py:61
+#: .\authors\forms\register_form.py:58 .\authors\forms\register_form.py:63
 msgid "Repeat password"
 msgstr "Repetir a senha"
 
-#: .\authors\forms\register_form.py:81
+#: .\authors\forms\register_form.py:73
+msgid "Name already in use"
+msgstr "Nome já esta em uso"
+
+#: .\authors\forms\register_form.py:84
 msgid "Email already used"
 msgstr "Email já em uso"
 
-#: .\authors\forms\register_form.py:91
+#: .\authors\forms\register_form.py:94
 msgid "Passwords are different"
 msgstr "As senhas são divergentes"
 
-#: .\authors\forms\register_form.py:121
+#: .\authors\forms\register_form.py:134
 msgid "Can't be empty"
 msgstr "não pode ser vazio"
 
@@ -250,11 +258,11 @@ msgstr "Está Publicado"
 msgid "Author"
 msgstr "Autor"
 
-#: .\farmacia\models.py:113
+#: .\farmacia\models.py:105
 msgid "Medicine"
 msgstr "Remedio"
 
-#: .\farmacia\models.py:114
+#: .\farmacia\models.py:106
 msgid "Medicines"
 msgstr "Remedios"
 
@@ -302,6 +310,3 @@ msgstr "Somente letras e numeros são permitidos"
 #: .\forms\django_forms.py:27
 msgid "Only first name here"
 msgstr "Somente o primeiro nome nesse campo"
-
-msgid "Name already in use"
-msgstr "Nome em uso"

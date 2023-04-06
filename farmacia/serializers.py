@@ -3,7 +3,7 @@ from rest_framework import serializers
 from django.utils.translation import gettext_lazy as _  # TRANSLATE as _
 from django.contrib.auth.models import User
 
-from farmacia.models import Remedios
+from farmacia.models import Remedios, Category
 from tags.models import TAG
 from utility.remediosautofill import slugify
 
@@ -78,22 +78,27 @@ class Remedio_Serializer(serializers.ModelSerializer):  # noqa
 class Dashboard_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Remedios  # database
-        fields = 'title', 'price', 'quantity', 'description', 'cover', 'category', 'slug', \
+        fields = 'id', 'title', 'price', 'quantity', 'description', 'cover', 'category_pk','category_name', 'slug', \
             # 'link_dashboard_remedio'
         # exclude = []
+    id = serializers.IntegerField(read_only=True, )
 
     # link_dashboard_remedio = serializers.HyperlinkedIdentityField(source='id', view_name='authors:edit_rest')
     title = serializers.CharField(min_length=4, max_length=65, label='Title')
     # TO DJANGO SEND FORM PROPERLY, IN ORDER TO MAKE A SLUGFY LATER, BEFORE SEND TO IS_VALID
-    price = serializers.DecimalField(min_value=0.00, max_digits=4, decimal_places=2, label=_('Price'))
+    price = serializers.DecimalField(min_value=0.00, max_digits=4, decimal_places=2, label='Price')
+    # category = serializers.StringRelatedField(queryset=Category.objects.all())
+    category_name = serializers.StringRelatedField(read_only=True, source='category')
+    category_pk = serializers.PrimaryKeyRelatedField(source='category', queryset=Category.objects.all(), required=False)
 
-    # def validate(self, values):
-    #     # print("Clean Slug")
-    #     # title = values.get('title')
-    #     data = slugify('Earum6')
-    #
-    #     while Remedios.objects.filter(slug=data).exists():
-    #         data += "X"
-    #         # THIS IS A DANGEROUS FORM TO GRANT THAT NEVER HAS SAME SLUG
-    #         # raise ValidationError('My unique field should be unique.')
-    #     return data
+    def validate(self, values):
+        # print("Clean Slug")
+        # title = values.get('title')
+        data = slugify(str(values.get('title')))
+
+        while Remedios.objects.filter(slug=data).exists():
+            data += "X"
+            # THIS IS A DANGEROUS FORM TO GRANT THAT NEVER HAS SAME SLUG
+            # raise ValidationError('My unique field should be unique.')
+        values['slug'] = data
+        return values

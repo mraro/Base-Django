@@ -1,7 +1,10 @@
+from collections import defaultdict
+
 from django import forms
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _  # TRANSLATE as _
 
+from farmacia.models import Remedios
 # import re
 
 from forms.django_forms import *
@@ -17,7 +20,6 @@ class RegisterForm(forms.ModelForm):  # HERE WE CAN OVERWRITE THE FILDS AND ADAP
         add_placeholder(self.fields['first_name'], _('First Name'))
         add_placeholder(self.fields['last_name'], _('Last Name'))
         # add_attr(self.fields['username'], 'min_length', '3')
-
 
     first_name = forms.CharField(validators=[name_validator],
                                  min_length=4,
@@ -45,8 +47,9 @@ class RegisterForm(forms.ModelForm):  # HERE WE CAN OVERWRITE THE FILDS AND ADAP
         },
         validators=[password_validator],
         help_text=(
-            _('The password must contain special characters, uppercase and lowercase letters with numbers, with at least 8 characters')
-        # noqa
+            _('The password must contain special characters, uppercase and lowercase letters with numbers, '
+              'with at least 8 characters')
+            # noqa
         ),
         label=_('Password'),
     )
@@ -62,7 +65,7 @@ class RegisterForm(forms.ModelForm):  # HERE WE CAN OVERWRITE THE FILDS AND ADAP
 
     )
     email = forms.EmailField(label='E-mail',
-                             help_text='Ex: mail@mail.com',)
+                             help_text='Ex: mail@mail.com', )
 
     def clean_first_name(self):
         data = self.cleaned_data.get('first_name')  # THIS CLEANED_DATA WAS CHECKED BY DJANGO
@@ -96,6 +99,16 @@ class RegisterForm(forms.ModelForm):  # HERE WE CAN OVERWRITE THE FILDS AND ADAP
             )  # IT'S POSSIBLE SEND A LIST OF PROBLEMS
 
     # HERE WE CAN OVERWRITE THE FILDS AND ADAPTATE  # THIS IS AN EXAMPLE WAY TO DO WHAT IT DID ABOVE
+    def clean_title(self, *args, **kwargs):  # VALIDAÇÃO GLOBAL | GLOBAL VALIDATION                  !IMPORTANT
+        error_messages = defaultdict(list)
+        title = self.cleaned_data.get('title')
+        exists = Remedios.objects.filter(title__iexact=title).exists()
+
+        if exists:
+            error_messages['title'].append("Esse titulo já existe")
+
+        if error_messages:
+            raise ValidationError(error_messages)
 
     class Meta:
         model = User

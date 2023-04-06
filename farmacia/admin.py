@@ -22,7 +22,7 @@ class RemediosAdmin(admin.ModelAdmin):
                     'is_published']  # this an example way, can parse values from list, tuple or args
     list_display_links = 'id', 'title',
     list_filter = 'category', 'author', 'is_published',
-    search_fields = 'id', 'title', 'description', 'slug', 'preparation_steps_is_html'
+    search_fields = 'id', 'title', 'description', 'slug',
     list_per_page = 20
     list_editable = 'is_published',
     ordering = '-id',

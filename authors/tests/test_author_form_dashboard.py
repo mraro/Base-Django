@@ -33,12 +33,12 @@ class AuthorDashboardCRUD(TestCase, BaseMixing):
         response = self.client.get(reverse('authors:dashboard'))
         self.assertTemplateUsed(response, 'pages/dashboard.html')
 
-    @skip
+    """@skip
     def test_dashboard_edit_obj_can_edit_an_object(self):
-        """ here I can't click on save, will test with selenium """
+         ''' here I can't click on save, will test with selenium '''
         form = {'title': 'NEW', 'price': '30.30', 'quantity': '2', 'description': 'DESCRIPT'}
         response = self.client.post(f'/authors/dashboard/{self.obj.id}/edit/', data=form, follow=True)
-        self.assertIn('Remedio Salvo', response.content.decode('utf-8'))
+        self.assertIn('Remedio Salvo', response.content.decode('utf-8'))"""
 
     def test_dashboard_delete_return_404_if_not_post(self):
         response = self.client.get(reverse('authors:delete', args=str(self.obj.id)), follow=True)

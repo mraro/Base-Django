@@ -1,5 +1,6 @@
 # DOC https://docs.djangoproject.com/en/4.1/ref/forms/fields/
 from django import forms
+from django.core.exceptions import ValidationError
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _  # TRANSLATE as _
 
@@ -30,6 +31,13 @@ class EditObjectForm(forms.ModelForm):
             # THIS IS A DANGEROUS FORM TO GRANT THAT NEVER HAS SAME SLUG
             # raise ValidationError('My unique field should be unique.')
         return data
+
+    def clean_title(self):
+        title = self.cleaned_data.get('title')
+        exist = Remedios.objects.filter(title=title).exists()
+        if exist:
+            raise ValidationError(_('This Title already in use'))
+        return title
 
     class Meta:
         model = Remedios  # database

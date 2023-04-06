@@ -80,16 +80,7 @@ class Remedios(models.Model):  # ISSO É UMA TABELA NO DJANGO
     def get_absolute_url(self):  # THIS IS SO IMPORTANT, THIS IS CALLED IN TEMPLATE HTML (HAS THIS IN remedio.html)
         return reverse('farmacia:remedio', args=(self.id,))
 
-    def clean(self, *args, **kwargs):  # VALIDAÇÃO GLOBAL | GLOBAL VALIDATION                  !IMPORTANT
-        error_messages = defaultdict(list)
 
-        remedio_from_db = Remedios.objects.filter(title__iexact=self.title).first()
-
-        if remedio_from_db and remedio_from_db.pk != self.pk:
-            error_messages['title'].append("Esse titulo já existe")
-
-        if error_messages:
-            raise ValidationError(error_messages)
 
     '''  THIS IS AN EXAMPLE TO REWRITE A BUILTIN METHOD
     I WONT USE THIS BECAUSE A HAD PUT A FUNC TO DO THE SAME THING IN clean_slug
@@ -104,7 +95,8 @@ class Remedios(models.Model):  # ISSO É UMA TABELA NO DJANGO
     def save(self, *args, **kwargs):
         saved = super().save(*args, **kwargs)
         if self.cover:
-            resize_img(self.cover.path, 700, 500)  # noqa
+            if self.cover != 'static/images/default.jpg':
+                resize_img(self.cover.path, 700, 500)  # noqa
 
         return saved
 
