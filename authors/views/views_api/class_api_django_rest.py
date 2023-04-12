@@ -1,12 +1,12 @@
-from rest_framework.generics import RetrieveUpdateDestroyAPIView
+from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
-from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
 from authors.models import User
-from farmacia import serializers
+from authors import serializers
 from farmacia.models import Remedios
 from farmacia.views import OurPagination
+from rest_framework.permissions import IsAuthenticated
 
 
 class Full_CRUD_API_v2(ModelViewSet):
@@ -22,13 +22,22 @@ class Full_CRUD_API_v2(ModelViewSet):
     queryset = Remedios.objects.all()  # if it has some parameter send by request he will use
     serializer_class = serializers.Dashboard_Serializer
     pagination_class = OurPagination
+    permission_classes = [IsAuthenticated, ]
+    http_method_names = ['get', 'post', 'patch', 'update', 'delete', 'head',]
 
     def get_queryset(self):
-        qs = super().get_queryset()
+        qs = super().get_queryset().filter(is_published=False, author=self.request.user)
         print("SUPER IMPORTANT", self.kwargs)  # this comes if it has a pk or slug in link like home/10
         print("SUPER IMPORTANT", self.request.query_params)  # this returns if it has some variable get like \?var=1
 
         return qs
+
+    def get_object(self):
+        pk = self.kwargs.get('pk', '')
+        obj = get_object_or_404(self.queryset(),
+                                pk=pk,
+                                is_published=False)
+        return obj
 
     @staticmethod
     def list(request):  # NOT USE GET (OR ANY METHOD HTTP), OVERWRITE WHAT HE DOES IN THIS CLASS

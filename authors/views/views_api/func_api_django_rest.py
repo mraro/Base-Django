@@ -1,6 +1,4 @@
-from django.shortcuts import get_object_or_404
-
-from farmacia import serializers
+from authors import serializers
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 

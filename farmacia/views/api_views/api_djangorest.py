@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from farmacia.models import Remedios
-from farmacia.serializers import Remedio_Serializer
+from authors.serializers import Remedio_Serializer
 
 
 @api_view()

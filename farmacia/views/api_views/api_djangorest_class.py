@@ -3,13 +3,13 @@ import os
 from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import get_list_or_404
-from rest_framework.generics import get_object_or_404, ListAPIView
+from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination
 
-from farmacia.models import Remedios, Category
-from farmacia.serializers import Remedio_Serializer
+from farmacia.models import Remedios
+from authors.serializers import Remedio_Serializer
 from utility.paginator import make_pagination
 
 """
