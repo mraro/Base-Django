@@ -1,13 +1,18 @@
 from django.test import TestCase
 import pytest
+from django.urls import reverse
+
 from farmacia.models import Category, Remedios, User
+from tags.models import TAG
 from utility.remediosautofill import factory
 
 
 class BaseMixing:
+
     def make_medicine_no_defaults(self, qty=1):
         medicine = []
-        for x in range(qty):
+        while len(medicine) < int(qty):
+        # for x in range(qty):
             resp = True
             dictionary = factory.make_medicine()  # get random data according to on demand
             if not medicine:  # this will avoid list out of index...
@@ -15,7 +20,8 @@ class BaseMixing:
                 resp = False  # avoid errors, making the first field
             if resp is True:
                 for c in range(len(medicine)):
-                    if str(dictionary['author_data']['username']) == str(medicine[c].author) or str(dictionary['slug']) == str(medicine[c].slug):  # grant that never use same slug
+                    if str(dictionary['author_data']['username']) == str(medicine[c].author) or str(
+                            dictionary['slug']) == str(medicine[c].slug):  # grant that never use same slug
                         resp = False
             if resp is True:
                 medicine.append(self.make_medicines(**dictionary))
@@ -54,6 +60,9 @@ class BaseMixing:
             preparetion_steps_is_html=preparetion_steps_is_html,
             is_published=is_published,
         )
+
+    def make_tags(self, tag_name="TAG"):
+        return TAG.objects.create(name=tag_name,)
 
 
 @pytest.mark.objects

@@ -34,6 +34,8 @@ def make_chrome_browser(*options):
 
 if __name__ == '__main__':
     browser = make_chrome_browser()  # has --headless as arg
-    browser.get('http://www.google.com')
+    browser.get('https://web.whatsapp.com/')
+    # browser.get('https://web.whatsapp.com/')
+
     sleep(5)
     browser.quit()
