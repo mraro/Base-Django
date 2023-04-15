@@ -1,7 +1,6 @@
 asgiref==3.6.0
 async-generator==1.10
 attrs==22.2.0
-certifi @ file:///C:/b/abs_85o_6fm0se/croot/certifi_1671487778835/work/certifi
 cffi==1.15.1
 chardet==5.1.0
 colorama==0.4.6
@@ -25,7 +24,6 @@ idna==3.4
 iniconfig==2.0.0
 outcome==1.2.0
 packaging==23.0
-parameterized @ file:///tmp/build/80754af9/parameterized_1610482129737/work
 phonenumbers==8.13.7
 Pillow==9.4.0
 pluggy==1.0.0
@@ -37,15 +35,12 @@ pytest==7.2.1
 pytest-django==4.5.2
 pytest-dotenv==0.5.2
 pytest-watch==4.2.0
-python-dateutil @ file:///tmp/build/80754af9/python-dateutil_1626374649649/work
 python-dotenv==0.21.1
 pytz==2022.7.1
 selenium==4.8.2
-six @ file:///tmp/build/80754af9/six_1644875935023/work
 sniffio==1.3.0
 sortedcontainers==2.4.0
 sqlparse==0.4.3
-text-unidecode @ file:///Users/ktietz/demo/mc3/conda-bld/text-unidecode_1629401354553/work
 tomli==2.0.1
 trio==0.22.0
 trio-websocket==0.10.1
