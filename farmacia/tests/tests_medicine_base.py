@@ -65,7 +65,6 @@ class BaseMixing:
         return TAG.objects.create(name=tag_name,)
 
 
-@pytest.mark.objects
 class BaseTestMedicine(TestCase, BaseMixing):
     def setUp(self) -> None:
         # category = Category(name='Categoria')

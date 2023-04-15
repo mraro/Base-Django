@@ -13,7 +13,7 @@ METHOD_MODE = int(os.environ.get("METHOD_MODE"))
 
 
 @pytest.mark.fast
-@pytest.mark.objects
+@pytest.mark.views
 class RemedioViewsHomeTest(BaseTestMedicine):
     def test_name_site_loads_in_main_page(self):
         view_resolve = self.client.get(reverse('farmacia:home'))
@@ -57,7 +57,7 @@ class RemedioViewsHomeTest(BaseTestMedicine):
 
 
 @pytest.mark.fast
-@pytest.mark.objects
+@pytest.mark.views
 class RemedioViewsSearchTest(BaseTestMedicine):
     def setUp(self):
         # Setup run before every test method.
@@ -104,8 +104,8 @@ class RemedioViewsSearchTest(BaseTestMedicine):
 
 
 @pytest.mark.fast
-@pytest.mark.objects
-class RemedioViewsRemedioTest(BaseTestMedicine):
+@pytest.mark.views
+class RemedioViewsDetailTest(BaseTestMedicine):
     def test_farma_view_remedio_is_correct(self):
         view_resolve = resolve(reverse('farmacia:remedio', args=[1]))
         if METHOD_MODE == 1:
@@ -124,7 +124,7 @@ class RemedioViewsRemedioTest(BaseTestMedicine):
 
 
 @pytest.mark.fast
-@pytest.mark.objects
+@pytest.mark.views
 class RemedioViewsCategoryTest(BaseTestMedicine):
     def test_farma_view_category_is_correct(self):
         view_resolve = resolve(reverse('farmacia:categoria', kwargs={'idcategoria': 1}))
@@ -144,7 +144,30 @@ class RemedioViewsCategoryTest(BaseTestMedicine):
 
 
 @pytest.mark.fast
-@pytest.mark.objects
+@pytest.mark.views
+class RemedioViewsTagTest(BaseTestMedicine):
+    def setUp(self):
+        medicines = self.make_medicine_no_defaults(5)
+        self.tag = self.make_tags("TAG Name")
+        for medicine in medicines:
+            medicine.tags.add(self.tag)
+            medicine.save()
+
+    def test_farma_view_tag_is_correct(self):
+        view_resolve = resolve(reverse('farmacia:tag', kwargs={'slug': self.tag.slug}))
+        if METHOD_MODE == 1:
+            self.assertIs(view_resolve.func, views.tag)
+        else:
+            self.assertIs(view_resolve.func.view_class, views.TagView)
+
+    def test_farma_view_tag_if_template_loads_properly(self):
+        self.make_medicine_no_defaults()
+        response = self.client.get(reverse('farmacia:tag', kwargs={'slug': self.tag.slug}))
+        self.assertTemplateUsed(response, 'pages/tag.html')
+
+
+@pytest.mark.fast
+@pytest.mark.views
 class AuthorsViewRegisterTest(TestCase):
     def setUp(self):
         # Setup run before every test method.

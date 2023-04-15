@@ -8,6 +8,7 @@ from parameterized import parameterized
 from authors.forms import RegisterForm
 
 
+@pytest.mark.views
 @pytest.mark.fast
 class AuthorsRegisterFormUnitTest(TestCase):
     def setUp(self):
@@ -61,6 +62,7 @@ class AuthorsRegisterFormUnitTest(TestCase):
         self.assertEqual(must_be, placeholder)
 
 
+@pytest.mark.views
 class AuthorRegisterFormIntegrationTest(DjangoTestCase):
 
     def setUp(self) -> None:

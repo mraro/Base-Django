@@ -43,10 +43,10 @@ else:
 
         # API REST FRAMEWORK
         path("api/v2/", remedios_api_list, name="home_rest"),
-        path("search/api/v2/", search, name="search_rest"),
+        path("search/api/v2/", search_api_list, name="search_rest"),
         path("tag/api/v2/<slug:slug>", tag_api_list, name="tag_rest"),
         path("remedios/api/v2/<int:pk>/", remedios_api_detail, name="remedio_rest"),
-        path("category/api/v2/<int:idcategoria>/", categoria, name="categoria_rest"),
+        path("category/api/v2/<int:idcategoria>/", category_api_list, name="categoria_rest"),
 
         path("theory/", theory, name='theory')  # not important, just tests personals
     ]

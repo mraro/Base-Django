@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
@@ -34,7 +35,8 @@ class Full_CRUD_API_v2(ModelViewSet):
 
     def get_object(self):
         pk = self.kwargs.get('pk', '')
-        obj = get_object_or_404(self.queryset(),
+        obj = get_object_or_404(self.queryset,
+                                author=self.request.user,
                                 pk=pk,
                                 is_published=False)
         return obj
@@ -49,13 +51,12 @@ class Full_CRUD_API_v2(ModelViewSet):
                                                       )
         return Response(serializer.data)
 
-    @staticmethod
-    def post(request):  # NOT USE POST (OR ANY METHOD HTTP)
+    def create(self, request, *args, **kwargs):
         author = User.objects.get(username=request.user)
         if request.method == "POST":
             serializer = serializers.Dashboard_Serializer(data=request.data, context={'request': request}, )
-            # serializer.is_published = False
-            # serializer.author = author
+            # serializer.data.is_published = False
+            # serializer.data.author = author
             serializer.is_valid(raise_exception=True)
             print("VALIDO")
             serializer.save(
@@ -63,7 +64,6 @@ class Full_CRUD_API_v2(ModelViewSet):
             )
             # messages.success(request, "Medicine Created and send to analise")
             return Response(serializer.data, status=201)
-
 
 """
 class Api_Dashboard_v2(APIView):

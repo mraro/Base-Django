@@ -9,7 +9,16 @@ from farmacia.tests.tests_medicine_base import BaseMixing
 import dotenv
 dotenv.load_dotenv()
 
-is_class = os.environ.get("METHOD_MODE")
+env_var_method_used = os.environ.get("METHOD_MODE")
+
+
+def method_used(boolean):
+    if boolean == '0':
+        return 'farmacia.views.api_views.api_djangorest_class.OurPagination.page_size'
+    elif boolean == '1':
+        return 'farmacia.views.api_views.api_djangorest.OBJ_PER_PAGE'
+    else:
+        raise ValueError
 
 
 @pytest.mark.apiTest
@@ -26,22 +35,22 @@ class MedicineTestApiV2Class(test.APITestCase, BaseMixing):
         response = self.response('farmacia:home_rest')
         self.assertIs(response.status_code, 200)
 
-    @patch('farmacia.views.api_views.api_djangorest_class.OurPagination.page_size', new=7)
+    @patch(method_used(env_var_method_used), new=7)
     def test_home_how_many_objects_loads_in_a_single_page(self):
-        self.make_medicine_no_defaults(8)
+        self.make_medicine_no_defaults(18)
         num_of_medicines = 7
         response = self.response('farmacia:home_rest')
-        qtd_medicines_has_loaded = len(response.data.get('results'))
+        qtd_medicines_has_loaded = len(response.data['results'])
         self.assertEqual(num_of_medicines, qtd_medicines_has_loaded)
 
-    @patch('farmacia.views.api_views.api_djangorest_class.OurPagination.page_size', new=7)
+    @patch(method_used(env_var_method_used), new=7)
     def test_home_pagination_works_properly(self):
-        self.make_medicine_no_defaults(18)
+        self.make_medicine_no_defaults(19)
 
         response = self.client.get(reverse('farmacia:home_rest') + '?page=2')
         self.assertEqual(len(response.data.get('results')), 7)
 
-    @patch('farmacia.views.api_views.api_djangorest_class.OurPagination.page_size', new=87)
+    @patch(method_used(env_var_method_used), new=87)
     def test_home_if_shows_unpublished_objects_in_production(self):
         medicines = self.make_medicine_no_defaults(2)
         medicine_published = medicines[0]
@@ -64,7 +73,7 @@ class MedicineTestApiV2Class(test.APITestCase, BaseMixing):
         response = self.response("farmacia:remedio_rest", kwargs={'pk': pk})
         self.assertIn(medicines[0].title, response.content.decode('utf-8'))
 
-    @patch('farmacia.views.api_views.api_djangorest_class.OurPagination.page_size', new=10)
+    @patch(method_used(env_var_method_used), new=10)
     def test_category_lists_properly_if_requested(self):
         category_searched = self.make_category('CATEGORY TO SHOW')
         category_not_be_showed = self.make_category('CATEGORY TO NOT SHOW')
@@ -74,14 +83,14 @@ class MedicineTestApiV2Class(test.APITestCase, BaseMixing):
             medicine.save()
 
         medicines[0].category = category_not_be_showed
-        medicines[0].save()  # here it made an blacking ship that shouldn't be showed and than for this reason less 1
+        medicines[0].save()  # here it made a blacking ship that shouldn't be showed and then for this reason less 1
         # on assertEqual
 
         response = self.response('farmacia:categoria_rest', kwargs={'idcategoria': category_searched.id})
         # get category by id ^^
 
         self.assertIn('CATEGORY TO SHOW', response.content.decode('utf-8'))  # to make sure that has this category
-        self.assertEqual(len(response.data), len(medicines) - 1)  # was definided len(medicines) - 1 because
+        self.assertEqual(len(response.data['results']), len(medicines) - 1)  # was definided len(medicines) - 1 because
         # make_medicine_no_default may create less than is solicited, since he suprime errors
 
     @parameterized.expand(['THIS_title',
@@ -103,7 +112,7 @@ class MedicineTestApiV2Class(test.APITestCase, BaseMixing):
         medicine2.save()
         response = self.client.get(reverse('farmacia:search_rest') + f'?q={search}')
 
-        self.assertEqual(len(response.data), 1)
+        self.assertEqual(len(response.data['results']), 1)
 
     def test_search_without_value_returns_404(self):
         response = self.client.get(reverse('farmacia:search_rest'))
@@ -117,6 +126,6 @@ class MedicineTestApiV2Class(test.APITestCase, BaseMixing):
             medicine.save()
 
         response = self.response('farmacia:tag_rest', kwargs={'slug': tag.slug})
-        self.assertEqual(len(response.data), 5)
+        self.assertEqual(len(response.data['results']), 5)
 
 

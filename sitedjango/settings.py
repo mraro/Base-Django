@@ -39,6 +39,7 @@ CSRF_TRUSTED_ORIGINS = string_to_list(get_env_var("CSRF_TRUSTED_ORIGINS"))
 # Application definition
 
 INSTALLED_APPS = [
+    # POSITIONS MATTER:
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -53,11 +54,13 @@ INSTALLED_APPS = [
     "debug_toolbar",
     # rest_framework
     "rest_framework",
-    'rest_framework_simplejwt',
+    "rest_framework_simplejwt",
+    # corsheaders is an app to open or close methods of access to api
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
-
+    # POSITIONS MATTER:
     "django.middleware.security.SecurityMiddleware",
 
     "debug_toolbar.middleware.DebugToolbarMiddleware",  # was me that add this
@@ -69,6 +72,9 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.locale.LocaleMiddleware",  # was me that add this
+    # CORS HEADERS:
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = "sitedjango.urls"
@@ -174,6 +180,9 @@ MESSAGE_TAGS = {
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+# CORS:
+CORS_ALLOWED_ORIGINS = string_to_list(get_env_var("LIST_OF_ALLOWED_DOMAINS_TO_API"))
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (

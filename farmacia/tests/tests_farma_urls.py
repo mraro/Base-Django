@@ -3,7 +3,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 
-@pytest.mark.objects
+@pytest.mark.views
 class RemedioURLsTest(TestCase):
     def test_farma_url_home_is_correct(self):
         home_url = reverse('farmacia:home')
@@ -20,3 +20,7 @@ class RemedioURLsTest(TestCase):
     def test_farma_url_search_is_correct(self):
         url = reverse('farmacia:search')
         self.assertEqual(url, "/search/")
+
+    def test_farma_url_tag_is_correct(self):
+        url = reverse('farmacia:tag', kwargs={'slug': 'slug'})
+        self.assertEqual(url, "/tag/slug")

@@ -26,7 +26,7 @@ RetrieveDestroyAPIView - Uma classe de visualização base que fornece métodos 
 RetrieveUpdateDestroyAPIView - Uma classe de visualização base que fornece métodos para recuperar, atualizar e excluir objetos.
 ReadOnlyAPIView - Uma classe de visualização base que permite apenas leitura, sem permitir que objetos sejam criados, atualizados ou excluídos.
 ModelViewSet - Uma classe de visualização base que combina as funcionalidades das visualizações de lista, detalhe, criar, atualizar e excluir em uma única classe.
-""" # noqa
+"""  # noqa
 
 # constant (means that not be modified, but you can in .env file) its a var global too.
 RANGE_PER_PAGE = int(os.environ.get("RANGE_PER_PAGE", 6))
@@ -53,57 +53,81 @@ class Remedios_List_APIv2(ListAPIView):
     #
 
 
-class Search_APIv2(APIView):
+class Search_APIv2(Remedios_List_APIv2):
 
-    @staticmethod
-    def get(request):
-        var_site = request.GET.get("q")
+    def get_queryset(self):
+        qs = super().get_queryset()
+        var_site = self.request.GET.get("q")
         if not var_site:
             raise Http404
         else:
             var_site = var_site.strip()  # # '''o | juntamente a função Q faz com que a pesquisa seja OR '''
-            medicine = Remedios.objects.filter(Q(title__contains=var_site) |
-                                               Q(description__contains=var_site) |
-                                               Q(category__name__contains=var_site)).order_by('-id')
-            medicine = medicine.filter(is_published=True)
+            medicine = qs.filter(Q(title__contains=var_site) |
+                                 Q(description__contains=var_site) |
+                                 Q(category__name__contains=var_site)).order_by('-id')
+            # medicine = medicine.filter(is_published=True)  # not more necessary
             medicine = medicine.select_related('author', 'category')
+        return medicine
 
-        pages = make_pagination(request, medicine, RANGE_PER_PAGE)
+    #
+    # @staticmethod
+    # def get(request):   # is another way, but didn't delivery what I wanted
+    #     var_site = request.GET.get("q")
+    #     if not var_site:
+    #         raise Http404
+    #     else:
+    #         var_site = var_site.strip()  # # '''o | juntamente a função Q faz com que a pesquisa seja OR '''
+    #         medicine = Remedios.objects.filter(Q(title__contains=var_site) |
+    #                                            Q(description__contains=var_site) |
+    #                                            Q(category__name__contains=var_site)).order_by('-id')
+    #         medicine = medicine.filter(is_published=True)
+    #         medicine = medicine.select_related('author', 'category')
+    #
+    #     pages = make_pagination(request, medicine, RANGE_PER_PAGE)
+    #
+    #     serializer = Remedio_Serializer(instance=medicine,
+    #                                     many=True,
+    #                                     context={'request': request,
+    #                                              'pages': pages,
+    #                                              'search_done': var_site,
+    #                                              }
+    #                                     )  # many objects?
+    #
+    #     return Response(serializer.data)
 
-        serializer = Remedio_Serializer(instance=medicine,
-                                        many=True,
-                                        context={'request': request,
-                                                 'pages': pages,  # TODO
-                                                 'search_done': var_site,
-                                                 }
-                                        )  # many objects?
 
-        return Response(serializer.data)
+class Tag_list_APIv2(Remedios_List_APIv2):
+    def get_queryset(self):
+        qs = super().get_queryset()
+        var_site = self.kwargs.get('slug')
 
-
-class Tag_list_APIv2(APIView):
-    def get(self, request, slug):
-        var_site = slug
-        remedios = Remedios.objects.get_published().filter(tags__slug=var_site).order_by('-id')
+        remedios = qs.filter(tags__slug=var_site).order_by('-id')
         remedios = remedios.select_related("author", "category")
-        pages = make_pagination(request, remedios, RANGE_PER_PAGE, OBJ_PER_PAGE)
-        serializer = Remedio_Serializer(instance=remedios,
-                                        many=True,
-                                        context={'request': request,
-                                                 'pages': pages,  # TODO
-                                                 'search_done': var_site,
-                                                 }
-                                        )  # many objects?
+        return remedios
 
-        return Response(serializer.data)
-        # return render(request, "pages/tag.html", context={
-        #     'remedios': pages['medicines_page'],
-        #     'pages': pages,
-        # })
+    # def get(self, request, slug):     # is another way, but didn't delivery what I wanted
+    #     var_site = slug
+    #     remedios = Remedios.objects.get_published().filter(tags__slug=var_site).order_by('-id')
+    #     remedios = remedios.select_related("author", "category")
+    #     pages = make_pagination(request, remedios, RANGE_PER_PAGE, OBJ_PER_PAGE)
+    #     serializer = Remedio_Serializer(instance=remedios,
+    #                                     many=True,
+    #                                     context={'request': request,
+    #                                              'pages': pages,
+    #                                              'search_done': var_site,
+    #                                              }
+    #                                     )  # many objects?
+    #
+    #     return Response(serializer.data)
+    # return render(request, "pages/tag.html", context={
+    #     'remedios': pages['medicines_page'],
+    #     'pages': pages,
+    # })
 
 
 class Remedios_Detail_APIv2(APIView):
-    def get(self, request, pk):
+    @staticmethod
+    def get(request, pk):
         medicine = Remedios.objects.filter(pk=pk).first()
 
         # medicine = get_object_or_404(medicine)
@@ -116,16 +140,26 @@ class Remedios_Detail_APIv2(APIView):
         return Response(serializer.data)
 
 
-class Category_View_APIv2(APIView):
-    def get(self, request, idcategoria):
+class Category_View_APIv2(Remedios_List_APIv2):
+    def get_queryset(self):
+        qs = super().get_queryset()
+        idcategoria = self.kwargs.get('idcategoria')
+
         medicine = get_list_or_404(
-            Remedios.objects.filter(category__id=idcategoria).order_by('-id').select_related('author', 'category')
+            qs.filter(category__id=idcategoria).order_by('-id').select_related('author', 'category')
         )
+        return medicine
 
-        serializer = Remedio_Serializer(instance=medicine,
-                                        many=True,
-                                        context={'request': request,
-                                                 }
-                                        )  # many objects?
 
-        return Response(serializer.data)
+    # def get(self, request, idcategoria):   # is another way, but didn't delivery what I wanted
+    #     medicine = get_list_or_404(
+    #         Remedios.objects.filter(category__id=idcategoria).order_by('-id').select_related('author', 'category')
+    #     )
+    #
+    #     serializer = Remedio_Serializer(instance=medicine,
+    #                                     many=True,
+    #                                     context={'request': request,
+    #                                              }
+    #                                     )  # many objects?
+    #
+    #     return Response(serializer.data)

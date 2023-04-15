@@ -9,6 +9,7 @@ from farmacia.tests.tests_medicine_base import BaseMixing
 
 
 @pytest.mark.fast
+@pytest.mark.views
 class AuthorDashboardCRUD(TestCase, BaseMixing):
     """ this tests will test pages on dashboard, like create, read, edit and delete """
 

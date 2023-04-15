@@ -16,6 +16,7 @@ class Paginationtest(BaseTestMedicine):
     def tearDown(self):
         # Clean up run after every test method.
         pass
+
     def test_make_pagination_range_return_pagination_range(self):
         request_factory = RequestFactory()
         request = request_factory.get('home', data={'q': 'a'})

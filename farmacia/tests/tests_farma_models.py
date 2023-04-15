@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 from parameterized import parameterized
 
 
-@pytest.mark.objects
+@pytest.mark.views
 class Tests_Models_Remedios(BaseTestMedicine):
     def setUp(self) -> None:  # SETUP WILL REPRODUCE BEFORE, IN EVERY funcions IN THIS class
         self.medicine = self.make_medicine_no_defaults()[0]  # WILL MAKE A DATA TO TEST

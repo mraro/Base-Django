@@ -6,6 +6,7 @@ from django.test.testcases import TestCase
 from django.urls import reverse
 
 
+@pytest.mark.views
 @pytest.mark.fast
 class AuthorTest(TestCase):
     def test_author_if_method_not_post(self):

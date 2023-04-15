@@ -43,12 +43,12 @@ if METHOD_MODE == 0:
 
         # REST_FRAMEWORK: # it is in routers
         # path("register/api/v2/", User_Register_Api_v2.as_view(), name="rest_register"),
-        # path("register/api/v2/create/", User_Register_Api_v2.as_view(), name="rest_register_create"),
+        path("register/api/v2/create/", User_Register_Api_v2.as_view(), name="rest_register_create"),
         # path("login/api/v2/", User_Login_Api_v2.as_view(), name="rest_login"),
         # path("login/api/v2/authenticate/", User_Login_Api_v2.as_view(), name="rest_authenticate"),
         # path("logout/api/v2/", Logout_Backend.as_view(), name="rest_logout"),
 
-        path("dashboard/api/v2/create/", Full_CRUD_API_v2.as_view({'post': 'create'}), name="rest_create_rest"),
+        path("dashboard/api/v2/create/", Full_CRUD_API_v2.as_view({'post': 'create'}), name="rest_create"),
         # C     create  (POST)
         path("dashboard/api/v2/", Full_CRUD_API_v2.as_view({'get': 'list'}), name="rest_dashboard"),
         # R     read  (GET)

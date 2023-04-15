@@ -2,6 +2,8 @@ Django funciona no modo mvt model > view > template
 models.py   # BASE DE DADOS ... qlqr tipo de dados
 views.py    # FISICO DO SITE BACKEND ... render
 
+DJANGO CORS serve para liberar ou bloquear acessos a API (https://pypi.org/project/django-cors-headers/)
+
 pip install python-dotenv # manage.py, wsgi.py, asgi.py from dotenv | import load_dotenv > load_dotenv()
 .env # cria variaveis de sistema, precisa reiniciar o servidor para validar
 

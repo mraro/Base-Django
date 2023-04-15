@@ -23,13 +23,14 @@ def delete_cover(sender, instance, *args, **kwargs):  # this deletes image if it
 
 @listener(pre_save, sender=Remedios)
 def update_cover_file_delete_old(sender, instance, *args, **kwargs):  # this deletes on change image
-    print(f"signals: instancia: {instance.cover}")  # LOG
     instance_to_delete = Remedios.objects.filter(pk=instance.pk).first()
     # check ifs should delete properly, avoid delete wrong
-    if instance.cover:
+    if instance.cover and instance.cover != "static/images/default.jpg":
         new_instance = instance.cover
+        print(f"signals: new instance: {instance.cover}")  # LOG
         if instance_to_delete:
             if instance_to_delete.cover != new_instance:
                 delete_cover_file(instance_to_delete)
+                print('instance deleted: ', instance_to_delete)
 
 
