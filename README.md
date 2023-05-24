@@ -150,7 +150,7 @@ python manage.py migrate
 To install socket and service for our django project do this: <a href="./DEPLOY-SERVER-UTILS/GUNICORN SERVICE AND SOCKET.txt"> 'GUNICORN SERVICE AND SOCKET'</a>
 
 # NGINX HTTP or HTTPS
-Replace the fields __ __FIELDS__ __ according to <a href="./DEPLOY-SERVER-UTILS/NGINX-HTTP">NGINX-HTTP CONFIG</a> or <a href="./DEPLOY-SERVER-UTILS/NGINX-HTTPS">NGINX-HTTPS CONFIG</a>
+Replace the fields __ __FIELDS__ __ according to <a href="./DEPLOY-SERVER-UTILS/NGINX-HTTP.txt">NGINX-HTTP CONFIG</a> or <a href="./DEPLOY-SERVER-UTILS/NGINX-HTTPS.txt">NGINX-HTTPS CONFIG</a>
 <br>has described and do this after:
 ```
 
