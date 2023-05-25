@@ -1,3 +1,5 @@
+if deploy on centos, change group www-data > nginx (don't forget add user in this group)
+
 ###############################################################################
 # Copy all in a notepad and Replace __VARS__ to use commands properly
 # ___GUNICORN_FILE_NAME___ to the name of the gunicorn file you want
